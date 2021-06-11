@@ -1,0 +1,120 @@
+@prefix save-ex:      <http://example.com/privacy-policy-model/examples/> .
+@prefix save:      <http://example.com/privacy-policy-model/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix dash:  <http://datashapes.org/dash#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+
+
+save-ex:DPATemplatePolicy  a         owl:NamedIndividual , orcp:Set ;
+                 save:dispensation  save-ex:DPATemplateDispensation1 ;
+                 save:obligation    save-ex:DPATemplateObligation1 , save-ex:DPATemplateObligation2 ;
+                 save:permission    save-ex:DPATemplatePermission1 ;
+                 save:prohibition   save-ex:DPATemplateProhibition1 .
+
+
+save-ex:DPATemplatePermission1
+    a                  orcp:Permission , owl:NamedIndividual ;
+    save:action            save-ex:DPATemplateProcessing ;
+    save:controller        save-ex:DPATemplateController ;
+    save:data              save-ex:DPATemplateCompanyPersonalData ;
+    save:obligation        save-ex:DPATemplateObligation1 ;
+    save:processor         save-ex:DPATemplateProcessor ;
+    save:responsibleParty  save-ex:DPATemplateProcessor .
+
+save-ex:DPATemplateProhibition1
+    a                  orcp:Prohibition , owl:NamedIndividual ;
+    save:action            save-ex:DPATemplateDisclose ;
+    save:data              save-ex:DPATemplateCompanyPersonalData ;
+    save:dispensation      save-ex:DPATemplateDispensation1 ;
+    save:processor         save-ex:DPATemplateSubprocessor ;
+    save:recipient         save-ex:DPATemplateSubprocessor ;
+    save:responsibleParty  save-ex:DPATemplateProcessor .
+
+
+save-ex:DPATemplateObligation1
+    a                  orcp:Obligation , owl:NamedIndividual ;
+    save:hasTechnicalOrganisationalMeasure
+        save-ex:DPATemplateTechnicalAndOrgMeasures ;
+    save:responsibleParty  save-ex:DPATemplateProcessor .
+
+
+save-ex:DPATemplateObligation2
+    a                  orcp:Obligation , owl:NamedIndividual ;
+    orcp:constraint    save-ex:DPATemplateConstraint2 ;
+    save:action            save-ex:DPATemplateDelete , save-ex:DPATemplateDeleteCopies ;
+    save:controller        save-ex:DPATemplateController ;
+    save:data              save-ex:DPATemplateCompanyPersonalData ;
+    save:processor         save-ex:DPATemplateProcessor ;
+    save:responsibleParty  save-ex:DPATemplateProcessor .
+
+save-ex:DPATemplateDispensation1
+    a                orcp:Dispensation , owl:NamedIndividual ;
+    orcp:constraint  save-ex:DPATemplateConstraint1 .
+
+
+save-ex:DPATemplateConstraint1
+    a                  orcp:PredicateConstraint , owl:NamedIndividual ;
+    orcp:leftOperand   save:legalBasis ;
+    orcp:operator      orcp:isAnyOf ;
+    orcp:rightOperand  save-ex:DPATemplateAuthorizedByController , save-ex:DPATemplateRequiredByController .
+
+save-ex:DPATemplateConstraint2
+    a                  orcp:PredicateConstraint , owl:NamedIndividual ;
+    orcp:leftOperand   odrl:dateTime ;
+    orcp:operator      odrl:lteq ;
+    orcp:rightOperand  save-ex:DPATemplate10DaysAfter .
+
+
+save-ex:DPATemplateAuthorizedByController
+    a       owl:NamedIndividual , dpv-gdpr:A6-1-b .
+
+save-ex:DPATemplateRequiredByController
+    a       owl:NamedIndividual , dpv-gdpr:A6-1-f .
+
+
+save-ex:DPATemplateTechnicalAndOrgMeasures
+    a       owl:NamedIndividual , dpv:TechnicalOrganisationalMeasure .
+
+save-ex:DPATemplateDisclose  a  owl:NamedIndividual , dpv:Disclose .
+
+save-ex:DPATemplateDeleteCopies
+    a       owl:NamedIndividual , dpv:Erase .
+
+save-ex:DPATemplateDelete  a  owl:NamedIndividual , dpv:Erase .
+
+save-ex:DPATemplateCompanyPersonalData
+    a       owl:NamedIndividual , dpv:PersonalDataCategory .
+
+save-ex:DPATemplateController
+    a       owl:NamedIndividual , dpv:DataController .
+
+save-ex:DPATemplateProcessing
+    a       owl:NamedIndividual , dpv:Processing .
+
+save-ex:DPATemplateSubprocessor
+    a       owl:NamedIndividual , dpv:DataProcessor .
+
+save-ex:DPATemplateProcessor
+    a       owl:NamedIndividual , dpv:DataProcessor .
+
+save-ex:DPATemplateCessationDate
+    a       owl:NamedIndividual , time:Instant .
+
+save-ex:DPATemplate10DaysAfter
+    a                         owl:NamedIndividual , time:TemporalEntity ;
+    time:after                save-ex:DPATemplateCessationDate ;
+    time:hasTemporalDuration  save:10BusinessDays .

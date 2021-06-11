@@ -1,0 +1,309 @@
+CONSTRUCT {
+        ?bnode  a save-ex:RuleIntersection ;
+       save:dataIntersection ?dataItem ;
+save:dataClassIntersection ?dataClass ;
+save:actionIntersection ?actionItem ;
+save:actionClassIntersection ?actionClass ;
+save:purposeIntersection ?purposeItem ;
+save:purposeClassIntersection ?purposeClass ;
+save:legalBasisIntersection ?legalBasisItem ;
+save:legalBasisClassIntersection ?legalBasisClass ;
+save:hasTechnicalOrganisationalMeasureIntersection ?hasTechnicalOrganisationalMeasureItem ;
+save:hasTechnicalOrganisationalMeasureClassIntersection ?hasTechnicalOrganisationalMeasureClass ;
+save:controllerIntersection ?controllerItem ;
+save:controllerClassIntersection ?controllerClass ;
+save:processorIntersection ?processorItem ;
+save:processorClassIntersection ?processorClass ;
+save:hasDataSubjectIntersection ?hasDataSubjectItem ;
+save:hasDataSubjectClassIntersection ?hasDataSubjectClass ;
+save:responsiblePartyIntersection ?responsiblePartyItem ;
+save:responsiblePartyClassIntersection ?responsiblePartyClass ;
+save:senderIntersection ?senderItem ;
+save:senderClassIntersection ?senderClass ;
+save:recipientIntersection ?recipientItem ;
+save:recipientClassIntersection ?recipientClass ;
+
+       save:rule save-ex:IMDBProhibition8 ;
+       save:answer "prohibited" .
+
+
+$this   save:prohibitedBy ?bnode .
+}
+WHERE {
+BIND(BNODE() AS ?bnode)
+{SELECT *
+   WHERE {
+       {
+            $this save:dataList ?dataVal .
+            ?dataVal rdf:rest*/rdf:first ?dataItem .
+            ?dataItem rdf:type/rdfs:subClassOf* ?dataClass .
+            FILTER (?dataClass IN (dpv:Identifying))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:dataList ?dataVal .}
+
+			{BIND(save:Identifying as ?dataItem) . BIND(dpv:Identifying as ?dataClass) .}
+}}}{SELECT *
+   WHERE {
+       {
+            $this save:actionList ?actionVal .
+            ?actionVal rdf:rest*/rdf:first ?actionItem .
+            ?actionItem rdf:type/rdfs:subClassOf* ?actionClass .
+            FILTER (?actionClass IN (dpv:Processing))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:actionList ?actionVal .}
+
+			{BIND(save:Processing as ?actionItem) . BIND(dpv:Processing as ?actionClass) .}
+}}}{SELECT *
+   WHERE {
+       {
+            $this save:purposeList ?purposeVal .
+            ?purposeVal rdf:rest*/rdf:first ?purposeItem .
+            ?purposeItem rdf:type/rdfs:subClassOf* ?purposeClass .
+            FILTER (?purposeClass IN (dpv:Purpose))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:purposeList ?purposeVal .}
+
+			{BIND(save:Purpose as ?purposeItem) . BIND(dpv:Purpose as ?purposeClass) .}
+}}}{SELECT *
+   WHERE {
+       {
+            $this save:legalBasisList ?legalBasisVal .
+            ?legalBasisVal rdf:rest*/rdf:first ?legalBasisItem .
+            ?legalBasisItem rdf:type/rdfs:subClassOf* ?legalBasisClass .
+            FILTER (?legalBasisClass IN (save:LegalBasis))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:legalBasisList ?legalBasisVal .}
+
+			{BIND(save:AnyLegalBasis as ?legalBasisItem) . BIND(save:LegalBasis as ?legalBasisClass) .}
+}}}{SELECT *
+   WHERE {
+       {
+            $this save:hasTechnicalOrganisationalMeasureList ?hasTechnicalOrganisationalMeasureVal .
+            ?hasTechnicalOrganisationalMeasureVal rdf:rest*/rdf:first ?hasTechnicalOrganisationalMeasureItem .
+            ?hasTechnicalOrganisationalMeasureItem rdf:type/rdfs:subClassOf* ?hasTechnicalOrganisationalMeasureClass .
+            FILTER (?hasTechnicalOrganisationalMeasureClass IN (dpv:TechnicalOrganisationalMeasure))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:hasTechnicalOrganisationalMeasureList ?hasTechnicalOrganisationalMeasureVal .}
+
+			{BIND(save:TechnicalOrganisationalMeasure as ?hasTechnicalOrganisationalMeasureItem) . BIND(dpv:TechnicalOrganisationalMeasure as ?hasTechnicalOrganisationalMeasureClass) .}
+}}}{SELECT *
+   WHERE {
+       {
+            $this save:controllerList ?controllerVal .
+            ?controllerVal rdf:rest*/rdf:first ?controllerItem .
+            ?controllerItem rdf:type/rdfs:subClassOf* ?controllerClass .
+            FILTER (?controllerClass IN (dpv:DataController))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:controllerList ?controllerVal .}
+
+			{BIND(save-ex:IMDB_1 as ?controllerItem) . BIND(dpv:DataController as ?controllerClass) .}
+}}}{SELECT *
+   WHERE {
+       {
+            $this save:processorList ?processorVal .
+            ?processorVal rdf:rest*/rdf:first ?processorItem .
+            ?processorItem rdf:type/rdfs:subClassOf* ?processorClass .
+            FILTER (?processorClass IN (dpv:DataProcessor))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:processorList ?processorVal .}
+
+			{BIND(save-ex:Agent as ?processorItem) . BIND(dpv:DataProcessor as ?processorClass) .}
+}}}{SELECT *
+   WHERE {
+       {
+            $this save:hasDataSubjectList ?hasDataSubjectVal .
+            ?hasDataSubjectVal rdf:rest*/rdf:first ?hasDataSubjectItem .
+            ?hasDataSubjectItem rdf:type/rdfs:subClassOf* ?hasDataSubjectClass .
+            FILTER (?hasDataSubjectClass IN (dpv:DataSubject))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:hasDataSubjectList ?hasDataSubjectVal .}
+
+			{BIND(save-ex:IMDBUser as ?hasDataSubjectItem) . BIND(dpv:DataSubject as ?hasDataSubjectClass) .}
+}}}{SELECT *
+   WHERE {
+       {
+            $this save:responsiblePartyList ?responsiblePartyVal .
+            ?responsiblePartyVal rdf:rest*/rdf:first ?responsiblePartyItem .
+            ?responsiblePartyItem rdf:type/rdfs:subClassOf* ?responsiblePartyClass .
+            FILTER (?responsiblePartyClass IN (save:Party))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:responsiblePartyList ?responsiblePartyVal .}
+
+			{BIND(null as ?responsiblePartyItem) . BIND(save:Party as ?responsiblePartyClass) .}
+}}}{SELECT *
+   WHERE {
+       {
+            $this save:senderList ?senderVal .
+            ?senderVal rdf:rest*/rdf:first ?senderItem .
+            ?senderItem rdf:type/rdfs:subClassOf* ?senderClass .
+            FILTER (?senderClass IN (save:Party))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:senderList ?senderVal .}
+
+			{BIND(null as ?senderItem) . BIND(save:Party as ?senderClass) .}
+}}}{SELECT *
+   WHERE {
+       {
+            $this save:recipientList ?recipientVal .
+            ?recipientVal rdf:rest*/rdf:first ?recipientItem .
+            ?recipientItem rdf:type/rdfs:subClassOf* ?recipientClass .
+            FILTER (?recipientClass IN (save:Party))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:recipientList ?recipientVal .}
+
+			{BIND(null as ?recipientItem) . BIND(save:Party as ?recipientClass) .}
+}}}
+}
+
+{SELECT *
+   WHERE {
+       {
+            $this save:dataList ?dataVal .
+            ?dataVal rdf:rest*/rdf:first ?dataItem .
+            ?dataItem rdf:type/rdfs:subClassOf* ?dataClass .
+            FILTER (?dataClass IN (dpv:Identifying))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:dataList ?dataVal .}
+
+			{BIND(save:Identifying as ?dataItem) . BIND(dpv:Identifying as ?dataClass) .}
+}}}
+{SELECT *
+   WHERE {
+       {
+            $this save:actionList ?actionVal .
+            ?actionVal rdf:rest*/rdf:first ?actionItem .
+            ?actionItem rdf:type/rdfs:subClassOf* ?actionClass .
+            FILTER (?actionClass IN (dpv:Disclose))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:actionList ?actionVal .}
+
+			{BIND(save:Disclose as ?actionItem) . BIND(dpv:Disclose as ?actionClass) .}
+}}}
+{SELECT *
+   WHERE {
+       {
+            $this save:purposeList ?purposeVal .
+            ?purposeVal rdf:rest*/rdf:first ?purposeItem .
+            ?purposeItem rdf:type/rdfs:subClassOf* ?purposeClass .
+            FILTER (?purposeClass IN (dpv:SellTargettedAdvertisements))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:purposeList ?purposeVal .}
+
+			{BIND(save:SellTargettedAdvertisements as ?purposeItem) . BIND(dpv:SellTargettedAdvertisements as ?purposeClass) .}
+}}}
+{SELECT *
+   WHERE {
+       {
+            $this save:legalBasisList ?legalBasisVal .
+            ?legalBasisVal rdf:rest*/rdf:first ?legalBasisItem .
+            ?legalBasisItem rdf:type/rdfs:subClassOf* ?legalBasisClass .
+            FILTER (?legalBasisClass IN (save:LegalBasis))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:legalBasisList ?legalBasisVal .}
+
+			{BIND(save:AnyLegalBasis as ?legalBasisItem) . BIND(save:LegalBasis as ?legalBasisClass) .}
+}}}
+{SELECT *
+   WHERE {
+       {
+            $this save:hasTechnicalOrganisationalMeasureList ?hasTechnicalOrganisationalMeasureVal .
+            ?hasTechnicalOrganisationalMeasureVal rdf:rest*/rdf:first ?hasTechnicalOrganisationalMeasureItem .
+            ?hasTechnicalOrganisationalMeasureItem rdf:type/rdfs:subClassOf* ?hasTechnicalOrganisationalMeasureClass .
+            FILTER (?hasTechnicalOrganisationalMeasureClass IN (dpv:TechnicalOrganisationalMeasure))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:hasTechnicalOrganisationalMeasureList ?hasTechnicalOrganisationalMeasureVal .}
+
+			{BIND(save:TechnicalOrganisationalMeasure as ?hasTechnicalOrganisationalMeasureItem) . BIND(dpv:TechnicalOrganisationalMeasure as ?hasTechnicalOrganisationalMeasureClass) .}
+}}}
+{SELECT *
+   WHERE {
+       {
+            $this save:controllerList ?controllerVal .
+            ?controllerVal rdf:rest*/rdf:first ?controllerItem .
+            FILTER (?controllerItem IN (save-ex:IMDB))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:controllerList ?controllerVal .}
+
+			{BIND(save-ex:IMDB as ?controllerItem) . }
+}}}
+{SELECT *
+   WHERE {
+       {
+            $this save:processorList ?processorVal .
+            ?processorVal rdf:rest*/rdf:first ?processorItem .
+            ?processorItem rdf:type/rdfs:subClassOf* ?processorClass .
+            FILTER (?processorClass IN (dpv:DataProcessor))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:processorList ?processorVal .}
+
+			{BIND(save-ex:Agent as ?processorItem) . BIND(dpv:DataProcessor as ?processorClass) .}
+}}}
+{SELECT *
+   WHERE {
+       {
+            $this save:hasDataSubjectList ?hasDataSubjectVal .
+            ?hasDataSubjectVal rdf:rest*/rdf:first ?hasDataSubjectItem .
+            ?hasDataSubjectItem rdf:type/rdfs:subClassOf* ?hasDataSubjectClass .
+            FILTER (?hasDataSubjectClass IN (dpv:DataSubject))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:hasDataSubjectList ?hasDataSubjectVal .}
+
+			{BIND(save-ex:IMDBUser as ?hasDataSubjectItem) . BIND(dpv:DataSubject as ?hasDataSubjectClass) .}
+}}}
+{SELECT *
+   WHERE {
+       {
+            $this save:responsiblePartyList ?responsiblePartyVal .
+            ?responsiblePartyVal rdf:rest*/rdf:first ?responsiblePartyItem .
+            ?responsiblePartyItem rdf:type/rdfs:subClassOf* ?responsiblePartyClass .
+            FILTER (?responsiblePartyClass IN (save:Party))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:responsiblePartyList ?responsiblePartyVal .}
+
+			{BIND(null as ?responsiblePartyItem) . BIND(save:Party as ?responsiblePartyClass) .}
+}}}
+{SELECT *
+   WHERE {
+       {
+            $this save:senderList ?senderVal .
+            ?senderVal rdf:rest*/rdf:first ?senderItem .
+            ?senderItem rdf:type/rdfs:subClassOf* ?senderClass .
+            FILTER (?senderClass IN (save:Party))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:senderList ?senderVal .}
+
+			{BIND(null as ?senderItem) . BIND(save:Party as ?senderClass) .}
+}}}
+{SELECT *
+   WHERE {
+       {
+            $this save:recipientList ?recipientVal .
+            ?recipientVal rdf:rest*/rdf:first ?recipientItem .
+            FILTER (?recipientItem IN (save-ex:ThirdPartyAdvertisers))
+       }
+       UNION {
+            FILTER NOT EXISTS {$this save:recipientList ?recipientVal .}
+
+			{BIND(save-ex:ThirdPartyAdvertisers as ?recipientItem) . }
+}}}

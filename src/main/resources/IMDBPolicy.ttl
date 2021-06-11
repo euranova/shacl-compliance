@@ -1,0 +1,849 @@
+@prefix :      <http://example.com/privacy-policy-model/> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+:RequestIMDBPolicy  a    sh:NodeShape , rdfs:Class ;
+        rdfs:label       "Request:IMDBPolicy" ;
+        rdfs:subClassOf  :RequestBase ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Prohibition :IMDBProhibition4" ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Share ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :OtherBusinesses ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :recipient
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:SellTargettedAdvertisements ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:Name ]
+                                                                         [ sh:class  dpv:EmailAddress ]
+                                                                       ) ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :prohibitedBy :IMDBProhibition4 .\n\t$this :answer \"prohibited\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is compliant" ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :parent
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nCONSTRUCT {\n\t$this :nChildren ?total .\n\t$this :nPermitted ?granted .\n\t$this :nProhibited ?prohibited .\n             $this :answer ?perm .\n}\nWHERE {\n\t{SELECT $this (COUNT(*) AS ?total)\n\tWHERE {\n\t\t?s :parent $this .\n\t}\n\tgroup by $this\n\t}\n\t{SELECT $this (SUM(IF(?p,1,0)) AS ?granted)\n\tWHERE {\n\t\t?s :parent $this .\n\t\tbind(exists { ?s :answer \"permitted\" } as ?p)\n\t}\n\tgroup by $this\n\t}\n\t\t\t{\n\tSELECT $this (SUM(IF(?proh,1,0)) AS ?prohibited)\n\tWHERE {\n\t\t?s :parent $this .\n\t\tbind(exists { ?s :answer \"prohibited\" } as ?proh)\n\t}\n\tgroup by $this\n\t}\n\tBIND ( IF ( ?total = ?granted, \"granted\", IF( ?granted = 0 && ?prohibited > 0, \"prohibited\" , IF ( ?total > ?granted && ?granted > 0, \"part-granted\", 'not granted' ) )) AS ?perm )\n}\n" ;
+                           sh:order      "100"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Dispensation :IMDBDispensation1" ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:CreateProductRecommendations ]
+                                                                         [ sh:class  dpv:CustomerCare ]
+                                                                         [ sh:class  dpv:CommercialResearch ]
+                                                                       ) ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :Agent ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :processor
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Use ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBDispensation1 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission11" ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:IPAddress ]
+                                                                         [ sh:class  dpv:BrowserFingerprint ]
+                                                                       ) ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:PersonalisedBenefits ]
+                                                                         [ sh:class  dpv:ServiceOptimization ]
+                                                                         [ sh:class  dpv:SellTargettedAdvertisements ]
+                                                                       ) ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:hasValue  :ThirdPartyAdvertisers ]
+                                                                         [ sh:hasValue  :ThirdPartyWebsites ]
+                                                                       ) ;
+                                                          sh:path      :recipient
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDBUser ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :hasDataSubject
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:Obtain ]
+                                                                         [ sh:class  dpv:Use ]
+                                                                       ) ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission11 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Prohibition :IMDBProhibition2" ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :ThirdParties ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :recipient
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:SellDataToThirdParties ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Share ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :prohibitedBy :IMDBProhibition2 .\n\t$this :answer \"prohibited\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Prohibition :IMDBProhibition8" ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Identifying ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :prohibitedBy :IMDBProhibition8 .\n\t$this :answer \"prohibited\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission14" ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Store ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission14 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Prohibition :IMDBProhibition7" ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:CommercialInterest ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :prohibitedBy :IMDBProhibition7 .\n\t$this :answer \"prohibited\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Prohibition :IMDBProhibition3" ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :Agent ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :processor
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Use ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :prohibitedBy :IMDBProhibition3 .\n\t$this :answer \"prohibited\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission2" ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:FraudPreventionAndDetection ]
+                                                                         [ sh:class  dpv:ServicePersonalization ]
+                                                                       ) ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDBUser ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :hasDataSubject
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:Password ]
+                                                                         [ sh:class  dpv:Username ]
+                                                                         [ sh:class  dpv:LinkClicked ]
+                                                                         [ sh:class  dpv:BrowsingBehavior ]
+                                                                         [ sh:class  dpv:IPAddress ]
+                                                                         [ sh:class  dpv:Purchase ]
+                                                                         [ sh:class  dpv:BrowserFingerprint ]
+                                                                       ) ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:Collect ]
+                                                                         [ sh:class  dpv:Use ]
+                                                                         [ sh:class  dpv:Store ]
+                                                                         [ sh:class  dpv:Analyse ]
+                                                                       ) ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission2 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Prohibition :IMDBProhibition3_ConflictFree" ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:CommercialInterest ]
+                                                                         [ sh:class  dpv:Security ]
+                                                                         [ sh:class  dpv:CreateEventRecommendations ]
+                                                                         [ sh:class  dpv:ServiceOptimization ]
+                                                                         [ sh:class  dpv:AcademicResearch ]
+                                                                         [ sh:class  dpv:NonCommercialResearch ]
+                                                                         [ sh:class  dpv:UserInterfacePersonalisation ]
+                                                                         [ sh:class  dpv:DeliveryOfGoods ]
+                                                                         [ sh:class  dpv:PersonalisedBenefits ]
+                                                                       ) ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :Agent ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :processor
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Use ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :prohibitedBy :IMDBProhibition3_ConflictFree .\n\t$this :answer \"prohibited\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission5" ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Use ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:ServiceProvision ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:BrowserFingerprint ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission5 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Prohibition :IMDBProhibition6" ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :ChildUser ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :sender
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Processing ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :prohibitedBy :IMDBProhibition6 .\n\t$this :answer \"prohibited\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission7" ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :AffiliatedBusinesses ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :recipient
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Share ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:SellTargettedAdvertisements ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission7 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission1" ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:Collect ]
+                                                                         [ sh:class  dpv:Use ]
+                                                                         [ sh:class  dpv:Store ]
+                                                                       ) ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:TelephoneNumber ]
+                                                                         [ sh:class  dpv:Preference ]
+                                                                         [ sh:class  dpv:Like ]
+                                                                         [ sh:class  dpv:Dislike ]
+                                                                         [ sh:class  dpv:Name ]
+                                                                         [ sh:class  dpv:EmailAddress ]
+                                                                         [ sh:class  dpv:Country ]
+                                                                         [ sh:class  dpv:PhysicalAddress ]
+                                                                         [ sh:class  dpv:Age ]
+                                                                         [ sh:class  dpv:Gender ]
+                                                                       ) ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:CustomerCare ]
+                                                                         [ sh:class  dpv:ServicePersonalization ]
+                                                                         [ sh:class  dpv:UserInterfacePersonalisation ]
+                                                                       ) ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDBUser ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :hasDataSubject
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission1 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission12" ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Use ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:Preference ]
+                                                                         [ sh:class  dpv:Preference ]
+                                                                       ) ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:PersonalisedBenefits ]
+                                                                         [ sh:class  dpv:SellTargettedAdvertisements ]
+                                                                       ) ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission12 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission4" ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDBUser ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :hasDataSubject
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PhysicalAddress ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:CustomerCare ]
+                                                                         [ sh:class  dpv:DeliveryOfGoods ]
+                                                                       ) ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:Obtain ]
+                                                                         [ sh:class  dpv:Use ]
+                                                                       ) ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission4 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission13" ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalisedBenefits ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Use ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:hasValue  :ThirdPartyAdvertisers ]
+                                                                         [ sh:hasValue  :ThirdPartyWebsites ]
+                                                                       ) ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission13 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission8" ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:CreateProductRecommendations ]
+                                                                         [ sh:class  dpv:CustomerCare ]
+                                                                         [ sh:class  dpv:CommercialResearch ]
+                                                                       ) ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :Agent ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :recipient
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Share ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission8 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission9" ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:CreateProductRecommendations ]
+                                                                         [ sh:class  dpv:CustomerCare ]
+                                                                         [ sh:class  dpv:CommercialResearch ]
+                                                                       ) ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :Agent ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :processor
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Use ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission9 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Prohibition :IMDBProhibition1" ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :ThirdParties ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :recipient
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Disclose ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :prohibitedBy :IMDBProhibition1 .\n\t$this :answer \"prohibited\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Prohibition :IMDBProhibition5" ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Disclose ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :ThirdPartyAdvertisers ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :recipient
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Identifying ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:SellTargettedAdvertisements ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :prohibitedBy :IMDBProhibition5 .\n\t$this :answer \"prohibited\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission10" ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Disclose ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  orcp:VitalInterest ]
+                                                                         [ sh:class  dpv-gdpr:A6-1-b ]
+                                                                         [ sh:class  dpv-gdpr:A6-1-c ]
+                                                                       ) ;
+                                                          sh:path      :legalBasis
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission10 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission6" ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:Share ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:PersonalDataCategory ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:hasValue  :ParentCorporationAmazon ]
+                                                                         [ sh:hasValue  :SubsidiariesOfAmazon ]
+                                                                       ) ;
+                                                          sh:path      :recipient
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission6 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] ;
+        sh:rule          [ a             sh:SPARQLRule ;
+                           rdfs:label    "Infer if $this is covered by orcp:Permission :IMDBPermission3" ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:Obtain ]
+                                                                         [ sh:class  dpv:Use ]
+                                                                       ) ;
+                                                          sh:path      :action
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDBUser ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :hasDataSubject
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:class     dpv:ServicePersonalization ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :purpose
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:maxCount  "0"^^xsd:int ;
+                                                          sh:path      :child
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                          sh:or        ( [ sh:class  dpv:GPSCoordinate ]
+                                                                         [ sh:class  dpv:DeviceBased ]
+                                                                       ) ;
+                                                          sh:path      :data
+                                                        ]
+                                         ] ;
+                           sh:condition  [ sh:property  [ sh:hasValue  :IMDB ;
+                                                          sh:minCount  "1"^^xsd:int ;
+                                                          sh:path      :controller
+                                                        ]
+                                         ] ;
+                           sh:construct  "PREFIX :<http://example.com/privacy-policy-model/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nCONSTRUCT {\n\t$this :conformsTo :IMDBPermission3 .\n\t$this :answer \"permitted\" .\n}\nWHERE {}\n" ;
+                           sh:order      "1"^^xsd:int ;
+                           sh:prefixes   ":"
+                         ] .

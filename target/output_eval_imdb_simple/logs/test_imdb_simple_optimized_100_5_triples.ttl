@@ -1,0 +1,2824 @@
+@base          <http://example.org/random> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+save-ex:test_33_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Profiling ;
+                             save:answer                    "prohibited" ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:PaymentCardExpiry ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:ChildUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:StaffTraining , save:RegularityOfRecertification , save:PrivacyByDesign ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-d ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:CommunicationForCustomerCare ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:DataProcessor ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:ParentCorporationAmazon ;
+                             save:rule                      save-ex:IMDBProhibition6 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:ThirdParty
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_70_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Align ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:BankAccount , save:PaymentCardExpiry , save:FinancialAccountNumber , save:CreditCardNumber ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:Child ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:AuthorisationProcedure ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-a-non-explicit-consent ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData , save:SocialMediaMarketing , save:DirectMarketing , save:SellTargettedAdvertisements , save:SellProductsToDataSubject , save:SellDataToThirdParties , save:PersonalisedAdvertising ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:Child ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:SubsidiariesOfAmazon ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:ChildUser
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "part-prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     10
+                           ] .
+
+save-ex:test_46_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_94_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_83_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_59_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Structure ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:WorkHistory ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:DataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:Certification ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-a-explicit-consent ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:Agent ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:PublicAuthority ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:VulnerableDataSubject
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_42_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Copy ;
+                             save:answer                    "prohibited" ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:SecretText , save:PINCode , save:Password ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:ChildUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:DesignStandard ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-a-non-explicit-consent ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:FraudPreventionAndDetection ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:DataController ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:OtherBusinesses ;
+                             save:rule                      save-ex:IMDBProhibition6 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:VulnerableDataSubject
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_18_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Disseminate ;
+                             save:answer                    "prohibited" ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:IPAddress ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:ChildUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:Certification ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-b ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:ImproveExistingProductsAndServices , save:OptimiseUserInterface , save:InternalResourceOptimisation , save:IncreaseServiceRobustness , save:ImproveInternalCRMProcesses ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:ThirdPartyAdvertisers ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:IMDBUser ;
+                             save:rule                      save-ex:IMDBProhibition6 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:DataSubject
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_55_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Adapt ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:SecretText ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser_1 ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:AccessControlMethod ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-b , save:A9-2-f , save:A6-1-e , save:LegalObligation , save:A9-2-j , save:LegitimateInterest , save:A6-1-b , save:A9-2-d , save:A9-2-h , save:Contract , save:A6-1-c , save:A6-1-f , save:A9-2-a , save:A9-2-e , save:A6-1-d , save:A6-1-a-non-explicit-consent , save:A9-2-i , save:A6-1-a-explicit-consent , save:A9-2-c , save:A9-2-g ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:Agent ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:PublicAuthority ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:IMDB_1
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_92_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Disseminate ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:Identifying ;
+                             save:dataIntersection          save:UID ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:RiskMitigationMeasure ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:LegitimateInterest ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:CommercialResearch ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:AnyParty ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:VulnerableDataSubject ;
+                             save:rule                      save-ex:IMDBProhibition8 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:IMDB
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_79_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_68_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Record ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:Identifying ;
+                             save:dataIntersection          save:UID ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:DPIA ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-a-non-explicit-consent ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:CommercialResearch ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:ThirdPartyWebsites ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:IMDBUser_1 ;
+                             save:rule                      save-ex:IMDBProhibition8 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:ThirdParty
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_14_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_51_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_27_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_6_5_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not granted" ;
+                                     save:answerProhibited  "not prohibited" ;
+                                     save:countPermitted    0 ;
+                                     save:countProhibited   0 ;
+                                     save:sumPermitted      0 ;
+                                     save:sumProhibited     0
+                                   ] .
+
+save-ex:test_64_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_88_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_77_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Move ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:ProfessionalEvaluation ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:VulnerableDataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:EncryptionInRest ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-d ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellDataToThirdParties ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:ChildUser ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:PublicAuthority ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:DataProcessor
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_23_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_2_5_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not granted" ;
+                                     save:answerProhibited  "not prohibited" ;
+                                     save:countPermitted    0 ;
+                                     save:countProhibited   0 ;
+                                     save:sumPermitted      0 ;
+                                     save:sumProhibited     0
+                                   ] .
+
+save-ex:test_60_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_36_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Restrict ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:Identifying ;
+                             save:dataIntersection          save:Fingerprint , save:Retina ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:VulnerableDataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:DeIdentification ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-a ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:PublicAuthority ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:IMDBUser ;
+                             save:rule                      save-ex:IMDBProhibition8 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:DataController
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "part-prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     10
+                           ] .
+
+save-ex:test_73_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Acquire , save:Collect , save:Record ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:PrivacyPreference ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:VulnerableDataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:RiskMitigationMeasure ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-h ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:DataSubject ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:Agent ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:DataSubject
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_49_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_97_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Structure ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Tax ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:VulnerableDataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:AccessControlMethod ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-d ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing , save:PersonalisedAdvertising , save:SocialMediaMarketing ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:AffiliatedBusinesses ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:ParentCorporationAmazon ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:IMDB_1
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_32_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_45_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:VoiceMail , save:EmailContent , save:VoiceCommunicationRecording , save:SocialMediaCommunication ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:DataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:Seal ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-j , save:A9-2-f , save:A6-1-a-explicit-consent , save:A6-1-d , save:A9-2-d , save:A6-1-b , save:Contract , save:A9-2-a , save:A9-2-g , save:A6-1-e , save:LegitimateInterest , save:A6-1-a-non-explicit-consent , save:A9-2-i , save:A9-2-b , save:A9-2-h , save:A6-1-f , save:LegalObligation , save:A9-2-e , save:A6-1-c , save:A9-2-c ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising , save:DirectMarketing , save:SocialMediaMarketing , save:SellTargettedAdvertisements , save:SellDataToThirdParties , save:SellProductsToDataSubject , save:SellInsightsFromData ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:SubsidiariesOfAmazon ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:DataController ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:OtherBusinesses
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_82_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Move ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Salary ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser_1 ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:StorageDeletion ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-e ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:DataController ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:SubsidiariesOfAmazon ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:IMDB
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_69_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_58_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_100_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_41_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Transmit ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:DNACode ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:DataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:DPIA , save:PIA ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-a-non-explicit-consent ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:PublicAuthority ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:VulnerableDataSubject ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:DataController
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_17_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_54_5_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:Disseminate ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:EmploymentHistory ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save:Child ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:EncryptionInRest ;
+                           save:legalBasisClassIntersection
+                                   orcp:VitalInterest ;
+                           save:legalBasisIntersection    save:A9-2-c , save:A6-1-d ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save:DataProcessor ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:DeliveryOfGoods ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save-ex:IMDBUser ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission10 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save-ex:SubsidiariesOfAmazon
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    11 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      11 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:test_91_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_9_5_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not granted" ;
+                                     save:answerProhibited  "not prohibited" ;
+                                     save:countPermitted    0 ;
+                                     save:countProhibited   0 ;
+                                     save:sumPermitted      0 ;
+                                     save:sumProhibited     0
+                                   ] .
+
+save-ex:test_78_5_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Store ;
+                           save:actionIntersection        save:Store ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:CallLog ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save:Child ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:PIA ;
+                           save:legalBasisClassIntersection
+                                   save:LegalBasis ;
+                           save:legalBasisIntersection    save:A9-2-f ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save:DataSubProcessor ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:Payment ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:VulnerableDataSubject ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save-ex:IMDB_1 ;
+                           save:rule                      save-ex:IMDBPermission14 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:ThirdParty
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    11 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      11 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:test_67_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_13_5_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Store ;
+                           save:actionIntersection        save:Store ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:TelephoneNumber , save:EmailAddress , save:PhysicalAddress ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save:DataSubject ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:PIA ;
+                           save:legalBasisClassIntersection
+                                   save:LegalBasis ;
+                           save:legalBasisIntersection    save:A6-1-a-non-explicit-consent , save:A6-1-a-explicit-consent , save:A9-2-a ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:FraudPreventionAndDetection ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:DataSubProcessor ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:VulnerableDataSubject ;
+                           save:rule                      save-ex:IMDBPermission14 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save-ex:ThirdPartyAdvertisers
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    11 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      11 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:test_50_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Transmit ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:BankAccount ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:VulnerableDataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:AccessControlMethod ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-i ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:ThirdPartyAdvertisers ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:ChildUser ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:ThirdPartyAdvertisers
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_26_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_5_5_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not granted" ;
+                                     save:answerProhibited  "not prohibited" ;
+                                     save:countPermitted    0 ;
+                                     save:countProhibited   0 ;
+                                     save:sumPermitted      0 ;
+                                     save:sumProhibited     0
+                                   ] .
+
+save-ex:test_63_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_39_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:Identifying ;
+                             save:dataIntersection          save:Retina , save:Fingerprint ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser_1 ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:DeIdentification , save:Anonymization ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:LegalObligation ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:LegalCompliance ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:DataSubProcessor ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:DataSubProcessor ;
+                             save:rule                      save-ex:IMDBProhibition8 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:OtherBusinesses
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "part-prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     10
+                           ] .
+
+save-ex:test_87_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:Identifying ;
+                             save:dataIntersection          save:Name , save:Fingerprint , save:UID , save:OfficialID , save:Retina , save:Username , save:Picture ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:Child ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:CodeOfConduct , save:DesignStandard , save:PrivacyByDefault ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-b ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:CreateEventRecommendations ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:IMDBUser ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:ParentCorporationAmazon ;
+                             save:rule                      save-ex:IMDBProhibition8 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:DataSubProcessor
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "part-prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     10
+                           ] .
+
+save-ex:test_76_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_22_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Consult , save:Analyse , save:Profiling , save:Retrieve ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Tattoo ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:VulnerableDataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:ConsultationWithAuthority ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-h ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellDataToThirdParties ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:DataController ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:OtherBusinesses ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:Child
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_11_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_1_5_opt  save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                                         save:actionClassIntersection   dpv:Store ;
+                                         save:actionIntersection        save:Store ;
+                                         save:answer                    "permitted" ;
+                                         save:controllerIntersection    save-ex:IMDB ;
+                                         save:dataClassIntersection     dpv:PersonalDataCategory ;
+                                         save:dataIntersection          save:Divorce , save:Marriage , save:Offspring , save:Sibling , save:Parent ;
+                                         save:hasDataSubjectClassIntersection
+                                                 dpv:DataSubject ;
+                                         save:hasDataSubjectIntersection
+                                                 save-ex:IMDBUser_1 ;
+                                         save:hasTechnicalOrganisationalMeasureClassIntersection
+                                                 dpv:TechnicalOrganisationalMeasure ;
+                                         save:hasTechnicalOrganisationalMeasureIntersection
+                                                 save:AccessControlMethod ;
+                                         save:legalBasisClassIntersection
+                                                 save:LegalBasis ;
+                                         save:legalBasisIntersection    save:A9-2-j ;
+                                         save:processorClassIntersection
+                                                 dpv:DataProcessor ;
+                                         save:processorIntersection     save:DataSubProcessor ;
+                                         save:purposeClassIntersection  dpv:Purpose ;
+                                         save:purposeIntersection       save:AccessControl ;
+                                         save:recipientClassIntersection
+                                                 save:Party ;
+                                         save:recipientIntersection     save-ex:IMDBUser_1 ;
+                                         save:responsiblePartyClassIntersection
+                                                 save:Party ;
+                                         save:responsiblePartyIntersection
+                                                 save:PublicAuthority ;
+                                         save:rule                      save-ex:IMDBPermission14 ;
+                                         save:senderClassIntersection   save:Party ;
+                                         save:senderIntersection        save:Child
+                                       ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "part-granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    11 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      10 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:test_35_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_72_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_48_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Erase , save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Opinion ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser_1 ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:StorageDuration , save:StorageDeletion , save:StorageRestoration , save:StorageLocation ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:LegitimateInterest ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellDataToThirdParties ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:ChildUser ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:DataController ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:ThirdPartyWebsites
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_96_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Structure ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:Identifying ;
+                             save:dataIntersection          save:Retina ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser_1 ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:PIA ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-i ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:RegistrationAuthentication ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:PublicAuthority ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:OtherBusinesses ;
+                             save:rule                      save-ex:IMDBProhibition8 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:Child
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_85_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:MakeAvailable , save:Transmit , save:Share , save:Disseminate , save:DiscloseByTransmission ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:Identifying ;
+                             save:dataIntersection          save:Fingerprint , save:Retina ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser_1 ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:DeIdentification ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-c ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:OtherBusinesses ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:ParentCorporationAmazon ;
+                             save:rule                      save-ex:IMDBProhibition8 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:DataProcessor
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "part-prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     10
+                           ] .
+
+save-ex:test_31_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Align ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:Identifying ;
+                             save:dataIntersection          save:OfficialID ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:Child ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:StaffTraining ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-c , save:A6-1-d ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:SellProductsToDataSubject ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:IMDBUser ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:IMDB ;
+                             save:rule                      save-ex:IMDBProhibition8 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:ChildUser
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Align ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:OfficialID ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:Child ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:StaffTraining ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-c , save:A6-1-d ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellProductsToDataSubject ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:IMDBUser ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:IMDB ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:ChildUser
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_20_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Transmit ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Attitude ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:Anonymization , save:EncryptionInRest , save:EncryptionInTransfer , save:DeIdentification ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-e ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:DataSubject ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:Agent ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:InternationalOrganisation
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_44_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_81_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_57_5_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:MakeAvailable ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:Reference ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save:DataSubject ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:StorageRestoration ;
+                           save:legalBasisClassIntersection
+                                   orcp:VitalInterest ;
+                           save:legalBasisIntersection    save:A9-2-c ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:CreateEventRecommendations ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save-ex:IMDBUser_1 ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:DataSubProcessor ;
+                           save:rule                      save-ex:IMDBPermission10 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save-ex:IMDBUser_1
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    11 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      11 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:test_40_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Anonymise ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:PINCode ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:VulnerableDataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:AccessControlMethod ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-h , save:LegitimateInterest , save:A6-1-d , save:A6-1-f , save:A6-1-a-non-explicit-consent , save:A9-2-b , save:A9-2-g , save:A6-1-c , save:A6-1-e , save:A9-2-a , save:LegalObligation , save:A9-2-j , save:Contract , save:A9-2-d , save:A9-2-f , save:A6-1-a-explicit-consent , save:A6-1-b , save:A9-2-i , save:A9-2-c , save:A9-2-e ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellProductsToDataSubject , save:SellTargettedAdvertisements , save:SocialMediaMarketing , save:SellDataToThirdParties , save:PersonalisedAdvertising , save:SellInsightsFromData , save:DirectMarketing ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:AffiliatedBusinesses ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:ParentCorporationAmazon ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:AffiliatedBusinesses
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "part-prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     10
+                           ] .
+
+save-ex:test_16_5_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Store ;
+                             save:actionIntersection        save:Store ;
+                             save:answer                    "permitted" ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:FinancialAccountNumber , save:CreditCardNumber ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:AuthorisationProcedure ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:LegalObligation , save:A9-2-b , save:A9-2-j , save:A6-1-b , save:A9-2-g , save:Contract , save:A6-1-f , save:A9-2-a , save:A9-2-d , save:A9-2-i , save:A9-2-f , save:A6-1-d , save:A6-1-e , save:A6-1-a-non-explicit-consent , save:LegitimateInterest , save:A9-2-c , save:A9-2-e , save:A6-1-c , save:A9-2-h , save:A6-1-a-explicit-consent ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:IMDB ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:IMDBUser ;
+                             save:rule                      save-ex:IMDBPermission14 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:IMDB
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Disclose ;
+                             save:actionIntersection        save:Share , save:Disseminate , save:Transmit , save:DiscloseByTransmission , save:MakeAvailable ;
+                             save:answer                    "permitted" ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CreditCardNumber , save:FinancialAccountNumber ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:AuthorisationProcedure ;
+                             save:legalBasisClassIntersection
+                                     orcp:LegalObligation , orcp:VitalInterest , orcp:Contract ;
+                             save:legalBasisIntersection    save:A9-2-c , save:A6-1-d , save:LegalObligation , save:Contract ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:IMDB ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:IMDBUser ;
+                             save:rule                      save-ex:IMDBPermission10 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:IMDB
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Retrieve , save:Profiling , save:Analyse , save:Consult ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CreditCardNumber , save:FinancialAccountNumber ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:AuthorisationProcedure ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-a , save:A9-2-j , save:A6-1-c , save:A6-1-b , save:A9-2-e , save:A9-2-d , save:LegitimateInterest , save:A6-1-a-explicit-consent , save:A6-1-f , save:LegalObligation , save:A9-2-i , save:A9-2-h , save:A6-1-a-non-explicit-consent , save:Contract , save:A9-2-c , save:A9-2-b , save:A6-1-e , save:A6-1-d , save:A9-2-g , save:A9-2-f ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:IMDB ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:IMDBUser ;
+                             save:rule                      save-ex:IMDBProhibition3_ConflictFree ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:IMDB
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Consult , save:Retrieve , save:Analyse , save:Profiling ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:FinancialAccountNumber , save:CreditCardNumber ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:AuthorisationProcedure ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-e , save:A9-2-h , save:Contract , save:A6-1-d , save:A6-1-f , save:A6-1-a-explicit-consent , save:LegalObligation , save:A9-2-c , save:A9-2-i , save:A6-1-a-non-explicit-consent , save:A9-2-g , save:A9-2-b , save:A6-1-c , save:A6-1-e , save:A9-2-f , save:LegitimateInterest , save:A9-2-a , save:A9-2-d , save:A9-2-j , save:A6-1-b ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:IMDB ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:IMDBUser ;
+                             save:rule                      save-ex:IMDBProhibition3 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:IMDB
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "part-granted" ;
+                             save:answerProhibited  "part-prohibited" ;
+                             save:countPermitted    11 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      10 ;
+                             save:sumProhibited     10
+                           ] .
+
+save-ex:test_53_5_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Consult , save:Analyse , save:Profiling , save:Retrieve ;
+                             save:answer                    "permitted" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Dislike ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:DataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:Certification ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-c ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CustomerCare ;
+                             save:purposeIntersection       save:CommunicationForCustomerCare ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:OtherBusinesses ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:DataSubProcessor ;
+                             save:rule                      save-ex:IMDBPermission9 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:Agent
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Consult , save:Retrieve , save:Analyse , save:Profiling ;
+                             save:answer                    "permitted" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Dislike ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:DataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:Certification ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-c ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CustomerCare ;
+                             save:purposeIntersection       save:CommunicationForCustomerCare ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:OtherBusinesses ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:DataSubProcessor ;
+                             save:rule                      save-ex:IMDBDispensation1 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:Agent
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Analyse , save:Consult , save:Profiling , save:Retrieve ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Dislike ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:DataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:Certification ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-c ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:CommunicationForCustomerCare ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:OtherBusinesses ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:DataSubProcessor ;
+                             save:rule                      save-ex:IMDBProhibition3 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:Agent
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    11 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      11 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_29_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_90_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_8_5_opt  save:prohibitedBy
+                [ a                              save-ex:RuleIntersection ;
+                  save:actionClassIntersection   dpv:Processing ;
+                  save:actionIntersection        save:Structure ;
+                  save:answer                    "prohibited" ;
+                  save:controllerClassIntersection
+                          dpv:DataController ;
+                  save:controllerIntersection    save-ex:IMDB_1 ;
+                  save:dataClassIntersection     dpv:Identifying ;
+                  save:dataIntersection          save:Picture ;
+                  save:hasDataSubjectClassIntersection
+                          dpv:DataSubject ;
+                  save:hasDataSubjectIntersection
+                          save-ex:ChildUser ;
+                  save:hasTechnicalOrganisationalMeasureClassIntersection
+                          dpv:TechnicalOrganisationalMeasure ;
+                  save:hasTechnicalOrganisationalMeasureIntersection
+                          save:Anonymization , save:DeIdentification ;
+                  save:legalBasisClassIntersection
+                          save:LegalBasis ;
+                  save:legalBasisIntersection    save:A6-1-f ;
+                  save:processorClassIntersection
+                          dpv:DataProcessor ;
+                  save:processorIntersection     save:DataSubProcessor ;
+                  save:purposeClassIntersection  dpv:Purpose ;
+                  save:purposeIntersection       save:Payment ;
+                  save:recipientClassIntersection
+                          save:Party ;
+                  save:recipientIntersection     save:AnyParty ;
+                  save:responsiblePartyClassIntersection
+                          save:Party ;
+                  save:responsiblePartyIntersection
+                          save:DataSubProcessor ;
+                  save:rule                      save-ex:IMDBProhibition8 ;
+                  save:senderClassIntersection   save:Party ;
+                  save:senderIntersection        save:ThirdParty
+                ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_66_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_12_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_25_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_4_5_opt  save:prohibitedBy
+                [ a                              save-ex:RuleIntersection ;
+                  save:actionClassIntersection   dpv:Processing ;
+                  save:actionIntersection        save:Destruct ;
+                  save:answer                    "prohibited" ;
+                  save:controllerClassIntersection
+                          dpv:DataController ;
+                  save:controllerIntersection    save-ex:IMDB_1 ;
+                  save:dataClassIntersection     dpv:PersonalDataCategory ;
+                  save:dataIntersection          save:MACAddress ;
+                  save:hasDataSubjectClassIntersection
+                          dpv:DataSubject ;
+                  save:hasDataSubjectIntersection
+                          save-ex:ChildUser ;
+                  save:hasTechnicalOrganisationalMeasureClassIntersection
+                          dpv:TechnicalOrganisationalMeasure ;
+                  save:hasTechnicalOrganisationalMeasureIntersection
+                          save:CodeOfConduct ;
+                  save:legalBasisClassIntersection
+                          save:LegalBasis ;
+                  save:legalBasisIntersection    save:A6-1-c ;
+                  save:processorClassIntersection
+                          dpv:DataProcessor ;
+                  save:processorIntersection     save:DataSubProcessor ;
+                  save:purposeClassIntersection  dpv:CommercialInterest ;
+                  save:purposeIntersection       save:PersonalisedAdvertising ;
+                  save:recipientClassIntersection
+                          save:Party ;
+                  save:recipientIntersection     save-ex:IMDBUser ;
+                  save:responsiblePartyClassIntersection
+                          save:Party ;
+                  save:responsiblePartyIntersection
+                          save:Child ;
+                  save:rule                      save-ex:IMDBProhibition7 ;
+                  save:senderClassIntersection   save:Party ;
+                  save:senderIntersection        save-ex:AffiliatedBusinesses
+                ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_62_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_38_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:TelephoneNumber ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:ChildUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:StorageRestoration ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-c ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellProductsToDataSubject , save:SocialMediaMarketing , save:DirectMarketing , save:SellDataToThirdParties , save:SellTargettedAdvertisements , save:PersonalisedAdvertising , save:SellInsightsFromData ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:ParentCorporationAmazon ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:Child ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:OtherBusinesses
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "part-prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     10
+                           ] .
+
+save-ex:test_86_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_75_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_21_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_10_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_99_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_34_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_71_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:Identifying ;
+                             save:dataIntersection          save:OfficialID ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser_1 ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:StaffTraining ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-b ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:ImproveInternalCRMProcesses ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:DataSubProcessor ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:AnyParty ;
+                             save:rule                      save-ex:IMDBProhibition8 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:AnyParty
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_47_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Retrieve ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:TelephoneNumber ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:VulnerableDataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:Certification ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-a-non-explicit-consent ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData , save:SellTargettedAdvertisements , save:PersonalisedAdvertising , save:SellDataToThirdParties , save:SocialMediaMarketing , save:DirectMarketing , save:SellProductsToDataSubject ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:Child ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:VulnerableDataSubject ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:DataController
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_95_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_84_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_30_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_43_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Combine ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Dislike , save:Like ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:VulnerableDataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:RegularityOfRecertification ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-a , save:A6-1-a-non-explicit-consent , save:A6-1-a-explicit-consent ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:IMDB_1 ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:Child ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:SubsidiariesOfAmazon
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_19_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_80_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_56_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_93_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_15_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Alter ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:ProfessionalInterview ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:VulnerableDataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:NDA ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-c , save:A6-1-d ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellProductsToDataSubject ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:AffiliatedBusinesses ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:ThirdPartyAdvertisers ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:IMDB_1
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_52_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:SkinTone ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser_1 ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:RiskMitigationMeasure ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-a-non-explicit-consent ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellDataToThirdParties ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save:AnyParty ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:DataController ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:DataSubProcessor
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_28_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_7_5_opt  save:prohibitedBy
+                [ a                              save-ex:RuleIntersection ;
+                  save:actionClassIntersection   dpv:Processing ;
+                  save:actionIntersection        save:DiscloseByTransmission ;
+                  save:answer                    "prohibited" ;
+                  save:controllerClassIntersection
+                          dpv:DataController ;
+                  save:controllerIntersection    save-ex:IMDB_1 ;
+                  save:dataClassIntersection     dpv:PersonalDataCategory ;
+                  save:dataIntersection          save:BrowsingBehavior ;
+                  save:hasDataSubjectClassIntersection
+                          dpv:DataSubject ;
+                  save:hasDataSubjectIntersection
+                          save-ex:ChildUser ;
+                  save:hasTechnicalOrganisationalMeasureClassIntersection
+                          dpv:TechnicalOrganisationalMeasure ;
+                  save:hasTechnicalOrganisationalMeasureIntersection
+                          save:SingleSignOn ;
+                  save:legalBasisClassIntersection
+                          save:LegalBasis ;
+                  save:legalBasisIntersection    save:A6-1-a-non-explicit-consent ;
+                  save:processorClassIntersection
+                          dpv:DataProcessor ;
+                  save:processorIntersection     save:DataSubProcessor ;
+                  save:purposeClassIntersection  dpv:CommercialInterest ;
+                  save:purposeIntersection       save:SocialMediaMarketing ;
+                  save:recipientClassIntersection
+                          save:Party ;
+                  save:recipientIntersection     save-ex:IMDB ;
+                  save:responsiblePartyClassIntersection
+                          save:Party ;
+                  save:responsiblePartyIntersection
+                          save-ex:IMDB ;
+                  save:rule                      save-ex:IMDBProhibition7 ;
+                  save:senderClassIntersection   save:Party ;
+                  save:senderIntersection        save-ex:IMDBUser_1
+                ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_65_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_89_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Combine ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Fingerprint ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:DataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:ContractMeasure ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-c ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:Agent ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:Agent ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:ThirdPartyAdvertisers
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Combine ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB ;
+                             save:dataClassIntersection     dpv:Identifying ;
+                             save:dataIntersection          save:Fingerprint ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save:DataSubject ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:ContractMeasure ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A6-1-c ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:Agent ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:Agent ;
+                             save:rule                      save-ex:IMDBProhibition8 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save-ex:ThirdPartyAdvertisers
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_24_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_3_5_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not granted" ;
+                                     save:answerProhibited  "not prohibited" ;
+                                     save:countPermitted    0 ;
+                                     save:countProhibited   0 ;
+                                     save:sumPermitted      0 ;
+                                     save:sumProhibited     0
+                                   ] .
+
+save-ex:test_61_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Adapt ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save-ex:IMDB_1 ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:EmailContent ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:IMDBUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:PrivacyByDesign , save:RegularityOfRecertification , save:StaffTraining ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-a , save:A6-1-a-explicit-consent , save:A6-1-a-non-explicit-consent ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:AffiliatedBusinesses ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save-ex:ThirdPartyWebsites ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:DataController
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "part-prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     10
+                           ] .
+
+save-ex:test_37_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:test_74_5_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Record ;
+                             save:answer                    "prohibited" ;
+                             save:controllerClassIntersection
+                                     dpv:DataController ;
+                             save:controllerIntersection    save:DataController ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CreditCapacity , save:CreditRecord , save:CreditStanding , save:CreditScore ;
+                             save:hasDataSubjectClassIntersection
+                                     dpv:DataSubject ;
+                             save:hasDataSubjectIntersection
+                                     save-ex:ChildUser ;
+                             save:hasTechnicalOrganisationalMeasureClassIntersection
+                                     dpv:TechnicalOrganisationalMeasure ;
+                             save:hasTechnicalOrganisationalMeasureIntersection
+                                     save:PIA , save:DPIA ;
+                             save:legalBasisClassIntersection
+                                     save:LegalBasis ;
+                             save:legalBasisIntersection    save:A9-2-j ;
+                             save:processorClassIntersection
+                                     dpv:DataProcessor ;
+                             save:processorIntersection     save:DataSubProcessor ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing ;
+                             save:recipientClassIntersection
+                                     save:Party ;
+                             save:recipientIntersection     save-ex:ParentCorporationAmazon ;
+                             save:responsiblePartyClassIntersection
+                                     save:Party ;
+                             save:responsiblePartyIntersection
+                                     save:Child ;
+                             save:rule                      save-ex:IMDBProhibition7 ;
+                             save:senderClassIntersection   save:Party ;
+                             save:senderIntersection        save:InternationalOrganisation
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not granted" ;
+                             save:answerProhibited  "prohibited" ;
+                             save:countPermitted    0 ;
+                             save:countProhibited   11 ;
+                             save:sumPermitted      0 ;
+                             save:sumProhibited     11
+                           ] .
+
+save-ex:test_98_5_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .

@@ -1,0 +1,991 @@
+@base <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix orcp: <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+
+<http://example.com/odrl:profile:regulatoryCompliance/>
+	a owl:Ontology ;
+	rdfs:label "ODRL Regulatory Compliance Profile"@en ;
+	owl:versionInfo "0.1" ;
+	dct:creator "Sabrina Kirrane";
+	dct:description "This document constitutes an ODRL profile that adapts the ODRL Regulatory Compliance Profile Model and Vocabulary with concepts and terms to support regulatory compliance checking of business policies."@en ;
+	rdfs:comment "This is the RDF ontology for ODRL Regulatory Compliance Profile Version 0.1."@en ;
+	dct:license <https://www.w3.org/Consortium/Legal/2002/ipr-notice-20021231#Copyright/> .
+
+
+## SKOS Collections for Grouping related concepts.
+## These SKOS Collections are primarily used to create the
+## sections of the ODRL Vocabulary document.
+
+<http://example.com/odrl:profile:regulatory-compliance/#Policy>
+    a skos:Collection ;
+    skos:prefLabel "Policy"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:Policy ;
+    skos:member orcp:uid ;
+    skos:member orcp:profile ;
+    skos:member orcp:inheritFrom ;
+    skos:member orcp:conflict ;
+    skos:member orcp:permission ;
+    skos:member orcp:prohibition ;
+    skos:member orcp:obligation ;
+    skos:member orcp:dispensation ;
+    skos:member orcp:request ;
+    skos:member orcp:Set .
+
+## ConflictTerm
+
+<http://example.com/odrl:profile:regulatory-compliance/#ConflictTerm>
+    a skos:Collection ;
+    skos:prefLabel "Policy Conflict Strategy"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:ConflictTerm ;
+    skos:member orcp:perm ;
+    skos:member orcp:prohibit ;
+    skos:member orcp:invalid .
+
+## Rule
+
+<http://example.com/odrl:profile:regulatory-compliance/#Rule>
+    a skos:Collection ;
+    skos:prefLabel "Rule"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:Rule ;
+    skos:member orcp:uid ;
+    skos:member orcp:relation ;
+    skos:member orcp:function ;
+    skos:member orcp:action ;
+    skos:member orcp:constraint ;
+    skos:member orcp:permission ;
+    skos:member orcp:prohibition ;
+    skos:member orcp:obligation ;
+    skos:member orcp:dispensation ;
+    skos:member orcp:request ;
+    skos:member orcp:legalBasis ;
+    skos:member orcp:purpose ;
+    skos:member orcp:Permission ;
+    skos:member orcp:Prohibition ;
+    skos:member orcp:Obligation ;
+    skos:member orcp:Dispensation ;
+    skos:member orcp:Request .
+
+
+## Legal Basis profile concepts
+
+<http://example.com/odrl:profile:regulatory-compliance/#LegalBasis>
+    a skos:Collection ;
+    skos:prefLabel "Legal Basis"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:LegalBasis ;
+    skos:member orcp:uid ;
+    skos:member orcp:Consent ;
+    skos:member orcp:Contract ;
+    skos:member orcp:LegalObligation ;
+    skos:member orcp:VitalInterest ;
+    skos:member orcp:PublicInterest ;
+    skos:member orcp:LegitimateInterest .
+
+
+## Purpose profile concepts
+
+<http://example.com/odrl:profile:regulatory-compliance/#Purpose>
+    a skos:Collection ;
+    skos:prefLabel "Purpose of processing"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:Purpose ;
+    skos:member orcp:uid ;
+    skos:member orcp:SpecifiedExplicitAndLegitimatePurposes .
+
+
+## Action
+
+<http://example.com/odrl:profile:regulatory-compliance/#Action>
+    a skos:Collection ;
+    skos:prefLabel "Action"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:Action ;
+    skos:member orcp:action ;
+    skos:member orcp:includedIn ;
+    skos:member orcp:implies ;
+    skos:member orcp:refinement ;
+    skos:member orcp:Use ;
+    skos:member orcp:Transfer ;
+    skos:member orcp:Verify .
+
+
+<http://example.com/odrl:profile:regulatory-compliance/#ActionProfileConcepts>
+    a skos:Collection ;
+    skos:prefLabel "Actions Profile Concepts"@en ;
+    skos:scopeNote "ODRL Common Vocabulary Terms"@en ;
+    skos:member orcp:Process ;
+    skos:member orcp:Collect ;
+    skos:member orcp:TransferToAThirdCountry ;
+    skos:member orcp:TransferToAnInternationalOrganisation ;
+    skos:member orcp:VerifyProvidedForBy ;
+    skos:member orcp:VerifyMadeAvailableBy ;
+    skos:member orcp:VerifyAdoptedBy ;
+    skos:member orcp:VerifyApprovedBy.
+
+
+## Resource
+
+<http://example.com/odrl:profile:regulatory-compliance/#Resource>
+    a skos:Collection ;
+    skos:prefLabel "Resource"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:Resource ;
+    skos:member orcp:uid ;
+    skos:member orcp:ResourceCollection ;
+    skos:member orcp:source ;
+    skos:member orcp:partOf ;
+    skos:member orcp:hasPolicy .
+
+
+## resource roles
+<http://example.com/odrl:profile:regulatory-compliance/#ResourceProfileRoles>
+    a skos:Collection ;
+    skos:prefLabel "Resource Profile Roles"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:target .
+
+
+## resource profile concepts
+
+<http://example.com/odrl:profile:regulatory-compliance/#ResourceProfileConcepts>
+    a skos:Collection ;
+    skos:prefLabel "Resource Profile Concepts"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:PersonalData ;
+    skos:member orcp:ADecisionPursuantToArticle45 ;
+    skos:member orcp:EffectiveLegalRemedies ;
+    skos:member orcp:EnforceableDataSubjectRights ;
+    skos:member orcp:LegallyBindingAndEnforceableInstrument ;
+    skos:member orcp:BindingCorporateRules ;
+    skos:member orcp:StandardProtectionClauses ;
+    skos:member orcp:ApprovedCodeOfConduct ;
+    skos:member orcp:BindingEnforceableCommitments ;
+    skos:member orcp:AuthorisationFromTheCompetentSuperviosryAuthority ;
+    skos:member orcp:ProvisionsToBeInsertedIntoAdministrariveAgreements ;
+    skos:member orcp:AuthorisationsOnTheBasisOfArticle26-2-Directive95-46-EC ;
+    skos:member orcp:DecisionsOnTheBasisOfArticle26-4-Directive95-46-EC ;
+    skos:member orcp:DecisionsOnTheBasisOfArticle46-2-GDPR .
+  
+
+
+## Party
+
+<http://example.com/odrl:profile:regulatory-compliance/#Party>
+    a skos:Collection ;
+    skos:prefLabel "Party"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:Party ;
+    skos:member orcp:uid ;
+    skos:member orcp:PartyCollection ;
+    skos:member orcp:source ;
+    skos:member orcp:partOf .
+
+
+<http://example.com/odrl:profile:regulatory-compliance/#PartyProfileConcepts>
+    a skos:Collection ;
+    skos:prefLabel "Party subclasses"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:Party ;
+    skos:member orcp:DataSubject ;
+    skos:member orcp:Controller ;
+    skos:member orcp:Processor ;
+    skos:member orcp:SupervisoryAuthority ;
+    skos:member orcp:PublicAuthority ;
+    skos:member orcp:PublicBody ;
+    skos:member orcp:InternationalOrganisation .
+
+
+<http://example.com/odrl:profile:regulatory-compliance/#PartyProfileRoles>
+    a skos:Collection ;
+    skos:prefLabel "Party Functions"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:controller ;
+    skos:member orcp:processor ;
+    skos:member orcp:sender ;
+    skos:member orcp:recipient ;
+    skos:member orcp:agreementParty1 ;
+    skos:member orcp:agreementParty2 ;
+    skos:member orcp:responsibleParty .
+
+
+## Constraints
+
+<http://example.com/odrl:profile:regulatory-compliance/#constraints>
+    a skos:Collection ;
+    skos:prefLabel "Constraint"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:Constraint ;
+    skos:member orcp:constraint ;
+    skos:member orcp:Operator ;
+    skos:member orcp:operator ;
+    skos:member orcp:RightOperand ;
+    skos:member orcp:rightOperand ;
+    skos:member orcp:LeftOperand ;
+    skos:member orcp:leftOperand .
+
+
+<http://example.com/odrl:profile:regulatory-compliance/#logicalConstraints>
+    a skos:Collection ;
+    skos:prefLabel "Logical Constraint"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:LogicalConstraint ;
+    skos:member orcp:operand .
+
+<http://example.com/odrl:profile:regulatory-compliance/#constraintLogicalOperands>
+    a skos:Collection ;
+    skos:prefLabel "Logical Constraint Operands"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:or ;
+    skos:member orcp:and .
+
+<http://example.com/odrl:profile:regulatory-compliance/#constraintRelationalOperators>
+    a skos:Collection ;
+    skos:prefLabel "Constraint Operators"@en ;
+    skos:scopeNote "ODRL Regulatory Compliance Profile Vocabulary Terms"@en ;
+    skos:member orcp:isA ;
+    skos:member orcp:isAnyOf .
+
+
+## ODRL Regulatory Compliance Profile
+
+######################################################################
+## shared roles
+######################################################################
+
+
+##===========
+## uid role (common to several classes)
+##==========
+
+orcp:uid
+	a rdf:Property, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/> ;
+	rdfs:label "Unique Identifier"@en ;
+	skos:definition "An unambiguous identifier"@en ;
+	skos:note "Used by all Classes."@en ;
+	rdfs:domain [
+		a owl:Class ;
+		owl:unionOf ( orcp:Policy orcp:Resource orcp:Rule orcp:Action orcp:Party orcp:Constraint orcp:ConflictTerm ) ;
+	] .
+
+
+##==========
+## permission, prohibition, obligation, dispensation and request roles (common to Policy and Rule)
+##==========
+
+orcp:permission
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Has Permission"@en ;
+	skos:definition "Relates an individual Permission to a Policy."@en ;
+	rdfs:domain orcp:Policy ;
+	rdfs:range orcp:Permission .
+
+orcp:prohibition
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Has Prohibition"@en ;
+	skos:definition "Relates an individual Prohibition to a Policy."@en ;
+	rdfs:domain orcp:Policy ;
+	rdfs:range orcp:Prohibition.
+
+orcp:obligation
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Has Prohibition"@en ;
+	skos:definition "Relates an individual Obligation to a Policy."@en ;
+	rdfs:domain orcp:Policy ;
+	rdfs:range orcp:Obligation.
+
+orcp:dispensation
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Has Prohibition"@en ;
+	skos:definition "Relates an individual Dispensation to a Policy."@en ;
+	rdfs:domain orcp:Policy ;
+	rdfs:range orcp:Dispensation.
+
+
+####################################################################
+## Policy Concept
+####################################################################
+
+orcp:Policy
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Policy"@en ;
+	skos:definition "A non-empty group of Permissions, Prohibitions, Obligations and/or Dispensations."@en ;
+	skos:note "A Policy may contain multiple Rules."@en .
+
+
+##==========
+## Policy properties
+##==========
+
+orcp:inheritFrom
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Inherits From"@en ;
+	skos:definition "Relates a (child) policy to another (parent) policy from which terms are inherited."@en ;
+	skos:note "The child policy will inherit Rules from the parent policy"@en ;
+	rdfs:domain orcp:Policy ;
+	rdfs:range orcp:Policy .
+
+orcp:profile
+	a rdf:Property, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Profile"@en ;
+	skos:definition "The identifier(s) of an ODRL Profile that the Policy conforms to."@en ;
+	skos:note "The profile property is mandatory if the Policy is using an ODRL Profile."@en ;
+	rdfs:domain orcp:Policy .
+
+
+orcp:conflict
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Handle Policy Conflicts"@en ;
+	skos:definition "The conflict-resolution strategy for a Policy."@en ;
+	skos:note "If no strategy is specified, the default is invalid."@en ;
+	rdfs:domain orcp:Policy ;
+	rdfs:range orcp:ConflictTerm .
+
+
+##==========
+## Policy subclasses
+##==========
+
+orcp:Set
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:subClassOf orcp:Policy ;
+	rdfs:label "Set"@en ;
+	skos:definition "A Policy that expresses a Rule over an Asset."@en ;
+	skos:note "A Set Policy MUST contain at least one Rule.)."@en .
+
+
+####################################################################
+## Conflict terms
+####################################################################
+
+orcp:ConflictTerm
+	a rdfs:Class, owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+     skos:definition "Used to establish strategies to resolve conflicts that arise from the merging of Policies or conflicts between Permissions, Obligations and Prohibitions in the same Policy."@en ;
+     skos:note "Instances of ConflictTerm describe strategies for resolving conflicts."@en ;
+	rdfs:label "Conflict Strategy Preference"@en .
+
+
+##==========
+## ConflictTerm subclasses
+##==========
+
+orcp:perm
+	a orcp:ConflictTerm, owl:NamedIndividual, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Prefer Permissions/Obligations"@en ;
+     skos:definition "Permissions/Obligations take preference over prohibitions."@en ;
+     skos:note "Used to determine policy conflict outcomes."@en .
+
+orcp:prohibit
+	a orcp:ConflictTerm, owl:NamedIndividual, skos:Concept;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Prefer Prohibitions"@en ;
+     skos:definition "Prohibitions take preference over permissions/obligations."@en ;
+	skos:note "Used to determine policy conflict outcomes."@en .
+
+orcp:invalid
+	a orcp:ConflictTerm, owl:NamedIndividual, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Void Policy"@en ;
+	skos:definition "The policy is void."@en ;
+	skos:note "Used to indicate the policy is void for Conflict Strategy."@en ;
+     skos:scopeNote "Non-Normative"@en .
+
+
+####################################################################
+## Rule
+####################################################################
+
+
+orcp:Rule
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Rule"@en ;
+	skos:definition "An abstract concept that represents the common characteristics of Permissions, Prohibitions, Obligations and Dispensations."@en ;
+	skos:note "Rule is an abstract concept."@en .
+
+
+##==========
+## Rule properties
+##==========
+
+orcp:relation
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Relation"@en ;
+	skos:definition "Relation is an abstract property which creates an explicit link between an Action and an Resource."@en ;
+	skos:note "Sub-properties of relation are used to define the nature of that link."@en ;
+	rdfs:domain [
+		a owl:Class ;
+		owl:unionOf ( orcp:Rule orcp:Policy ) ;
+	] ;
+	rdfs:range orcp:Resource .
+
+orcp:data
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subPropertyOf orcp:relation ;
+	rdfs:label "Target"@en ;
+	skos:definition "The data property indicates the Resource that is the primary subject to which the Rule action directly applies."@en ;
+	rdfs:domain [
+		a owl:Class ;
+		owl:unionOf ( orcp:Rule orcp:Policy ) ;
+	] ;
+	rdfs:range orcp:Resource .
+
+orcp:function
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Function"@en ;
+	skos:definition "Function is an abstract property whose sub-properties define the functional roles which may be fulfilled by a party in relation to a Rule."@en ;
+	rdfs:domain [
+		a owl:Class ;
+		owl:unionOf ( orcp:Rule orcp:Policy ) ;
+	] ;
+	rdfs:range orcp:Party .
+
+orcp:action
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Has Action"@en ;
+	skos:definition "The operation relating to the Resource for which the Rule is being subjected."@en ;
+	rdfs:domain [
+		a owl:Class ;
+		owl:unionOf ( orcp:Rule orcp:Policy ) ;
+	] ;
+	rdfs:range orcp:Action .
+
+orcp:constraint
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Has Constraint"@en ;
+	skos:definition "Constraint applied to a Rule"@en ;
+	skos:note "Constraints on Rules are used to determine if a rule is Active or not."@en ;
+	rdfs:domain [
+		a owl:Class ;
+		owl:unionOf ( orcp:Rule orcp:Policy ) ;
+	] ;
+	rdfs:range [
+		a owl:Class ;
+		owl:unionOf ( orcp:Constraint orcp:LogicalConstraint ) ;
+	] .
+
+orcp:purpose
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Purpose"@en ;
+	skos:definition "The purpose of the action."@en ;
+	rdfs:domain orcp:Rule;
+	rdfs:range orcp:Purpose .
+
+orcp:legalBasis
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Legal Basis"@en ;
+	skos:definition "The legal basis for the action."@en ;
+	rdfs:domain orcp:Rule;
+	rdfs:range orcp:LegalBasis .
+
+##==========
+## Rule subclasses
+##==========
+
+orcp:Permission
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Rule ;
+	owl:disjointWith orcp:Prohibition, orcp:Obligation, orcp:Dispensation, orcp:Request ;
+	rdfs:label "Permission"@en ;
+	skos:definition "The ability to perform an Action over an Resource."@en .
+
+orcp:Prohibition
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Rule ;
+	owl:disjointWith orcp:Permission, orcp:Obligation, orcp:Dispensation, orcp:Request ;
+	rdfs:label "Prohibition"@en ;
+	skos:definition "The inability to perform an Action over an Resource."@en .
+
+orcp:Obligation
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Rule ;
+	owl:disjointWith orcp:Permission, orcp:Prohibition, orcp:Dispensation, orcp:Request ;
+	rdfs:label "Obligation"@en ;
+     skos:definition "The obligation to perform an Action"@en .
+
+orcp:Dispensation
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Rule ;
+	owl:disjointWith orcp:Permission, orcp:Prohibition, orcp:Obligation, orcp:Request ;
+	rdfs:label "Dispensation"@en ;
+     skos:definition "A dispensation to an obligation"@en .
+
+
+####################################################################
+## Legal Basis 
+####################################################################
+
+orcp:LegalBasis
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Legal Basis for processing"@en ;
+	skos:definition "The legal basis for the action."@en .
+
+##==========
+## LegalBasis subclasses
+##==========
+
+orcp:Consent
+	a rdfs:legalBasis, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:LegalBasis ;
+	rdfs:label "Legal Basis for processing is consent"@en ;
+	skos:definition "Legal Basis for processing is consent"@en .
+
+orcp:Contract
+	a rdfs:legalBasis, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:LegalBasis ;
+	rdfs:label "Legal Basis for processing is a contract"@en ;
+	skos:definition "Legal Basis for processing is a contract"@en  .
+
+orcp:LegalObligation
+	a rdfs:legalBasis, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:LegalBasis ;
+	rdfs:label "Legal Basis for processing is a legal obligation"@en ;
+	skos:definition "Legal Basis for processing is a legal obligation"@en .
+
+orcp:VitalInterest
+	a rdfs:legalBasis, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:LegalBasis ;
+	rdfs:label "Legal Basis for processing is vital interest"@en ;
+	skos:definition "Legal Basis for processing is vital interest"@en  .
+
+orcp:PublicInterest
+	a rdfs:legalBasis, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:LegalBasis ;
+	rdfs:label "Legal Basis for processing is public interest"@en ;
+	skos:definition "Legal Basis for processing is public interest"@en .
+
+orcp:LegitimateInterest
+	a rdfs:legalBasis, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:LegalBasis ;
+	rdfs:label "Legal Basis for processing is legitimate interest"@en ;
+	skos:definition "Legal Basis for processing is legitimate interest"@en .
+
+
+####################################################################
+## Purpose property and class
+####################################################################
+
+orcp:Purpose
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Purpose of processing"@en ;
+	skos:definition "Purpose of processing"@en .
+
+##==========
+## Purpose Subclasses
+##==========
+
+orcp:SpecifiedExplicitAndLegitimatePurposes
+	a orcp:Purpose, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Specified Explicit and Legitimate purposes"@en ;
+	skos:definition "Specified Explicit and Legitimate purposes"@en .
+
+
+####################################################################
+## Actions
+####################################################################
+
+orcp:Action
+	a rdfs:Class, owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	skos:definition "An operation on an Resource."@en ;
+	skos:note "Actions may be allowed by Permissions, disallowed by Prohibitions, made mandatory by Obligations, or made optional by Dispensations."@en ;
+	rdfs:subClassOf schema:Action ;
+	rdfs:label "Action"@en .
+
+
+##==========
+## Action properties
+##==========
+
+
+
+
+##==========
+## Action Subclasses
+##==========
+
+orcp:Processing
+	a orcp:Action, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Use"@en ;
+	skos:definition "To process something"@en ;
+	skos:note "To process something"@en .
+
+
+orcp:Transfer
+	a orcp:Action, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "To transfer something"@en ;
+	skos:definition "To transfer something"@en .
+
+##==========
+## Action GDPR Concepts
+##==========
+
+orcp:ProcessingEffectingFundamentalRightsAndFreedomsOfTheDataSubject
+	a orcp:Processing, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Processing Effecting Fundamental Rights And Freedoms Of The Data Subject"@en ;
+	skos:definition "Processing Effecting Fundamental Rights And Freedoms Of The Data Subject"@en .
+
+
+######################################################################
+## Resources
+######################################################################
+
+orcp:Resource
+	a rdfs:Class , owl:Class, skos:Concept;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;
+	rdfs:label "Resource"@en ;
+	skos:definition "An object associated with a rule"@en ;
+     skos:note "An object associated with a rule"@en .
+
+##==========
+## Resource properties
+##==========
+
+orcp:hasPolicy
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Target Policy"@en ;
+	skos:definition "Identifies an ODRL Policy for which the identified Resource is the target Resource to all the Rules."@en ;
+	skos:note "The Resource being identified MUST be inferred to be the resource of all of the Rules of the Policy."@en ;
+     rdfs:domain orcp:Resource ;
+	rdfs:range orcp:Policy .
+
+##==========
+## Resource subclasses
+##==========
+
+
+##==========
+## Resource GDPR Concepts
+##==========
+
+orcp:PersonalData
+  a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Resource ;
+	rdfs:label "Personal data resource"@en ;
+	skos:definition "Personal data resource"@en .
+
+
+
+orcp:EffectiveLegalRemedies
+  a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Resource ;
+	rdfs:label "Effective Legal Remedies resource"@en ;
+	skos:definition "Effective Legal Remedies resource"@en .
+
+
+orcp:EnforceableDataSubjectRights
+  a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Resource ;
+	rdfs:label "Enforceable Data Subject Rights resource"@en ;
+	skos:definition "TBA."@en .
+
+
+orcp:LegallyBindingAndEnforceableInstrument
+  a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Resource ;
+	rdfs:label "Legally Binding And Enforceable Instrument resource"@en ;
+	skos:definition "Legally Binding And Enforceable Instrument resource"@en .
+
+
+orcp:BindingCorporateRules
+  a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Resource ;
+	rdfs:label "Binding Corporate Rules Resource"@en ;
+	skos:definition  "Binding Corporate Rules Resource"@en .
+
+
+orcp:StandardProtectionClauses  a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Resource ;
+	rdfs:label "Standard Protection Clauses Resource"@en ;
+	skos:definition "Standard Protection Clauses Resource"@en .
+
+
+orcp:ApprovedCodeOfConduct  a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Resource ;
+	rdfs:label "Approved Code Of Conduct Resource"@en ;
+	skos:definition "Approved Code Of Conduct Resource"@en .
+
+
+##==========
+## Party GDPR properties
+##==========
+
+
+
+####################################################################
+## Parties (as per ODRL no need to update)
+####################################################################
+
+orcp:Party
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Party"@en ;
+	skos:definition "An entity or a collection of entities that undertake Roles in a Rule."@en ;
+	rdfs:subClassOf [
+		a owl:Class ;
+		owl:unionOf ( schema:Person schema:Organization foaf:Person foaf:Organization foaf:Agent vcard:Individual vcard:Organization vcard:Agent ) ;
+	];
+	skos:note "The Party entity could be a person, group of people, organisation, or agent. An agent is a person or thing that takes an active role or produces a specified effect. To describe more details about the Party, it is recommended to use W3C vCard Ontology [[vcard-rdf]] or FOAF Vocabulary [[foaf]]."@en .
+
+
+##==========
+## Party subclasses
+##==========
+
+
+##==========
+## Party GDPR properties
+##==========
+
+orcp:controller
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subPropertyOf orcp:function ;
+	rdfs:label "Controller"@en ;
+	skos:definition "TBA."@en ;
+	rdfs:domain orcp:Rule;
+	rdfs:range orcp:Party .
+
+orcp:processor
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subPropertyOf orcp:function ;
+	rdfs:label "Processor"@en ;
+	skos:definition "TBA."@en ;
+	rdfs:domain orcp:Rule;
+	rdfs:range orcp:Party .
+
+orcp:sender
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subPropertyOf orcp:function ;
+	rdfs:label "Sender"@en ;
+	skos:definition "TBA."@en ;
+	rdfs:domain orcp:Rule;
+	rdfs:range orcp:Party .
+
+orcp:recipient
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subPropertyOf orcp:function ;
+	rdfs:label "Recipient"@en ;
+	skos:definition "TBA."@en ;
+	rdfs:domain orcp:Rule;
+	rdfs:range orcp:Party .
+
+orcp:responsibleParty
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subPropertyOf orcp:function ;
+	rdfs:label "Responsible Party"@en ;
+	skos:definition "TBA."@en ;
+	rdfs:domain orcp:Rule;
+	rdfs:range orcp:Party .
+
+##==========
+## Party GDPR classes
+##==========
+
+
+orcp:Controller  a orcp:Party, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Party ;
+	rdfs:label "Data Controller"@en ;
+	skos:definition "Data Controller"@en  .
+
+
+orcp:Processor  a orcp:Party, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Party ;
+	rdfs:label "Data Processor"@en ;
+	skos:definition "Data Processor"@en .
+
+
+orcp:PublicAuthority  a orcp:Party, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Party ;
+	rdfs:label "Public Authority"@en ;
+	skos:definition "Public Authority."@en .
+
+
+orcp:InternationalOrganisation  a orcp:Party, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Party ;
+	rdfs:label "International Organisation"@en ;
+	skos:definition "International Organisation."@en .
+
+
+####################################################################
+## Constraints
+####################################################################
+
+
+orcp:Constraint
+	a rdfs:Class, owl:Class, skos:Concept ;
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:label "Constraint"@en ;
+	skos:definition "A boolean expression that refines the semantics of an Action and Party/Resource Collection or declare the conditions applicable to a Rule."@en .
+
+orcp:PredicateConstraint
+	rdfs:isDefinedBy <http://example.com/odrl:profile:regulatoryCompliance/>;;
+	rdfs:subClassOf orcp:Constraint ;
+	rdfs:label "Predicate Constraint"@en ;
+	skos:definition "Predicate Constraint"@en .
+
+
+orcp:rightOperand
+	a rdf:Property, owl:DatatypeProperty, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Has Right Operand"@en ;
+	skos:definition "The value of the right operand in a constraint expression."@en ;
+    skos:note "When used with set-based operators, a list of values may be used."@en ;
+	rdfs:range [
+		a owl:Class ;
+		owl:unionOf ( orcp:RightOperand rdfs:Literal xsd:anyURI ) ;
+	] ;
+	rdfs:domain orcp:Constraint .
+
+orcp:leftOperand
+	a rdf:Property, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Has Left Operand"@en ;
+	skos:definition "The left operand in a constraint expression."@en ;
+	rdfs:range orcp:LeftOperand ;
+	rdfs:domain orcp:Constraint .
+
+
+orcp:operand
+	a rdf:Property , owl:ObjectProperty, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Operand"@en ;
+	skos:definition "Operand is an abstract property for a logical relationship."@en ;
+	skos:note "Sub-properties of operand are used for Logical Constraints."@en ;
+	rdfs:domain orcp:LogicalConstraint .
+
+
+
+##==========
+## LeftOperand
+##==========
+
+orcp:LeftOperand
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Left Operand"@en ;
+	skos:definition "Left operand for a constraint expression."@en ;
+	skos:note "Instances of the LeftOperand class are used as the leftOperand of a Constraint."@en .
+
+##==========
+## RightOperand
+##==========
+
+orcp:RightOperand
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Right Operand"@en ;
+	skos:definition "Right operand for constraint expression."@en ;
+	skos:note "Instances of the RightOperand class are used as the rightOperand of a Constraint."@en .
+
+##==========
+## Operator
+##==========
+
+orcp:Operator
+	a rdfs:Class , owl:Class, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	rdfs:label "Operator"@en ;
+	skos:definition "Operator for constraint expression."@en ;
+	skos:note "Instances of the Operator class representing relational operators."@en .
+
+orcp:isA
+	a orcp:Operator, owl:NamedIndividual, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	skos:definition "A set-based operator indicating that a given value is an instance of the right operand of the Constraint."@en ;
+	rdfs:label "Is a"@en .
+
+
+orcp:isAnyOf
+	a orcp:Operator, owl:NamedIndividual, skos:Concept ;
+	rdfs:isDefinedBy odrl: ;
+	skos:definition "A set-based operator indicating that a given value is any of the right operand of the Constraint."@en ;
+	rdfs:label "Is any of"@en .
+
+
+####################################################################
+## Declaration of annotation properties to keep the ontology within OWL DL
+####################################################################
+
+	skos:broader rdf:type owl:AnnotationProperty .
+	skos:member rdf:type owl:AnnotationProperty .
+	skos:note rdf:type owl:AnnotationProperty .
+	skos:scopeNote rdf:type owl:AnnotationProperty .
+	skos:prefLabel rdf:type owl:AnnotationProperty .
+	skos:definition rdf:type owl:AnnotationProperty .
+	skos:broaderTransitive rdf:type owl:AnnotationProperty .
+	skos:hasTopConcept rdf:type owl:AnnotationProperty .
+	dct:contributor rdf:type owl:AnnotationProperty .
+	dct:license rdf:type owl:AnnotationProperty .
+	dct:issued rdf:type owl:AnnotationProperty .
+	dct:subject rdf:type owl:AnnotationProperty .
+	dct:creator rdf:type owl:AnnotationProperty .
+	dct:description rdf:type owl:AnnotationProperty .
+	dct:isVersionOf rdf:type owl:AnnotationProperty .
+	dct:format rdf:type owl:AnnotationProperty .
+	skos:Collection a owl:Class .
+	skos:Concept a owl:Class .
+	skos:ConceptScheme a owl:Class .

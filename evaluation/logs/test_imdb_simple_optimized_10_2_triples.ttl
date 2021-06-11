@@ -1,0 +1,120 @@
+@base          <http://example.org/random> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+save-ex:test_8_2_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not permitted" ;
+                                     save:answerProhibited  "not prohibited"
+                                   ] .
+
+save-ex:test_3_2_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not permitted" ;
+                                     save:answerProhibited  "not prohibited"
+                                   ] .
+
+save-ex:test_5_2_opt  save:prohibitedBy
+                [ a                             save-ex:RuleIntersection ;
+                  save:actionClassIntersection  dpv:Processing ;
+                  save:actionIntersection       save:Erase , save:Destruct ;
+                  save:answer                   "prohibited" ;
+                  save:controllerIntersection   save-ex:IMDB ;
+                  save:dataClassIntersection    dpv:PersonalDataCategory ;
+                  save:dataIntersection         save:DeviceApplications ;
+                  save:rule                     save-ex:IMDBProhibition6 ;
+                  save:senderIntersection       save-ex:ChildUser
+                ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_7_2_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not permitted" ;
+                                     save:answerProhibited  "not prohibited"
+                                   ] .
+
+save-ex:test_2_2_opt  save:prohibitedBy
+                [ a                             save-ex:RuleIntersection ;
+                  save:actionClassIntersection  dpv:Use ;
+                  save:actionIntersection       save:Retrieve ;
+                  save:answer                   "prohibited" ;
+                  save:dataClassIntersection    dpv:PersonalDataCategory ;
+                  save:dataIntersection         save:Intention ;
+                  save:processorIntersection    save-ex:Agent ;
+                  save:rule                     save-ex:IMDBProhibition3
+                ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Retrieve ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Intention ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness , save:ImproveExistingProductsAndServices , save:InternalResourceOptimisation , save:ImproveInternalCRMProcesses ;
+                             save:rule                      save-ex:IMDBProhibition3_ConflictFree
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "partly-prohibited"
+                           ] .
+
+save-ex:test_9_2_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not permitted" ;
+                                     save:answerProhibited  "not prohibited"
+                                   ] .
+
+save-ex:test_4_2_opt  save:prohibitedBy
+                [ a                              save-ex:RuleIntersection ;
+                  save:answer                    "prohibited" ;
+                  save:purposeClassIntersection  dpv:CommercialInterest ;
+                  save:purposeIntersection       save:PersonalisedAdvertising ;
+                  save:rule                      save-ex:IMDBProhibition7
+                ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_10_2_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_6_2_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not permitted" ;
+                                     save:answerProhibited  "not prohibited"
+                                   ] .
+
+save-ex:test_1_2_opt  save:result  [ a                      save-ex:RequestAnswer ;
+                                     save:answerPermitted   "not permitted" ;
+                                     save:answerProhibited  "not prohibited"
+                                   ] .

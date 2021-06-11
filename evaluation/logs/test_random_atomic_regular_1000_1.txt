@@ -1,0 +1,15 @@
+Experiment: test_random_atomic_regular_1000_1
+	Policy: save-ex:test_policy_1_1000
+	#Rules: 100
+	#Processed: 100
+	Atomic: true
+	Triples inferred: 415
+	Total exec time: 5846.0
+	Avg time per request: 70.9
+	Avg time per subrequest: 72.01
+	Count per # of subrequests: {1=100}
+	Avg time per # of subrequests: {1=70.9}
+	Count per # of atomic requests in a batch: null
+	Avg time per # of atomic requests in a batch: null
+	Count per # of simple rules in a policy: null
+	Avg time per # of simple rules in a policy: null

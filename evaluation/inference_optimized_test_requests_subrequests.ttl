@@ -1,0 +1,113 @@
+@base          <http://example.org/random> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+save-ex:Request_1_test_opt
+        a                        save-ex:RequestIMDBPolicy ;
+        save:actionList          ( save:Anonymise save:Derive save:Restrict save:Adapt save:Alter save:Analyse save:Copy save:Align save:Combine save:PseudoAnonymise ) ;
+        save:controllerList      ( save-ex:IMDB ) ;
+        save:dataList            ( save:LinkClicked save:BrowsingBehavior save:CallLog save:Attitude save:Like save:Personality save:Demeanor save:Name save:TVViewingBehavior save:AuthenticationHistory ) ;
+        save:hasDataSubjectList  ( save-ex:IMDBUser ) ;
+        save:purposeList         ( save:UsageAnalytics save:CommercialResearch save:AcademicResearch save:NonCommercialResearch save:CommunicationForCustomerCare ) .
+
+save-ex:Request_6_test_opt
+        a                        save-ex:RequestIMDBPolicy ;
+        save:actionList          ( save:MakeAvailable save:Move save:Transmit save:Disseminate save:Share save:DiscloseByTransmission ) ;
+        save:controllerList      ( save-ex:IMDB ) ;
+        save:dataList            ( save:Picture save:Username save:OfficialID save:UID save:Name save:Fingerprint save:Retina ) ;
+        save:hasDataSubjectList  ( save-ex:IMDBUser ) ;
+        save:legalBasisList      ( save:LegalObligation ) ;
+        save:purposeList         ( save:SellProductsToDataSubject save:DirectMarketing save:SellDataToThirdParties save:IdentityVerification save:FraudPreventionAndDetection save:SocialMediaMarketing save:SellTargettedAdvertisements save:SellInsightsFromData save:AccessControl save:PersonalisedAdvertising ) .
+
+save-ex:Request_2_test_opt
+        a                        save-ex:RequestIMDBPolicy ;
+        save:actionList          ( save:Retrieve ) ;
+        save:controllerList      ( save-ex:IMDB ) ;
+        save:dataList            ( save:Picture save:Name ) ;
+        save:hasDataSubjectList  ( save-ex:IMDBUser ) ;
+        save:purposeList         ( save:PersonalisedAdvertising ) .
+
+save-ex:Request_8_test_opt
+        a                        save-ex:RequestIMDBPolicy ;
+        save:actionList          ( save:Retrieve save:Analyse save:Consult save:Collect save:Store save:Profiling ) ;
+        save:controllerList      ( save-ex:IMDB ) ;
+        save:dataList            ( save:Username save:Password ) ;
+        save:hasDataSubjectList  ( save-ex:IMDBUser ) ;
+        save:purposeList         ( save:FraudPreventionAndDetection ) .
+
+save-ex:Request_4_test_opt
+        a                    save-ex:RequestIMDBPolicy ;
+        save:actionList      ( save:Share ) ;
+        save:controllerList  ( save-ex:IMDB ) ;
+        save:dataList        ( save:LinkClicked save:BrowsingBehavior save:CallLog save:Attitude save:Personality save:Demeanor save:TVViewingBehavior save:AuthenticationHistory ) ;
+        save:legalBasisList  ( save:Contract ) ;
+        save:purposeList     ( save:SellDataToThirdParties ) .
+
+save-ex:Request_10_test_opt
+        a                        save-ex:RequestIMDBPolicy ;
+        save:actionList          ( save:Retrieve ) ;
+        save:controllerList      ( save-ex:IMDB ) ;
+        save:dataList            ( save:EmailAddress save:TelephoneNumber save:PhysicalAddress ) ;
+        save:hasDataSubjectList  ( save-ex:IMDBUser ) ;
+        save:processorList       ( save-ex:Agent ) ;
+        save:purposeList         ( save:CommunicationForCustomerCare ) .
+
+save-ex:Request_7_test_opt
+        a                        save-ex:RequestIMDBPolicy ;
+        save:actionList          ( save:Retrieve save:Analyse save:Copy save:Consult save:Profiling ) ;
+        save:controllerList      ( save-ex:IMDB ) ;
+        save:dataList            ( save:EmailAddress save:TelephoneNumber save:PhysicalAddress ) ;
+        save:hasDataSubjectList  ( save-ex:IMDBUser ) ;
+        save:purposeList         ( save:DeliveryOfGoods ) .
+
+save-ex:Request_3_test_opt
+        a                        save-ex:RequestIMDBPolicy ;
+        save:actionList          ( save:Collect ) ;
+        save:controllerList      ( save-ex:IMDB ) ;
+        save:dataList            ( save:PINCode save:Password save:SecretText ) ;
+        save:hasDataSubjectList  ( save-ex:ChildUser ) ;
+        save:purposeList         ( save:IdentityVerification save:FraudPreventionAndDetection save:AccessControl ) .
+
+save-ex:Request_9_test_opt
+        a                        save-ex:RequestIMDBPolicy ;
+        save:actionList          ( save:Retrieve save:Analyse save:Consult save:Profiling ) ;
+        save:controllerList      ( save-ex:IMDB ) ;
+        save:dataList            ( save:DeviceApplications save:Country save:EmailAddress save:BrowserFingerprint save:DeviceOperatingSystem save:RoomNumber save:TelephoneNumber save:MACAddress save:IPAddress save:PhysicalAddress save:GPSCoordinate ) ;
+        save:hasDataSubjectList  ( save-ex:IMDBUser ) ;
+        save:processorList       ( save-ex:Agent ) ;
+        save:purposeList         ( save:CommercialResearch save:DirectMarketing save:SocialMediaMarketing save:PersonalisedAdvertising ) .
+
+save-ex:Request_5_test_opt
+        a                        save-ex:RequestIMDBPolicy ;
+        save:actionList          ( save:Collect save:Destruct save:Erase ) ;
+        save:controllerList      ( save-ex:IMDB ) ;
+        save:dataList            ( save:DeviceApplications save:BrowserFingerprint save:DeviceOperatingSystem save:MACAddress save:IPAddress ) ;
+        save:hasDataSubjectList  ( save-ex:IMDBUser ) ;
+        save:purposeList         ( save:UsageAnalytics save:RegistrationAuthentication save:DeliveryOfGoods save:OptimiseUserInterface save:IncreaseServiceRobustness save:ImproveExistingProductsAndServices save:InternalResourceOptimisation save:ImproveInternalCRMProcesses save:Payment save:CommunicationForCustomerCare ) .

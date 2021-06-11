@@ -1,0 +1,239 @@
+@base          <http://example.org/random> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+save-ex:test_3_1_17  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_3_1_11  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_9_1  save:answer  "prohibited" ;
+        save:nChildren    6 ;
+        save:nPermitted   0 ;
+        save:nProhibited  6 .
+
+save-ex:test_3_1_9  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_3_1_24  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_9_1_3  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition8 .
+
+save-ex:test_8_1  save:answer  "prohibited" ;
+        save:nChildren    28 ;
+        save:nPermitted   0 ;
+        save:nProhibited  7 .
+
+save-ex:test_3_1_3  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_7_1  save:answer  "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_3_1_31  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_8_1_19  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_6_1  save:answer  "not granted" ;
+        save:nChildren    25 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_3_1_16  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_3_1_29  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_5_1  save:answer  "prohibited" ;
+        save:nChildren    2 ;
+        save:nPermitted   0 ;
+        save:nProhibited  2 .
+
+save-ex:test_3_1_10  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_3_1_8  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_4_1  save:answer  "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_8_1_26  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_3_1_23  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_9_1_2  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition8 .
+
+save-ex:test_3_1  save:answer  "prohibited" ;
+        save:nChildren    36 ;
+        save:nPermitted   0 ;
+        save:nProhibited  36 .
+
+save-ex:test_3_1_2  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_2_1  save:answer  "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_3_1_30  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_3_1_15  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_1_1  save:answer  "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_3_1_28  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_5_1_1  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_8_1_12  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_3_1_7  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_3_1_22  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_9_1_1  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition8 .
+
+save-ex:test_3_1_35  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_7_1_0  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_3_1_1  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_8_1_6  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_8_1_17  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_3_1_14  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_3_1_27  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_5_1_0  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_3_1_6  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_3_1_21  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_9_1_0  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition8 .
+
+save-ex:test_3_1_34  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_10_1_4  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_3_1_19  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_3_1_0  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_8_1_16  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_3_1_13  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_3_1_26  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_9_1_5  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition8 .
+
+save-ex:test_3_1_5  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_10_1  save:answer  "prohibited" ;
+        save:nChildren    5 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_3_1_20  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_3_1_33  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_3_1_18  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_8_1_4  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition7 .
+
+save-ex:test_3_1_12  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_3_1_25  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3 , save-ex:IMDBProhibition3_ConflictFree .
+
+save-ex:test_9_1_4  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition8 .
+
+save-ex:test_3_1_4  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .
+
+save-ex:test_3_1_32  save:answer  "prohibited" ;
+        save:prohibitedBy  save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 .

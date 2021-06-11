@@ -1,0 +1,829 @@
+# baseURI: http://example.com/privacy-policy-model/
+# imports: http://datashapes.org/dash
+# imports: http://www.w3.org/2006/time#2016
+# imports: https://ai.wu.ac.at/policies/orcp/odrl_regulatory_profile.ttl
+# imports: https://www.w3.org/ns/dpv-gdpr.ttl
+# imports: https://www.w3.org/ns/dpv.ttl
+
+
+
+@prefix save-ex:      <http://example.com/privacy-policy-model/examples/> .
+@prefix save:      <http://example.com/privacy-policy-model/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix dash:  <http://datashapes.org/dash#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+
+
+save:       a                              owl:Ontology ;
+        rdfs:comment                   "This is the ontology file for SAVE ODRL Profile Version 0.1."@en ;
+        rdfs:label                     "SAVE - Semantic dAta priVacy modEl"@en ;
+        dct:abstract                   "After GDPR enforcement in May 2018, the problem of implementing privacy by design and staying compliant with regulations has been more prominent than ever for businesses of all sizes, which is evident from frequent cases against companies and significant fines paid due to non-compliance. Consequently, numerous research works have been emerging in this area. Yet, to this moment, no publicly available model can offer a comprehensive representation of privacy policies written in natural language, that is machine readable, interoperable and suitable for automatic compliance checking. Meanwhile, privacy policies stay one of the main means of communication between a business (Data Controller) and a Data Subject, when it comes to the use of personal data. We propose a conceptual model for fine-grained representation of privacy policies. We reuse and adapt existing Semantic Web resources in the spirit of interoperability. We represent our model as an ODRL profile and demonstrate how existing privacy policies can be translated into ODRL-like policies, consisting of deontic rules. We enrich our model with vocabularies for describing personal data processing in great detail, making it suitable for further usage in downstream applications, such as access control tools, to support adoption and implementation of privacy by design. We also demonstrate our model's capability of handling personal data processing rules in other types of documents, namely data processing agreements, essential for controlling data privacy in a relationship between a Controller and a Processor."@en ;
+        dct:contributor                "Sabri Skhiri"@en , "Anas Al Bassit"@en , "Majd Mustapha"@en ;
+        dct:creator                    "Katsiaryna Krasnashchok" ;
+        dct:description                "This is the ontology document for SAVE - Semantic dAta priVacy modEl, an ODRL profile synthesized from two existing resources - ODRL Regulatory Compliance Profile (ORCP) and Data Privacy Vocabulary (DPV). The model is created for detailed and operational representation of privacy policies, data processing agreements and other contracts specifying rules of hadnling personal data in terms of GDPR."@en ;
+        dct:license                    <https://www.w3.org/Consortium/Legal/2002/ipr-notice-20021231#Copyright/> ;
+        dct:title                      "SAVE - Semantic dAta priVacy modEl"@en ;
+        vann:preferredNamespacePrefix  "save"@en ;
+        owl:imports                    <http://datashapes.org/dash> , <https://www.w3.org/ns/dpv.ttl> , time:2016 , <https://www.w3.org/ns/dpv-gdpr.ttl> , <https://ai.wu.ac.at/policies/orcp/odrl_regulatory_profile.ttl> ;
+        owl:versionInfo                0.1 ;
+        sh:declare                     [ sh:namespace  "http://example.org/shacl_examples#"^^xsd:anyURI ;
+                                         sh:prefix     "ex"
+                                       ] .
+
+
+orcp:EffectiveLegalRemedies
+    rdfs:subClassOf  save:Resource .
+
+save:responsibleParty  a        owl:NamedIndividual , owl:ObjectProperty , skos:Concept ;
+                   rdfs:domain         [ a            owl:Class ;
+                                         owl:unionOf  ( orcp:Policy orcp:Rule )
+                                       ] ;
+                   rdfs:label          "Responsible Party" ;
+                   rdfs:range          save:Party ;
+                   rdfs:subPropertyOf  save:function ;
+                   skos:definition     "Responsible Party for an Action or an Obligation in a Rule." ;
+                   skos:note           "Originally defined by ORCP but redefined to assign new Range." .
+
+dpv-gdpr:A9-2-a  rdfs:subClassOf  orcp:Consent .
+
+save:dispensation  a         rdfs:Property , owl:NamedIndividual , owl:ObjectProperty ;
+               rdfs:domain      [ a            owl:Class ;
+                                  owl:unionOf  ( orcp:Policy orcp:Rule )
+                                ] ;
+               rdfs:label       "Dispensation" ;
+               rdfs:range       orcp:Dispensation ;
+               skos:definition  "Dispensation asigned to a Policy or a Rule." ;
+               skos:note        "Originally defined by ORCP, but redefined in SAVE to allow nested rules." .
+
+<http://example.com/privacy-policy-model/odrl-profile/#Party>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     orcp:uid , save:Party , save:function ;
+    skos:prefLabel  "Party" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+<http://example.com/privacy-policy-model/odrl-profile/#PurposeProfileSubclasses>
+    a               skos:Collection , owl:NamedIndividual ;
+    skos:member     dpv:UserInterfacePersonalisation , dpv:NonCommercialResearch , dpv:OptimisationForConsumer , dpv:ServiceProvision , dpv:OptimisationForController , dpv:SellDataToThirdParties , dpv:CreatePersonalizedRecommendations , dpv:ImproveInternalCRMProcesses , dpv:CreateEventRecommendations , dpv:ImproveExistingProductsAndServices , dpv:ResearchAndDevelopment , dpv:SellTargettedAdvertisements , dpv:AccessControl , dpv:IncreaseServiceRobustness , dpv:IdentityVerification , dpv:CommercialInterest , dpv:AcademicResearch , dpv:ServicePersonalization , dpv:SellInsightsFromData , dpv:CustomerCare , dpv:InternalResourceOptimisation , dpv:DeliveryOfGoods , dpv:FraudPreventionAndDetection , dpv:CreateProductRecommendations , dpv:ServiceConsumptionBehavior , dpv:TVViewingBehavior , dpv:ServiceOptimization , dpv:CommercialResearch , dpv:OptimiseUserInterface , dpv:PersonalisedBenefits , dpv:Security , dpv:SellProductsToDataSubject ;
+    skos:prefLabel  "Purpose profile subclasses" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+
+save:relation  a             rdfs:Property , owl:NamedIndividual , owl:ObjectProperty ;
+           rdfs:domain      [ a            owl:Class ;
+                              owl:unionOf  ( orcp:Policy orcp:Rule )
+                            ] ;
+           rdfs:label       "Relation" ;
+           rdfs:range       save:Resource ;
+           skos:definition  "An abstract property connecting Rule to Resource." ;
+           skos:note        "Originally defined by ORCP, but redefined to assign to a new Range." .
+
+save:data   a                   owl:ObjectProperty , owl:NamedIndividual , rdfs:Property , skos:Concept ;
+        rdfs:domain         [ a            owl:Class ;
+                              owl:unionOf  ( orcp:Policy orcp:Rule )
+                            ] ;
+        rdfs:label          "Data" ;
+        rdfs:range          dpv:PersonalDataCategory ;
+        rdfs:subPropertyOf  save:relation ;
+        skos:definition     "The target personal data type in the Rule or Policy." ;
+        skos:note           "Initially was defined in ORCP, but redefined for SAVE to assign a new Range." .
+
+save:sender  a                  owl:ObjectProperty , skos:Concept , owl:NamedIndividual , rdfs:Property ;
+         rdfs:domain         [ a            owl:Class ;
+                               owl:unionOf  ( orcp:Policy orcp:Rule )
+                             ] ;
+         rdfs:label          "Sender" ;
+         rdfs:range          save:Party ;
+         rdfs:subPropertyOf  save:function ;
+         skos:definition     "The sender of the personal data in the Rule." ;
+         skos:note           "Originally defined by ORCP but redefined to assign new Range." .
+
+
+orcp:VitalInterest  rdfs:subClassOf  save:LegalBasis .
+
+dpv:DataProcessor  rdfs:subClassOf  save:Party .
+
+<http://example.com/privacy-policy-model/odrl-profile/#Policy>
+    a               skos:Collection , owl:NamedIndividual ;
+    skos:member     save:dispensation , orcp:Set , orcp:inheritFrom , orcp:uid , orcp:hasPolicy , save:obligation , orcp:conflict , orcp:Policy , orcp:profile , save:prohibition , save:permission ;
+    skos:prefLabel  "Policy concepts" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+save:Resource  a             owl:Class , owl:NamedIndividual , skos:Concept ;
+           rdfs:label       "Resource" ;
+           skos:definition  "A personal data type associated with a Rule." ;
+           skos:note        "Originally defined by ORCP, and merged with DPV Personal Data Category." .
+
+orcp:isAnyOf  a  owl:NamedIndividual .
+
+<http://example.com/privacy-policy-model/odrl-profile/#PartyProfileRoles>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     save:sender , save:controller , save:recipient , save:hasDataSubject , save:processor , save:responsibleParty ;
+    skos:prefLabel  "Party profile roles" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+orcp:isA  a     owl:NamedIndividual .
+
+dpv-gdpr:A6-1-e  rdfs:subClassOf  orcp:PublicInterest .
+
+dpv-gdpr:A9-2-h  rdfs:subClassOf  save:LegalBasis .
+
+odrl:dateTime  a  orcp:LeftOperand , owl:NamedIndividual .
+
+orcp:StandardProtectionClauses   rdfs:subClassOf  save:Resource .
+
+save:conforms  a          owl:ObjectProperty ;
+             rdfs:domain     save:RequestBase ;
+             rdfs:label      "conforms" ;
+             rdfs:range      orcp:Permission ;
+             skos:prefLabel  "conforms" .
+
+
+orcp:PublicInterest  rdfs:subClassOf  save:LegalBasis .
+
+dpv-gdpr:A9-2-c  rdfs:subClassOf  orcp:VitalInterest .
+
+orcp:LegitimateInterest owl:equivalentClass  dpv-gdpr:A6-1-f .
+orcp:LegitimateInterest rdfs:subClassOf  save:LegalBasis .
+
+<http://example.com/privacy-policy-model/odrl-profile/#Resource>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     orcp:uid , save:Resource , save:relation ;
+    skos:prefLabel  "Resource" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+
+orcp:Request  a           owl:Class , skos:Concept , rdfs:Class ;
+              rdfs:label        "Request"@en ;
+              rdfs:subClassOf   orcp:Rule ;
+              owl:disjointWith  orcp:Obligation , orcp:Permission , orcp:Dispensation , orcp:Prohibition ;
+              skos:definition   "The structure of a Request."@en .
+
+<http://example.com/privacy-policy-model/odrl-profile/#LegalBasisProfileSubclasses>
+    a               skos:Collection , owl:NamedIndividual ;
+    skos:member     orcp:Contract , dpv-gdpr:A9-2-c , dpv-gdpr:A6-1-a-explicit-consent , dpv-gdpr:A9-2-d , dpv-gdpr:A9-2-f , orcp:LegalObligation , dpv-gdpr:A9-2-e , dpv-gdpr:A6-1-e , dpv-gdpr:A9-2-g , orcp:LegitimateInterest , dpv-gdpr:A9-2-h , dpv-gdpr:A9-2-i , dpv-gdpr:A9-2-a , dpv-gdpr:A6-1-f , dpv-gdpr:A6-1-b , dpv-gdpr:A6-1-a-non-explicit-consent , orcp:VitalInterest , orcp:PublicInterest , dpv-gdpr:A6-1-c , orcp:Consent , dpv-gdpr:A9-2-j , dpv-gdpr:A6-1-d , dpv-gdpr:A9-2-b ;
+    skos:prefLabel  "Legal Basis subclasses" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+<http://example.com/privacy-policy-model/odrl-profile/#Purpose>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     orcp:uid , save:purpose , dpv:Purpose ;
+    skos:prefLabel  "Purpose" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+orcp:legalBasis  a  owl:NamedIndividual , owl:ObjectProperty .
+
+
+save:permission  a           rdfs:Property , owl:NamedIndividual , owl:ObjectProperty ;
+             rdfs:domain      [ a            owl:Class ;
+                                owl:unionOf  ( orcp:Policy orcp:Rule )
+                              ] ;
+             rdfs:label       "Permission" ;
+             rdfs:range       orcp:Permission ;
+             skos:definition  "Permission assigned to a Rule" ;
+             skos:note        "Originally defined by ORCP, but redefined in SAVE to allow nested rules." .
+
+
+save:purpose  a              rdfs:Property , owl:NamedIndividual , owl:ObjectProperty , skos:Concept ;
+          rdfs:domain      [ a            owl:Class ;
+                             owl:unionOf  ( orcp:Policy orcp:Rule )
+                           ] ;
+          rdfs:label       "Purpose" ;
+          rdfs:range       dpv:Purpose ;
+          skos:definition  "A purpose for the processing of personal data." ;
+          skos:note        "Originally defined by ORCP, but redefined to assign new Range from DPV." .
+
+save:legalBasis  a           owl:NamedIndividual , owl:ObjectProperty , skos:Concept ;
+             rdfs:domain      [ a            owl:Class ;
+                                owl:unionOf  ( orcp:Policy orcp:Rule )
+                              ] ;
+             rdfs:label       "Legal Basis" ;
+             rdfs:range       save:LegalBasis ;
+             skos:definition  "Property to connect new Legal Basis concept with Rule." .
+
+<http://example.com/privacy-policy-model/odrl-profile/#ActionProfileSubclasses>
+    a               skos:Collection , owl:NamedIndividual ;
+    skos:member     dpv:Disseminate , dpv:Structure , dpv:Consult , dpv:Retrieve , dpv:Use , dpv:Transform , dpv:Combine , dpv:MakeAvailable , dpv:Acquire , dpv:Copy , dpv:Collect , dpv:Profiling , dpv:Obtain , dpv:Share , dpv:Remove , dpv:Record , dpv:Move , dpv:Align , dpv:Erase , dpv:Anonymise , dpv:Destruct , dpv:Adapt , dpv:Derive , dpv:Organise , dpv:Transmit , dpv:DiscloseByTransmission , dpv:Analyse , dpv:Alter , dpv:Transfer , dpv:Disclose , dpv:PseudoAnonymise , dpv:Store , dpv:Restrict ;
+    skos:prefLabel  "Action Profile Subclasses" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+dpv-gdpr:A9-2-j  rdfs:subClassOf  orcp:PublicInterest .
+
+orcp:EnforceableDataSubjectRights
+    rdfs:subClassOf  save:Resource .
+
+orcp:operator  a     owl:ObjectProperty ;
+               rdfs:domain  orcp:Constraint ;
+               rdfs:range   orcp:Operator .
+
+
+orcp:ApprovedCodeOfConduct   rdfs:subClassOf  save:Resource .
+
+dpv-gdpr:A9-2-e  rdfs:subClassOf  save:LegalBasis .
+
+dpv-gdpr:A6-1-b  rdfs:subClassOf  save:LegalBasis .
+
+<http://example.com/privacy-policy-model/odrl-profile/#TechnicalOrganisationalMeasureProfileSubclasses>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     dpv:Contract , dpv:PseudoAnonymization , dpv:RiskManagementProcedure , dpv:AuthenticationProtocols , dpv:OrganisationalMeasure , dpv:NDA , dpv:RegularityOfRecertification , dpv:LegalAgreement , dpv:DeIdentification , dpv:StorageDuration , dpv:Certification , dpv:StaffTraining , dpv:PrivacyByDefault , dpv:EncryptionInRest , dpv:StorageRestoration , dpv:CodeOfConduct , dpv:CertificationSeal , dpv:AccessControlMethod , dpv:PrivacyByDesign , dpv:AuthorisationProcedure , dpv:StorageRestriction , dpv:StorageDeletion , dpv:PseudonymisationEncryption , dpv:GuidelinesPrinciple , dpv:Anonymization , dpv:DesignStandard , dpv:EncryptionInTransfer , dpv:StorageLocation , dpv:TechnicalMeasure , dpv:Seal ;
+    skos:prefLabel  "Technical and Organisational Measures profile subclasses" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (adopted from DPV)" .
+
+<http://example.com/privacy-policy-model/odrl-profile/#ConflictTerm>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     orcp:ConflictTerm , orcp:conflict , orcp:invalid , orcp:perm , orcp:prohibit ;
+    skos:prefLabel  "Conflict Term" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (adopted from ODRL/ORCP)" .
+
+<http://example.com/privacy-policy-model/odrl-profile/#constraints>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     orcp:Constraint , orcp:operator , orcp:Operator , orcp:PredicateConstraint , orcp:LeftOperand , orcp:RightOperand ;
+    skos:prefLabel  "Constraint concepts" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (adopted from ORCP)" .
+
+orcp:processor  a  owl:NamedIndividual , owl:ObjectProperty .
+
+save:unitBusinessDay  a  owl:NamedIndividual , time:TemporalUnit .
+
+orcp:PublicAuthority  rdfs:subClassOf  save:Party .
+
+orcp:purpose  a  owl:NamedIndividual , owl:ObjectProperty .
+
+orcp:LegallyBindingAndEnforceableInstrument
+    rdfs:subClassOf  save:Resource .
+
+dpv-gdpr:A6-1-a-non-explicit-consent
+    rdfs:subClassOf  orcp:Consent .
+
+dpv-gdpr:A6-1-d  rdfs:subClassOf  orcp:VitalInterest .
+
+dpv-gdpr:A9-2-g  rdfs:subClassOf  orcp:PublicInterest .
+
+orcp:BindingCorporateRules
+    rdfs:subClassOf  save:Resource .
+
+orcp:InternationalOrganisation
+    rdfs:subClassOf  save:Party .
+
+save:obligation  a           rdfs:Property , owl:NamedIndividual , owl:ObjectProperty ;
+             rdfs:domain      [ a            owl:Class ;
+                                owl:unionOf  ( orcp:Policy orcp:Rule )
+                              ] ;
+             rdfs:label       "Obligation" ;
+             rdfs:range       orcp:Obligation ;
+             skos:definition  "Obligaion rule assigned to a Rule or a Policy." ;
+             skos:note        "Originally defined by ORCP, but redefined in SAVE to allow nested rules." .
+
+<http://example.com/privacy-policy-model/odrl-profile/#constraintRelationalOperators>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     orcp:isA , orcp:isAnyOf ;
+    skos:prefLabel  "Constraint Operators" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (adopted from ORCP)" .
+
+dpv-gdpr:A9-2-b  rdfs:subClassOf  save:LegalBasis .
+
+save:hasDataSubject  a          owl:NamedIndividual , owl:ObjectProperty , skos:Concept ;
+                 rdfs:domain         [ a            owl:Class ;
+                                       owl:unionOf  ( orcp:Policy orcp:Rule )
+                                     ] ;
+                 rdfs:label          "hasDataSubject" ;
+                 rdfs:range          dpv:DataSubject ;
+                 rdfs:subPropertyOf  save:function ;
+                 skos:definition     "A sub-property of function, that attaches a Data Subject to a Rule." ;
+                 skos:note           "Adopted from DPV, redefined to include new Domain." .
+
+orcp:Contract  owl:equivalentClass  dpv-gdpr:A6-1-b .
+
+
+save:controller  a              owl:ObjectProperty , owl:NamedIndividual , skos:Concept , rdfs:Property ;
+             rdfs:domain         [ a            owl:Class ;
+                                   owl:unionOf  ( orcp:Policy orcp:Rule )
+                                 ] ;
+             rdfs:label          "Controller" ;
+             rdfs:range          dpv:DataController ;
+             rdfs:subPropertyOf  save:function ;
+             skos:definition     "A Data Controller participating in the Rule." ;
+             skos:note           "Initially was defined by ORCP, and redefined in SAVE for having corresponfing DataController in the Range." .
+
+dpv:ThirdParty  rdfs:subClassOf  save:Party .
+
+save:hasTechnicalOrganisationalMeasure
+    a                rdfs:Property , owl:NamedIndividual , owl:ObjectProperty ;
+    rdfs:domain      [ a            owl:Class ;
+                       owl:unionOf  ( orcp:Policy orcp:Rule dpv:Consent dpv:PersonalDataHandling )
+                     ] ;
+    rdfs:label       "Techincal and Organisaional Measures" ;
+    rdfs:range       dpv:TechnicalOrganisationalMeasure ;
+    skos:definition  "Measures that need to be in place to provide lawful processing of personal data." ;
+    skos:note        "Originally defined by DPV and added to SAVE to be assigned to Rule or Policy." .
+
+<http://example.com/privacy-policy-model/odrl-profile/#logicalConstraints>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     orcp:LogicalConstraint , orcp:operand ;
+    skos:prefLabel  "Logical Constraint terms" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (adopted from ORCP)" .
+
+dpv:PersonalDataCategory  rdfs:subClassOf  save:Resource .
+
+
+save:Party  a                owl:Class , owl:NamedIndividual , skos:Concept ;
+        rdfs:label       "Party" ;
+        rdfs:subClassOf  [ a            owl:Class ;
+                           owl:unionOf  ( <http://schema.org/Organization> <http://schema.org/Person> <http://www.w3.org/2006/vcard/ns#Agent> <http://www.w3.org/2006/vcard/ns#Individual> <http://www.w3.org/2006/vcard/ns#Organization> <http://xmlns.com/foaf/0.1/Agent> <http://xmlns.com/foaf/0.1/Organization> <http://xmlns.com/foaf/0.1/Person> )
+                         ] ;
+        skos:definition  "An entity or a collection of entities that undertake Roles in a Rule." ;
+        skos:note        "The Party is initially defined by [[odrl]], but has been redefined here to merge with DPV classes." .
+
+save:processor  a               owl:NamedIndividual , owl:ObjectProperty , rdfs:Property , skos:Concept ;
+            rdfs:domain         [ a            owl:Class ;
+                                  owl:unionOf  ( orcp:Policy orcp:Rule )
+                                ] ;
+            rdfs:label          "Data Processor" ;
+            rdfs:range          dpv:DataProcessor ;
+            rdfs:subPropertyOf  save:function ;
+            skos:definition     "Data Processor as a Party connected to a Rule." ;
+            skos:note           "Originally defined by ORCP, but redefined to assign new Range from DPV." .
+
+dpv-gdpr:A9-2-i  rdfs:subClassOf  orcp:PublicInterest .
+
+dpv-gdpr:A6-1-f  rdfs:subClassOf  save:LegalBasis .
+
+
+save:recipient  a               owl:NamedIndividual , owl:ObjectProperty , skos:Concept ;
+            rdfs:domain         [ a            owl:Class ;
+                                  owl:unionOf  ( orcp:Policy orcp:Rule )
+                                ] ;
+            rdfs:label          "Recipient" ;
+            rdfs:range          save:Party ;
+            rdfs:subPropertyOf  save:function ;
+            skos:definition     "Recipient of the personal data in a Rule." ;
+            skos:note           "Originally defined by ORCP but redefined to assign new Range." .
+
+<http://example.com/privacy-policy-model/odrl-profile/#Action>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     orcp:uid , save:action , dpv:Processing ;
+    skos:prefLabel  "Action" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+save:prohibition  a          rdfs:Property , owl:NamedIndividual , owl:ObjectProperty ;
+              rdfs:domain      [ a            owl:Class ;
+                                 owl:unionOf  ( orcp:Policy orcp:Rule )
+                               ] ;
+              rdfs:label       "Prohibition" ;
+              rdfs:range       orcp:Prohibition ;
+              skos:definition  "Prohibition assigned to a Rule or a Policy." ;
+              skos:note        "Originally defined by ORCP, but redefined in SAVE to allow nested rules." .
+
+dpv-gdpr:A9-2-d  rdfs:subClassOf  save:LegalBasis .
+
+dpv:DataController  rdfs:subClassOf  save:Party .
+
+<http://example.com/privacy-policy-model/odrl-profile/#PartyProfileSubclasses>
+    a               skos:Collection , owl:NamedIndividual ;
+    skos:member     dpv:DataSubject , dpv:DataProcessor , orcp:PublicAuthority , dpv:ThirdParty , dpv:DataController , dpv:Child , orcp:InternationalOrganisation ;
+    skos:prefLabel  "Party profile subclasses" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+<http://example.com/privacy-policy-model/odrl-profile/#TechnicalOrganisationalMeasure>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     orcp:uid , save:hasTechnicalOrganisationalMeasure , dpv:TechnicalOrganisationalMeasure ;
+    skos:prefLabel  "Technical and Organisational Measures" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (adopted from DPV)" .
+
+dpv:DataSubject  rdfs:subClassOf  save:Party .
+
+odrl:lteq  a    orcp:Operator , owl:NamedIndividual .
+
+orcp:Consent  rdfs:subClassOf  save:LegalBasis .
+
+save:action  a           rdfs:Property , owl:NamedIndividual , owl:ObjectProperty , skos:Concept ;
+         rdfs:domain  [ a            owl:Class ;
+                        owl:unionOf  ( orcp:Policy orcp:Rule )
+                      ] ;
+         rdfs:range   dpv:Processing .
+
+save:LegalBasis  a           owl:Class , owl:NamedIndividual , skos:Concept ;
+             rdfs:label       "Legal Basis" ;
+             skos:definition  "Merged concept for free-form top-level and GDPR low-level concepts." .
+
+dpv-gdpr:A6-1-a-explicit-consent
+    rdfs:subClassOf  orcp:Consent .
+
+orcp:Contract rdfs:subClassOf  save:LegalBasis .
+
+<http://example.com/privacy-policy-model/odrl-profile/#LegalBasis>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     orcp:uid , save:LegalBasis , save:legalBasis ;
+    skos:prefLabel  "Legal Basis" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+
+orcp:data  a    owl:NamedIndividual , owl:ObjectProperty .
+
+<http://www.w3.org/2006/vcard/ns#Agent>
+    a       owl:Class .
+
+<http://example.com/privacy-policy-model/odrl-profile/#ResourceProfileSubclasses>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     dpv:Sexual , dpv:Fetish , dpv:Piercing , dpv:LinkClicked , orcp:ApprovedCodeOfConduct , dpv:VoiceCommunicationRecording , dpv:Weight , dpv:VoiceMail , dpv:External , dpv:PurchasesAndSpendingHabit , dpv:MedicalHealth , dpv:HealthRecord , dpv:IncomeBracket , dpv:Tattoo , dpv:Social , dpv:Acquantaince , dpv:Tracking , dpv:ProfessionalInterview , dpv:Relationship , dpv:Ethnicity , dpv:CreditWorthiness , dpv:HouseOwned , dpv:Criminal , dpv:Prescription , dpv:Association , dpv:Purchase , dpv:SpecialCategoryPersonalData , dpv:CarOwned , dpv:ReligiousBelief , orcp:BindingCorporateRules , dpv:BloodType , dpv:IPAddress , dpv:Character , dpv:CreditCapacity , dpv:Race , dpv:CriminalCharge , dpv:Username , dpv:FamilyStructure , dpv:SkinTone , dpv:Family , dpv:FavoriteColor , dpv:PhysicalAddress , dpv:Geographic , dpv:BankAccount , dpv:Biometric , dpv:Income , dpv:Communication , dpv:DeviceBased , dpv:Behavioral , dpv:CommunicationsMetadata , dpv:GeneralReputation , dpv:Password , dpv:Intention , dpv:Country , dpv:DrugTestResult , dpv:PersonalPossession , dpv:EthnicOrigin , dpv:Salary , dpv:DerivedPersonalData , dpv:UID , dpv:PublicLife , dpv:Favorite , dpv:BrowsingBehavior , dpv:CreditStanding , dpv:Dialect , dpv:SocialNetwork , dpv:Professional , dpv:AccountIdentifier , dpv:WorkHistory , dpv:Credit , dpv:PhilosophicalBelief , dpv:Religion , dpv:Transactional , dpv:FamilyHealthHistory , dpv:PoliticalAffiliation , dpv:CreditCardNumber , dpv:Demographic , dpv:FinancialAccountNumber , dpv:CriminalPardon , orcp:LegallyBindingAndEnforceableInstrument , dpv:Job , dpv:SocialStatus , dpv:SecretText , dpv:School , dpv:IndividualHealthHistory , dpv:Disability , dpv:RoomNumber , dpv:Financial , dpv:FavoriteFood , dpv:Certification , dpv:DNACode , dpv:Contact , dpv:Ownership , dpv:PrivacyPreference , dpv:Thought , dpv:Personality , dpv:Opinion , dpv:SocialMediaCommunication , dpv:GroupMembership , dpv:PersonalDataCategory , dpv:Preference , dpv:Transaction , dpv:Location , dpv:CallLog , dpv:Connection , dpv:Interest , dpv:Fingerprint , dpv:Sale , dpv:Internal , dpv:MACAddress , dpv:HairColor , dpv:Retina , dpv:FavoriteMusic , dpv:SexualHistory , dpv:EmploymentHistory , orcp:EnforceableDataSubjectRights , dpv:Accent , dpv:PhysicalHealth , dpv:PINCode , dpv:Height , dpv:Language , dpv:DisciplinaryAction , dpv:Identifying , dpv:Friend , dpv:BrowserFingerprint , dpv:ApartmentOwned , dpv:Gender , dpv:Proclivitie , dpv:FinancialAccount , dpv:ProfessionalEvaluation , dpv:SexualPreference , dpv:Demeanor , dpv:MaritalStatus , dpv:TelephoneNumber , dpv:PhysicalTrait , dpv:Age , dpv:Authenticating , dpv:Attitude , dpv:EmailContent , dpv:Interaction , dpv:HealthHistory , dpv:Picture , dpv:CreditScore , dpv:GPSCoordinate , dpv:Like , dpv:CreditRecord , orcp:StandardProtectionClauses , dpv:MentalHealth , dpv:Dislike , dpv:PhysicalCharacteristic , orcp:EffectiveLegalRemedies , dpv:KnowledgeBelief , dpv:LoanRecord , dpv:Name , dpv:OfficialID , dpv:CriminalConviction , dpv:Historical , dpv:EmailAddress , dpv:LifeHistory , dpv:Health , dpv:Tax , dpv:Reference ;
+    skos:prefLabel  "Resource profile subclasses" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+orcp:LegalObligation rdfs:subClassOf  save:LegalBasis .
+
+orcp:LegalObligation  owl:equivalentClass
+                          dpv-gdpr:A6-1-c .
+
+dpv-gdpr:A9-2-f  rdfs:subClassOf  save:LegalBasis .
+
+dpv-gdpr:A6-1-c  rdfs:subClassOf  save:LegalBasis .
+
+<http://example.com/privacy-policy-model/odrl-profile/#ResourceProfileRoles>
+    a               owl:NamedIndividual , skos:Collection ;
+    skos:member     save:data ;
+    skos:prefLabel  "Resource profile roles" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (merged from ORCP and DPV)" .
+
+
+save:10BusinessDays  a            owl:NamedIndividual , time:Duration ;
+                 time:numericDuration  10 ;
+                 time:unitType         save:unitBusinessDay .
+
+save:function  a             rdfs:Property , owl:NamedIndividual , owl:ObjectProperty ;
+           rdfs:domain      [ a            owl:Class ;
+                              owl:unionOf  ( orcp:Policy orcp:Rule )
+                            ] ;
+           rdfs:label       "Function" ;
+           rdfs:range       save:Party ;
+           skos:definition  "Function that a Party is performing in a Rule (abstract, has to be specified by the sub-properties)." ;
+           skos:note        "Was initially defined in ORCP, but redefined for SAVE to include new Range values." .
+
+<http://example.com/privacy-policy-model/odrl-profile/#Rule>
+    a               skos:Collection , owl:NamedIndividual ;
+    skos:member     orcp:Prohibition , save:prohibition , orcp:Dispensation , orcp:Obligation , save:obligation , orcp:Rule , orcp:Permission , save:dispensation , save:permission ;
+    skos:prefLabel  "Rule" ;
+    skos:scopeNote  "SAVE Vocabulary Terms (adopted from ORCP)" .
+
+
+# individual for every DPV and ORCP concept
+
+save:KeepACopy  a  dpv:Copy , dpv:Store .
+
+
+save:AcademicResearch a dpv:AcademicResearch .
+save:Accent a dpv:Accent .
+save:AccessControl a dpv:AccessControl .
+save:AccessControlMethod a dpv:AccessControlMethod .
+save:AccountIdentifier a dpv:AccountIdentifier .
+save:Acquantaince a dpv:Acquantaince .
+save:Acquire a dpv:Acquire .
+save:Adapt a dpv:Adapt .
+save:Advertising a dpv:Advertising .
+save:Age a dpv:Age .
+save:Align a dpv:Align .
+save:Alter a dpv:Alter .
+save:Analyse a dpv:Analyse .
+save:Anonymise a dpv:Anonymise .
+save:Anonymization a dpv:Anonymization .
+save:ApartmentOwned a dpv:ApartmentOwned .
+save:Association a dpv:Association .
+save:Attitude a dpv:Attitude .
+save:Authenticating a dpv:Authenticating .
+save:Authenticating a dpv:Authenticating .
+save:AuthenticationHistory a dpv:AuthenticationHistory .
+save:AuthenticationProtocols a dpv:AuthenticationProtocols .
+save:AuthorisationProcedure a dpv:AuthorisationProcedure .
+save:Authority a dpv:Authority .
+save:AutomatedDecisionMaking a dpv:AutomatedDecisionMaking .
+save:BankAccount a dpv:BankAccount .
+save:Behavioral a dpv:Behavioral .
+save:Biometric a dpv:Biometric .
+save:BloodType a dpv:BloodType .
+save:BrowserFingerprint a dpv:BrowserFingerprint .
+save:BrowsingBehavior a dpv:BrowsingBehavior .
+save:BrowsingReferral a dpv:BrowsingReferral .
+save:CallLog a dpv:CallLog .
+save:CarOwned a dpv:CarOwned .
+save:Certification a dpv:Certification .
+save:CertificationSeal a dpv:CertificationSeal .
+save:Character a dpv:Character .
+save:Child a dpv:Child .
+save:CodeOfConduct a dpv:CodeOfConduct .
+save:Collect a dpv:Collect .
+save:Combine a dpv:Combine .
+save:CommercialInterest a dpv:CommercialInterest .
+save:CommercialResearch a dpv:CommercialResearch .
+save:Communication a dpv:Communication .
+save:CommunicationForCustomerCare a dpv:CommunicationForCustomerCare .
+save:CommunicationsMetadata a dpv:CommunicationsMetadata .
+save:Connection a dpv:Connection .
+save:Consult a dpv:Consult .
+save:Consultation a dpv:Consultation .
+save:ConsultationWithAuthority a dpv:ConsultationWithAuthority .
+save:Contact a dpv:Contact .
+save:Context a dpv:Context .
+save:ContractMeasure a dpv:Contract .
+save:Copy a dpv:Copy .
+save:Country a dpv:Country .
+save:CreateEventRecommendations a dpv:CreateEventRecommendations .
+save:CreatePersonalizedRecommendations a dpv:CreatePersonalizedRecommendations .
+save:CreateProductRecommendations a dpv:CreateProductRecommendations .
+save:Credit a dpv:Credit .
+save:CreditCapacity a dpv:CreditCapacity .
+save:CreditCardNumber a dpv:CreditCardNumber .
+save:CreditRecord a dpv:CreditRecord .
+save:CreditScore a dpv:CreditScore .
+save:CreditStanding a dpv:CreditStanding .
+save:CreditWorthiness a dpv:CreditWorthiness .
+save:Criminal a dpv:Criminal .
+save:CriminalCharge a dpv:CriminalCharge .
+save:CriminalConviction a dpv:CriminalConviction .
+save:CriminalPardon a dpv:CriminalPardon .
+save:CustomerCare a dpv:CustomerCare .
+save:DNACode a dpv:DNACode .
+save:DPIA a dpv:DPIA .
+save:DataController a dpv:DataController .
+save:DataProcessor a dpv:DataProcessor .
+save:DataProtectionAuthority a dpv:DataProtectionAuthority .
+save:DataProtectionOfficer a dpv:DataProtectionOfficer .
+save:DataSource a dpv:DataSource .
+save:DataSubProcessor a dpv:DataSubProcessor .
+save:DataSubject a dpv:DataSubject .
+save:DataSubjectRight a dpv:DataSubjectRight .
+save:DeIdentification a dpv:DeIdentification .
+save:DeliveryOfGoods a dpv:DeliveryOfGoods .
+save:RequestedServiceProvision a dpv:RequestedServiceProvision .
+save:Demeanor a dpv:Demeanor .
+save:Demographic a dpv:Demographic .
+save:Derive a dpv:Derive .
+save:DerivedPersonalData a dpv:DerivedPersonalData .
+save:DesignStandard a dpv:DesignStandard .
+save:Destruct a dpv:Destruct .
+save:DeviceApplications a dpv:DeviceApplications .
+save:DeviceBased a dpv:DeviceBased .
+save:DeviceOperatingSystem a dpv:DeviceOperatingSystem .
+save:DeviceSoftware a dpv:DeviceSoftware .
+save:Dialect a dpv:Dialect .
+save:DirectMarketing a dpv:DirectMarketing .
+save:Disability a dpv:Disability .
+save:DisciplinaryAction a dpv:DisciplinaryAction .
+save:Disclose a dpv:Disclose .
+save:DiscloseByTransmission a dpv:DiscloseByTransmission .
+save:Dislike a dpv:Dislike .
+save:Disseminate a dpv:Disseminate .
+save:Divorce a dpv:Divorce .
+save:DrugTestResult a dpv:DrugTestResult .
+save:EmailAddress a dpv:EmailAddress .
+save:EmailContent a dpv:EmailContent .
+save:EmploymentHistory a dpv:EmploymentHistory .
+save:EncryptionInRest a dpv:EncryptionInRest .
+save:EncryptionInTransfer a dpv:EncryptionInTransfer .
+save:Erase a dpv:Erase .
+save:EthnicOrigin a dpv:EthnicOrigin .
+save:Ethnicity a dpv:Ethnicity .
+save:EvaluationScoring a dpv:EvaluationScoring .
+save:External a dpv:External .
+save:Family a dpv:Family .
+save:FamilyHealthHistory a dpv:FamilyHealthHistory .
+save:FamilyStructure a dpv:FamilyStructure .
+save:Favorite a dpv:Favorite .
+save:FavoriteColor a dpv:FavoriteColor .
+save:FavoriteFood a dpv:FavoriteFood .
+save:FavoriteMusic a dpv:FavoriteMusic .
+save:Fetish a dpv:Fetish .
+save:Financial a dpv:Financial .
+save:FinancialAccount a dpv:FinancialAccount .
+save:FinancialAccountNumber a dpv:FinancialAccountNumber .
+save:Fingerprint a dpv:Fingerprint .
+save:FraudPreventionAndDetection a dpv:FraudPreventionAndDetection .
+save:Friend a dpv:Friend .
+save:GPSCoordinate a dpv:GPSCoordinate .
+save:Gender a dpv:Gender .
+save:GeneralReputation a dpv:GeneralReputation .
+save:Geographic a dpv:Geographic .
+save:GroupMembership a dpv:GroupMembership .
+save:GuidelinesPrinciple a dpv:GuidelinesPrinciple .
+save:HairColor a dpv:HairColor .
+save:Health a dpv:Health .
+save:HealthHistory a dpv:HealthHistory .
+save:HealthRecord a dpv:HealthRecord .
+save:Height a dpv:Height .
+save:Historical a dpv:Historical .
+save:HouseOwned a dpv:HouseOwned .
+save:IPAddress a dpv:IPAddress .
+save:Identifying a dpv:Identifying .
+save:IdentityVerification a dpv:IdentityVerification .
+save:ImpactAssessment a dpv:ImpactAssessment .
+save:ImproveExistingProductsAndServices a dpv:ImproveExistingProductsAndServices .
+save:ImproveInternalCRMProcesses a dpv:ImproveInternalCRMProcesses .
+save:Income a dpv:Income .
+save:IncomeBracket a dpv:IncomeBracket .
+save:IncreaseServiceRobustness a dpv:IncreaseServiceRobustness .
+save:IndividualHealthHistory a dpv:IndividualHealthHistory .
+save:InnovativeUseOfNewTechnologies a dpv:InnovativeUseOfNewTechnologies .
+save:Intention a dpv:Intention .
+save:Interaction a dpv:Interaction .
+save:Interest a dpv:Interest .
+save:Internal a dpv:Internal .
+save:InternalResourceOptimisation a dpv:InternalResourceOptimisation .
+save:Job a dpv:Job .
+save:KnowledgeBelief a dpv:KnowledgeBelief .
+save:Language a dpv:Language .
+save:LargeScaleProcessing a dpv:LargeScaleProcessing .
+save:LegalAgreement a dpv:LegalAgreement .
+save:LegalBasis a dpv:LegalBasis .
+save:LegalCompliance a dpv:LegalCompliance .
+save:LegalEntity a dpv:LegalEntity .
+save:LifeHistory a dpv:LifeHistory .
+save:Like a dpv:Like .
+save:LinkClicked a dpv:LinkClicked .
+save:LoanRecord a dpv:LoanRecord .
+save:Location a dpv:Location .
+save:MACAddress a dpv:MACAddress .
+save:MakeAvailable a dpv:MakeAvailable .
+save:MaritalStatus a dpv:MaritalStatus .
+save:Marketing a dpv:Marketing .
+save:Marriage a dpv:Marriage .
+save:MatchingCombining a dpv:MatchingCombining .
+save:MedicalHealth a dpv:MedicalHealth .
+save:MentalHealth a dpv:MentalHealth .
+save:Move a dpv:Move .
+save:NDA a dpv:NDA .
+save:Name a dpv:Name .
+save:NonCommercialResearch a dpv:NonCommercialResearch .
+save:Obtain a dpv:Obtain .
+save:OfficialID a dpv:OfficialID .
+save:Offspring a dpv:Offspring .
+save:Opinion a dpv:Opinion .
+save:OptimisationForConsumer a dpv:OptimisationForConsumer .
+save:OptimisationForController a dpv:OptimisationForController .
+save:OptimiseUserInterface a dpv:OptimiseUserInterface .
+save:OrganisationalMeasure a dpv:OrganisationalMeasure .
+save:Organise a dpv:Organise .
+save:Ownership a dpv:Ownership .
+save:PIA a dpv:PIA .
+save:PINCode a dpv:PINCode .
+save:Parent a dpv:Parent .
+save:Password a dpv:Password .
+save:Payment a dpv:Payment .
+save:PaymentCard a dpv:PaymentCard .
+save:PaymentCardExpiry a dpv:PaymentCardExpiry .
+save:PaymentCardNumber a dpv:PaymentCardNumber .
+save:PersonalDataCategory a dpv:PersonalDataCategory .
+save:PersonalInformation  a dpv:PersonalDataCategory .
+save:PersonalDataHandling a dpv:PersonalDataHandling .
+save:PersonalPossession a dpv:PersonalPossession .
+save:PersonalisedAdvertising a dpv:PersonalisedAdvertising .
+save:PersonalisedBenefits a dpv:PersonalisedBenefits .
+save:Personality a dpv:Personality .
+save:PhilosophicalBelief a dpv:PhilosophicalBelief .
+save:PhysicalAddress a dpv:PhysicalAddress .
+save:PhysicalCharacteristic a dpv:PhysicalCharacteristic .
+save:PhysicalHealth a dpv:PhysicalHealth .
+save:PhysicalTrait a dpv:PhysicalTrait .
+save:Picture a dpv:Picture .
+save:Piercing a dpv:Piercing .
+save:PoliticalAffiliation a dpv:PoliticalAffiliation .
+save:Preference a dpv:Preference .
+save:Prescription a dpv:Prescription .
+save:PrivacyByDefault a dpv:PrivacyByDefault .
+save:PrivacyByDesign a dpv:PrivacyByDesign .
+save:PrivacyPreference a dpv:PrivacyPreference .
+save:Processing a dpv:Processing .
+save:AnyProcessing a dpv:Processing .
+save:Proclivitie a dpv:Proclivitie .
+save:Professional a dpv:Professional .
+save:ProfessionalCertification a dpv:ProfessionalCertification .
+save:ProfessionalEvaluation a dpv:ProfessionalEvaluation .
+save:ProfessionalInterview a dpv:ProfessionalInterview .
+save:Profiling a dpv:Profiling .
+save:PseudoAnonymise a dpv:PseudoAnonymise .
+save:PseudoAnonymization a dpv:PseudoAnonymization .
+save:PseudonymisationEncryption a dpv:PseudonymisationEncryption .
+save:PublicLife a dpv:PublicLife .
+save:Purchase a dpv:Purchase .
+save:PurchasesAndSpendingHabit a dpv:PurchasesAndSpendingHabit .
+save:Purpose a dpv:Purpose .
+save:AnyPurpose  a  dpv:Purpose .
+save:Race a dpv:Race .
+save:Recipient a dpv:Recipient .
+save:Record a dpv:Record .
+save:Reference a dpv:Reference .
+save:RegistrationAuthentication a dpv:RegistrationAuthentication .
+save:RegularityOfRecertification a dpv:RegularityOfRecertification .
+save:Relationship a dpv:Relationship .
+save:Religion a dpv:Religion .
+save:ReligiousBelief a dpv:ReligiousBelief .
+save:Remove a dpv:Remove .
+save:Representative a dpv:Representative .
+save:ResearchAndDevelopment a dpv:ResearchAndDevelopment .
+save:Restrict a dpv:Restrict .
+save:Retina a dpv:Retina .
+save:Retrieve a dpv:Retrieve .
+save:Right a dpv:Right .
+save:Risk a dpv:Risk .
+save:RiskManagementProcedure a dpv:RiskManagementProcedure .
+save:RiskMitigationMeasure a dpv:RiskMitigationMeasure .
+save:RoomNumber a dpv:RoomNumber .
+save:Salary a dpv:Salary .
+save:Sale a dpv:Sale .
+save:School a dpv:School .
+save:Seal a dpv:Seal .
+save:SecretText a dpv:SecretText .
+save:Sector a dpv:Sector .
+save:Security a dpv:Security .
+save:SellDataToThirdParties a dpv:SellDataToThirdParties .
+save:SellInsightsFromData a dpv:SellInsightsFromData .
+save:SellProductsToDataSubject a dpv:SellProductsToDataSubject .
+save:SellTargettedAdvertisements a dpv:SellTargettedAdvertisements .
+save:ServiceConsumptionBehavior a dpv:ServiceConsumptionBehavior .
+save:ServiceOptimization a dpv:ServiceOptimization .
+save:ServicePersonalization a dpv:ServicePersonalization .
+save:ServiceProvision a dpv:ServiceProvision .
+save:Sexual a dpv:Sexual .
+save:SexualHistory a dpv:SexualHistory .
+save:SexualPreference a dpv:SexualPreference .
+save:Share a dpv:Share .
+save:Sibling a dpv:Sibling .
+save:SingleSignOn a dpv:SingleSignOn .
+save:SkinTone a dpv:SkinTone .
+save:Social a dpv:Social .
+save:SocialMediaCommunication a dpv:SocialMediaCommunication .
+save:SocialMediaMarketing a dpv:SocialMediaMarketing .
+save:SocialNetwork a dpv:SocialNetwork .
+save:SocialStatus a dpv:SocialStatus .
+save:SpecialCategoryPersonalData a dpv:SpecialCategoryPersonalData .
+save:StaffTraining a dpv:StaffTraining .
+save:StorageDeletion a dpv:StorageDeletion .
+save:StorageDuration a dpv:StorageDuration .
+save:StorageLocation a dpv:StorageLocation .
+save:StorageRestoration a dpv:StorageRestoration .
+save:StorageRestriction a dpv:StorageRestriction .
+save:Store a dpv:Store .
+save:Structure a dpv:Structure .
+save:SystematicMonitoring a dpv:SystematicMonitoring .
+save:TVViewingBehavior a dpv:TVViewingBehavior .
+save:Tattoo a dpv:Tattoo .
+save:Tax a dpv:Tax .
+save:TechnicalMeasure a dpv:TechnicalMeasure .
+save:TechnicalOrganisationalMeasure a dpv:TechnicalOrganisationalMeasure .
+save:AnyMeasure  a dpv:TechnicalOrganisationalMeasure .
+save:TelephoneNumber a dpv:TelephoneNumber .
+save:ThirdParty a dpv:ThirdParty .
+save:Thought a dpv:Thought .
+save:Tracking a dpv:Tracking .
+save:Transaction a dpv:Transaction .
+save:Transactional a dpv:Transactional .
+save:Transfer a dpv:Transfer .
+save:Transform a dpv:Transform .
+save:Transmit a dpv:Transmit .
+save:UID a dpv:UID .
+save:UsageAnalytics a dpv:UsageAnalytics .
+save:Use a dpv:Use .
+save:UserInterfacePersonalisation a dpv:UserInterfacePersonalisation .
+save:Username a dpv:Username .
+save:VoiceCommunicationRecording a dpv:VoiceCommunicationRecording .
+save:VoiceMail a dpv:VoiceMail .
+save:VulnerableDataSubject a dpv:VulnerableDataSubject .
+save:Weight a dpv:Weight .
+save:WorkHistory a dpv:WorkHistory .
+
+save:InternationalOrganisation a orcp:InternationalOrganisation .
+save:PublicAuthority a orcp:PublicAuthority .
+save:AnyLegalBasis a save:LegalBasis .
+save:A6-1-b a dpv-gdpr:A6-1-b .
+save:A6-1-c a dpv-gdpr:A6-1-c .
+save:A6-1-f a dpv-gdpr:A6-1-f .
+save:A9-2-b a dpv-gdpr:A9-2-b .
+save:A9-2-d a dpv-gdpr:A9-2-d .
+save:A9-2-e a dpv-gdpr:A9-2-e .
+save:A9-2-f a dpv-gdpr:A9-2-f .
+save:A9-2-h a dpv-gdpr:A9-2-h .
+save:Consent a orcp:Consent .
+save:A6-1-a-explicit-consent a dpv-gdpr:A6-1-a-explicit-consent .
+save:A6-1-a-non-explicit-consent a dpv-gdpr:A6-1-a-non-explicit-consent .
+save:A9-2-a a dpv-gdpr:A9-2-a .
+save:Contract a orcp:Contract .
+save:LegalObligation a orcp:LegalObligation .
+save:LegitimateInterest a orcp:LegitimateInterest .
+save:PublicInterest a orcp:PublicInterest .
+save:A6-1-e a dpv-gdpr:A6-1-e .
+save:A9-2-g a dpv-gdpr:A9-2-g .
+save:A9-2-i a dpv-gdpr:A9-2-i .
+save:A9-2-j a dpv-gdpr:A9-2-j .
+save:VitalInterest a orcp:VitalInterest .
+save:A6-1-d a dpv-gdpr:A6-1-d .
+save:A9-2-c a dpv-gdpr:A9-2-c .
+save:AnyParty a save:Party .

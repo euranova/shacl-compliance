@@ -1,0 +1,50 @@
+@prefix save-ex:      <http://example.com/privacy-policy-model/examples/> .
+@prefix save:      <http://example.com/privacy-policy-model/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix dash:  <http://datashapes.org/dash#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+
+
+save-ex:DPAClientEducationHistory
+    a       owl:NamedIndividual , dpv:LifeHistory , dpv:School .
+
+save-ex:DPAClientLocation  a  owl:NamedIndividual , dpv:Location .
+
+save-ex:DPAClientPersonalContact
+    a       owl:NamedIndividual , dpv:Contact .
+
+save-ex:DPAClientPlaceOfBirth
+    a       owl:NamedIndividual , dpv:Historical .
+
+save-ex:DPAClientAge  a  owl:NamedIndividual , dpv:Age .
+
+save-ex:DPAClientNationality
+    a       owl:NamedIndividual , dpv:Historical .
+
+save-ex:DPAClientProfessionalContact
+    a       owl:NamedIndividual , dpv:Contact , dpv:Professional .
+
+save-ex:DPAClientProfessionalDetails
+    a       owl:NamedIndividual , dpv:Job , dpv:Professional .
+
+save-ex:DPAClientGender  a  owl:NamedIndividual , dpv:Gender .
+
+save-ex:DPAClientBusinessTravelExpenses
+    a       owl:NamedIndividual , dpv:Professional , dpv:Transactional .
+
+save-ex:DPAClientPastWorkingActivities
+    a       owl:NamedIndividual , dpv:WorkHistory .

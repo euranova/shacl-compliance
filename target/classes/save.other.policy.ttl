@@ -1,0 +1,45 @@
+@prefix save-ex:      <http://example.com/privacy-policy-model/examples/> .
+@prefix save:      <http://example.com/privacy-policy-model/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix dash:  <http://datashapes.org/dash#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+
+
+save-ex:WebPolicyPermission  a  orcp:Permission , owl:NamedIndividual ;
+                          save:action          save:Use , save:Transform ;
+                          save:controller      save-ex:SomeController ;
+                          save:data            save:BrowsingBehavior , save:LinkClicked ;
+                          save:hasDataSubject  save-ex:SomeUser ;
+                          save:purpose         save:OptimisationForConsumer , save:PersonalisedBenefits , save:OptimisationForController .
+
+save-ex:CreditCardPermission
+    a                orcp:Permission , owl:NamedIndividual ;
+    save:action          save:Transform , save:Use ;
+    save:controller      save-ex:SomeController ;
+    save:data            save:PhysicalAddress , save:Age , save:Name ;
+    save:hasDataSubject  save-ex:SomeUser ;
+    save:purpose         save:OptimisationForController , save:OptimisationForConsumer , save:PersonalisedBenefits .
+
+
+save-ex:SomeUser  a            dpv:DataSubject ;
+               rdfs:label      "Some user" ;
+               skos:prefLabel  "Some user" .
+
+save-ex:SomeController  a      dpv:DataController ;
+                     rdfs:label      "Some controller" ;
+                     skos:prefLabel  "Some controller" .
+

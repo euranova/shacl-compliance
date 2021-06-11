@@ -1,0 +1,12 @@
+Experiment: test_imdb_atomic_optimized_total
+	Policy: IMDB
+	#Rules: 43120
+	#Processed: 43120
+	Atomic: true
+	Total exec time: 242306.0
+	Avg time per request: 10.508719851576995
+	Avg time per subrequest: 0.0
+	Count per # of subrequests: {1=43120}
+	Avg time per # of subrequests: {1=10.508719851576995}
+	Count per # of atomic requests in a batch: {50=7, 100=7, 5000=7, 1000=7, 10=7}
+	Avg time per # of atomic requests in a batch: {50=330.57142857142856, 100=659.4285714285714, 5000=27890.571428571428, 1000=5639.428571428572, 10=95.14285714285714}

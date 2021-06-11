@@ -1,0 +1,284 @@
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+ex:LanguageExampleShape
+    a sh:NodeShape ;
+    sh:targetClass save:TestRequest ;
+    sh:rule          [ a             sh:SPARQLRule ;
+                       rdfs:label    "Infer if $this is covered by orcp:Permission save-ex:IMDBPermission13" ;
+                       sh:condition  save:RequestBase ;
+#                       sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+#                                                      sh:path      save:controllerList ;
+#                                                      sh:sparql    [ sh:select  "PREFIX save:<http://example.com/privacy-policy-model/>\nPREFIX save-ex:<http://example.com/privacy-policy-model/examples/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX dpv:<http://www.w3.org/ns/dpv#>\nPREFIX dpv-gdpr:<http://www.w3.org/ns/dpv-gdpr#>\nPREFIX orcp:<http://example.com/odrl:profile:regulatoryCompliance/>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>\nSELECT $this ?value\nWHERE {\n    {SELECT  $this (SUM(IF(?intersects,1,0)) AS ?nIntersect)\n           WHERE {\n               $this $PATH ?value .\n               ?value rdf:rest*/rdf:first ?item .\n               BIND (?item IN (save:ThirdPartyAdvertisers, save:ThirdPartyWebsites) as ?intersects)\n            }\n       group by $this  }\n    FILTER (?nIntersect = 0)\n}\n\n" ]
+#                                                    ]
+#                                     ] ;
+#                       sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+#                                                      sh:path      save:purposeList ;
+#                                                      sh:sparql    [ sh:select  "PREFIX save:<http://example.com/privacy-policy-model/>\nPREFIX save-ex:<http://example.com/privacy-policy-model/examples/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX dpv:<http://www.w3.org/ns/dpv#>\nPREFIX dpv-gdpr:<http://www.w3.org/ns/dpv-gdpr#>\nPREFIX orcp:<http://example.com/odrl:profile:regulatoryCompliance/>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>\n    SELECT $this ?value\n    WHERE {\n        {SELECT  $this (SUM(IF(?intersects,1,0)) AS ?nIntersect)\n               WHERE {\n                   $this $PATH ?value .\n                   ?value rdf:rest*/rdf:first ?item .\n                   ?item rdf:type/rdfs:subClassOf* ?attrClass .\n                   BIND (?attrClass IN (dpv:PersonalisedBenefits) as ?intersects)\n                }\n           group by $this  }\n        FILTER (?nIntersect = 0)\n    }\n\n" ]
+#                                                    ]
+#                                     ] ;
+#                       sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+#                                                      sh:path      save:actionList ;
+#                                                      sh:sparql    [ sh:select  "PREFIX save:<http://example.com/privacy-policy-model/>\nPREFIX save-ex:<http://example.com/privacy-policy-model/examples/>\nPREFIX ex:<http://example.org/shacl_examples#>\nPREFIX dpv:<http://www.w3.org/ns/dpv#>\nPREFIX dpv-gdpr:<http://www.w3.org/ns/dpv-gdpr#>\nPREFIX orcp:<http://example.com/odrl:profile:regulatoryCompliance/>\nPREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>\n    SELECT $this ?value\n    WHERE {\n        {SELECT  $this (SUM(IF(?intersects,1,0)) AS ?nIntersect)\n               WHERE {\n                   $this $PATH ?value .\n                   ?value rdf:rest*/rdf:first ?item .\n                   ?item rdf:type/rdfs:subClassOf* ?attrClass .\n                   BIND (?attrClass IN (dpv:Use) as ?intersects)\n                }\n           group by $this  }\n        FILTER (?nIntersect = 0)\n    }\n\n" ]
+#                                                    ]
+#                                     ] ;
+                       sh:condition  [ sh:property  [ sh:minCount  "1"^^xsd:int ;
+                                                      sh:path      save:dataList ;
+                                                      sh:sparql    [ sh:select  """
+                                                                                PREFIX save:<http://example.com/privacy-policy-model/>
+                                                                                PREFIX save-ex:<http://example.com/privacy-policy-model/examples/>
+                                                                                PREFIX ex:<http://example.org/shacl_examples#>
+                                                                                PREFIX dpv:<http://www.w3.org/ns/dpv#>
+                                                                                PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                                                                                PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+                                                                                SELECT $this ?value
+                                                                                WHERE {
+                                                                                    {SELECT  $this (SUM(IF(?intersects,1,0)) AS ?nIntersect)
+                                                                                           WHERE {
+                                                                                               $this $PATH ?value .
+                                                                                               ?value rdf:rest*/rdf:first ?item .
+                                                                                               ?item rdf:type/rdfs:subClassOf* ?dataClass .
+                                                                                               BIND (?dataClass IN (dpv:Like, dpv:PhysicalAddress, dpv:Name, dpv:Preference, dpv:Age, dpv:Gender, dpv:EmailAddress, dpv:Country, dpv:Dislike, dpv:TelephoneNumber) as ?intersects)
+                                                                                            }
+                                                                                       group by $this  }
+                                                                                    FILTER (?nIntersect = 0)
+                                                                                }
+                                                                                """ ]
+                                                    ]
+                                     ] ;
+                       sh:construct  """
+                                        PREFIX save:<http://example.com/privacy-policy-model/>
+                                        PREFIX save-ex:<http://example.com/privacy-policy-model/examples/>
+                                        PREFIX ex:<http://example.org/shacl_examples#>
+                                        PREFIX dpv:<http://www.w3.org/ns/dpv#>
+                                        PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                                        PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+                                        CONSTRUCT {
+                                            ?bnode  a save-ex:RuleIntersection ;
+                                                                                  save:rule save-ex:IMDBPermission1 ;
+                                                                                  save:answer \"permitted\" ;
+                                                                                  save:dataIntersection ?dataItem ;
+                                                                                  save:dataClassIntersection ?dataClass ;
+                                                                                  save:actionIntersection ?actionItem ;
+                                                                                  save:purposeIntersection ?purposeItem ;
+                                                                                  save:controllerIntersection ?controllerItem .
+
+                                            $this   save:conformsTo ?bnode .
+                                            }
+                                            WHERE {
+                                                    BIND(BNODE() AS ?bnode)
+                                                    {SELECT *
+                                                       WHERE {
+                                                           $this save:dataList ?dataVal .
+                                                           ?dataVal rdf:rest*/rdf:first ?dataItem .
+                                                           ?dataItem rdf:type/rdfs:subClassOf* ?dataClass .
+                                                           FILTER (?dataClass IN (dpv:Like, dpv:PhysicalAddress, dpv:Name, dpv:Preference, dpv:Age, dpv:Gender, dpv:EmailAddress, dpv:Country, dpv:Dislike, dpv:TelephoneNumber))
+                                                        }
+                                                        }
+                                                    {SELECT *
+                                                       WHERE {
+                                                           $this save:actionList ?actionVal .
+                                                           ?actionVal rdf:rest*/rdf:first ?actionItem .
+                                                           ?actionItem rdf:type/rdfs:subClassOf* ?actionClass .
+                                                           FILTER (?actionClass IN (dpv:Use, dpv:Store, dpv:Collect))
+                                                        }
+                                                        }
+                                                    {SELECT *
+                                                       WHERE {
+                                                           $this save:purposeList ?purposeVal .
+                                                           ?purposeVal rdf:rest*/rdf:first ?purposeItem .
+                                                           ?purposeItem rdf:type/rdfs:subClassOf* ?purposeClass .
+                                                           FILTER (?purposeClass IN (dpv:UserInterfacePersonalisation, dpv:CustomerCare, dpv:ServicePersonalization))
+                                                        }
+                                                        }
+                                                    {SELECT *
+                                                       WHERE {
+                                                           $this save:controllerList ?controllerVal .
+                                                           ?controllerVal rdf:rest*/rdf:first ?controllerItem .
+                                                           FILTER (?controllerItem IN (save-ex:IMDB))
+                                                        }
+                                                        }
+
+
+
+                                            }
+                                            """ ;
+                       sh:order      "1"^^xsd:int
+                     ] ;
+sh:rule          [ a             sh:SPARQLRule ;
+                   rdfs:label    "Infer if $this is compliant" ;
+                   sh:condition  save:RequestBase ;
+                   sh:construct  """
+                                        PREFIX save:<http://example.com/privacy-policy-model/>
+                                        PREFIX save-ex:<http://example.com/privacy-policy-model/examples/>
+                                        PREFIX ex:<http://example.org/shacl_examples#>
+                                        PREFIX dpv:<http://www.w3.org/ns/dpv#>
+                                        PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                                        PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+                                        CONSTRUCT {
+                                            ?bnode  a save-ex:RequestAnswer ;
+                                                      save:answer ?ans ;
+                                                      save:answerProh ?ansProh .
+                                            $this   save:result ?bnode .
+                                            }
+                                            WHERE
+                                        {
+                                        BIND(BNODE() as ?bnode) .
+
+                                        {SELECT (COUNT(*) as ?cnt) (SUM(?answer) as ?su)
+                                        WHERE
+                                        {
+                                            {SELECT $this ?attrLabel (COUNT(DISTINCT *) AS ?attrsPermitted)
+                                                WHERE {
+                                                $this save:conformsTo ?permission .
+                                                        ?permission ?attr ?item .
+                                                        FILTER (?attr IN (save:dataIntersection, save:actionIntersection, save:purposeIntersection,
+                                                        save:legalBasisIntersection, save:hasTechnicalOrganisationalMeasureIntersection, save:controllerIntersection,
+                                                        save:processorIntersection, save:hasDataSubjectIntersection, save:responsiblePartyIntersection,
+                                                        save:senderIntersection, save:recipientIntersection))
+                                                bind(strbefore(strafter(str(?attr), "model/"), "Intersection") as ?attrLabel)
+                                            }
+                                                group by $this ?attrLabel
+                                            }
+                                            {SELECT $this ?requestAttrLabel (COUNT(DISTINCT *) AS ?requestAttrsTotal)
+                                                WHERE {
+                                                $this ?requestAttr ?requestBNode .
+                                                        ?requestBNode rdf:rest*/rdf:first ?requestItem .
+                                                        FILTER (?requestAttr IN (save:dataList, save:actionList, save:purposeList,
+                                                        save:legalBasisList, save:hasTechnicalOrganisationalMeasureList, save:controllerList,
+                                                        save:processorList, save:hasDataSubjectList, save:responsiblePartyList,
+                                                        save:senderList, save:recipientList))
+                                                bind(strbefore(strafter(str(?requestAttr), "model/"), "List") as ?requestAttrLabel)
+                                            }
+                                                group by $this ?requestAttrLabel
+                                            }
+                                            FILTER(?attrLabel = ?requestAttrLabel)
+                                            BIND(IF(?attrsPermitted = ?requestAttrsTotal, 1, 0) as ?answer)
+                                        }
+                                    }
+
+
+                                        {SELECT (COUNT(*) as ?cntProh) (SUM(?answerProh) as ?suProh)
+                                            WHERE
+                                            {
+                                            {SELECT $this ?attrLabelProh (COUNT(DISTINCT *) AS ?attrsProh)
+                                               WHERE {
+                                                   $this save:prohibitedBy ?prohibition .
+                                                   ?prohibition ?attrProh ?itemProh .
+                                                   FILTER (?attrProh IN (save:dataIntersection, save:actionIntersection, save:purposeIntersection,
+                                                   save:legalBasisIntersection, save:hasTechnicalOrganisationalMeasureIntersection, save:controllerIntersection,
+                                                   save:processorIntersection, save:hasDataSubjectIntersection, save:responsiblePartyIntersection,
+                                                   save:senderIntersection, save:recipientIntersection))
+                                                   bind(strbefore(strafter(str(?attrProh), "model/"), "Intersection") as ?attrLabelProh)
+                                                }
+                                                group by $this ?attrLabelProh
+                                                }
+                                            {SELECT $this ?requestAttrLabelProh (COUNT(DISTINCT *) AS ?requestAttrsTotalProh)
+                                              WHERE {
+                                                  $this ?requestAttrProh ?requestBNodeProh .
+                                                  ?requestBNodeProh rdf:rest*/rdf:first ?requestItemProh .
+                                                  FILTER (?requestAttrProh IN (save:dataList, save:actionList, save:purposeList,
+                                                  save:legalBasisList, save:hasTechnicalOrganisationalMeasureList, save:controllerList,
+                                                  save:processorList, save:hasDataSubjectList, save:responsiblePartyList,
+                                                  save:senderList, save:recipientList))
+                                                  bind(strbefore(strafter(str(?requestAttrProh), "model/"), "List") as ?requestAttrLabelProh)
+                                               }
+                                               group by $this ?requestAttrLabelProh
+                                                }
+                                             FILTER(?attrLabelProh = ?requestAttrLabelProh)
+                                             BIND(IF(?attrsProh = ?requestAttrsTotalProh, 1, 0) as ?answerProh)
+                                             }
+                                             }
+                                        BIND(IF(?cnt = ?su, "fully-permitted", "partly-permitted") as ?ans)
+                                        BIND(IF(?cntProh = ?suProh, "fully-prohibited", "partly-prohibited") as ?ansProh)
+                                               }
+                                            """ ;
+                                                                          sh:order      "100"^^xsd:int
+                                                                          ] .
+
+#
+
+save-ex:Request_1_test_norm
+    a                        save:TestRequest  ;
+    save:actionList          ( save:Retrieve save:Analyse save:Derive ) ;
+    save:controllerList      ( save-ex:IMDB ) ;
+    save:dataList            ( save:Name save:Gender save:Likes) ;
+#    save:hasDataSubjectList  ( save-ex:IMDBUser ) ;
+#    save:hasTechnicalOrganisationalMeasureList
+#        ( save:EncryptionInRest ) ;
+#    save:legalBasisList      ( save:A6-1-f ) ;
+    save:purposeList         ( save:CommunicationForCustomerCare ) ;
+    save:conformsTo  [ a                            save-ex:RuleIntersection ;
+                       save:actionIntersection      save:Retrieve , save:Analyse ;
+                       save:answer                  "permitted" ;
+                       save:controllerIntersection  save-ex:IMDB ;
+                       save:dataClassIntersection   dpv:Name , dpv:Gender ;
+                       save:dataIntersection        save:Name , save:Gender ;
+                       save:purposeIntersection     save:CommunicationForCustomerCare ;
+                       save:rule                    save-ex:IMDBPermission1
+                     ] ;
+    save:prohibitedBy  [ a                            save-ex:RuleIntersection ;
+                       save:actionIntersection      save:Retrieve , save:Analyse, save:Derive ;
+                       save:answer                  "prohibited" ;
+                       save:controllerIntersection  save-ex:IMDB ;
+                       save:dataClassIntersection   dpv:Name , dpv:Gender ;
+                       save:dataIntersection        save:Name , save:Gender, save:Likes ;
+                       save:purposeIntersection     save:CommunicationForCustomerCare ;
+                       save:rule                    save-ex:IMDBProhibition1
+                     ] .
+
+
+save:Picture rdf:type dpv:Picture .
+save:Name rdf:type dpv:Name .
+save:Age rdf:type dpv:Age .
+save:Gender rdf:type dpv:Gender .
+save:Like rdf:type dpv:Like .
+
+save:MakeAvailable rdf:type dpv:MakeAvailable .
+save:Anonymise rdf:type dpv:Anonymise .
+save:Derive rdf:type dpv:Derive .
+save:Restrict rdf:type dpv:Restrict .
+save:Structure rdf:type dpv:Structure .
+save:Adapt rdf:type dpv:Adapt .
+save:Alter rdf:type dpv:Alter .
+save:Align rdf:type dpv:Align .
+save:Combine rdf:type dpv:Combine .
+save:PseudoAnonymise rdf:type dpv:PseudoAnonymise.
+save:Analyse rdf:type dpv:Analyse .
+save:Retrieve rdf:type dpv:Retrieve .
+save:Derive rdf:type dpv:Derive .
+
+
+save:CommunicationForCustomerCare rdf:type dpv:CommunicationForCustomerCare .
+
+save-ex:IMDB a dpv:Controller .

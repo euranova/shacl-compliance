@@ -1,0 +1,33 @@
+@prefix save-ex:      <http://example.com/privacy-policy-model/examples/> .
+@prefix save: <http://example.com/privacy-policy-model/> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dpv: <http://www.w3.org/ns/dpv#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix ex: <http://example.org/shacl_examples#> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix orcp: <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+###
+save-ex:RequestUltimate
+    a save-ex:RequestIMDBPolicy ;
+    save:action save:AnyProcessing ;
+    save:controller save-ex:IMDB , save-ex:IMDB_1 ;
+    save:data save:PersonalInformation ;
+    save:hasDataSubject save-ex:IMDBUser , save-ex:IMDBUser_1 ;
+    save:purpose save:AnyPurpose ;
+    save:legalBasis save:AnyLegalBasis ;
+    save:recipient save-ex:Agent , save-ex:ThirdPartyAdvertisers , save-ex:ThirdPartyWebsite ;
+    save:processor     save:Agent
+.
+###

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <title>SAVE Compliance POC demo</title>
+
+    <meta content="PP/DPA->SAVE POC demo" name="description">
+    <meta content="Katsiaryna Kransashchok" name="author">
+    <link th:href="@{/static/bootstrap-5.0.0-dist/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/static/fontawesome/css/all.css}" rel="stylesheet">
+    <link th:href="@{/static/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                    <button class="navbar-toggler" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"
+                        type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">RUNE Compliance</a>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    SAVE Policies
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Upload</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                        <ul class="navbar-nav ml-md-auto">
+                        </ul>
+                    </div>
+                </nav>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 align="center">
+                            Policies</h1>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">SAVE Policies</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">SHACL Policies</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <p></p>
+                        <div id="save-policies-ct">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                       class="btn btn-outline-primary">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                    <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                       class="btn btn-outline-primary">
+                                        <i class="bi bi-union"></i>
+                                    </a>
+
+                                    <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                       class="btn btn-outline-primary">
+                                        <i class="bi bi-gear-fill"></i>
+                                    </a>
+
+                                </div>
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col">
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                </div>
+                            </div>
+
+                            <p></p>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input me-1 checked" type="checkbox" value="" id="flexSwitchCheck-imdb" aria-label="...">
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-code-square"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-lightning-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-gear-fill"></i>
+                                        </a>
+                                        <label class="form-check-label" for="flexSwitchCheck-imdb">IMDB Privacy Notice</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input me-1" type="checkbox" value="" id="flexSwitchCheck-github" aria-label="...">
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-code-square"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-lightning-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-gear-fill"></i>
+                                        </a>
+                                        <label class="form-check-label" for="flexSwitchCheck-github">GitHub Privacy Notice</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input me-1" type="checkbox" value="" id="flexSwitchCheck-dpa" aria-label="...">
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-code-square"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-lightning-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-gear-fill"></i>
+                                        </a>
+                                        <label class="form-check-label" for="flexSwitchCheck-dpa">DPA Template</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input me-1" type="checkbox" value="" id="flexSwitchCheck-dpaclient" aria-label="...">
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-code-square"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+<!--                                            <i class="bi bi-play-fill"></i>-->
+                                            <i class="bi bi-lightning-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-gear-fill"></i>
+                                        </a>
+                                        <label class="form-check-label" for="flexSwitchCheck-dpaclient">DPA Template Client</label>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <p></p>
+                        <div id="shacl-policies-ct">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                       class="btn btn-outline-primary">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                    <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                       class="btn btn-outline-primary">
+                                        <i class="bi bi-play-fill"></i>
+                                    </a>
+
+                                </div>
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col">
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                </div>
+                            </div>
+
+                            <p></p>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input me-1 checked" type="checkbox" value="" id="flexSwitchCheck-imdb-shacl" aria-label="...">
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-code-square"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-play-fill"></i>
+                                        </a>
+
+                                        <label class="form-check-label" for="flexSwitchCheck-imdb-shacl">IMDB Privacy Notice</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input me-1" type="checkbox" value="" id="flexSwitchCheck-github-shacl" aria-label="...">
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-code-square"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-play-fill"></i>
+                                        </a>
+                                        <label class="form-check-label" for="flexSwitchCheck-github-shacl">GitHub Privacy Notice</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input me-1" type="checkbox" value="" id="flexSwitchCheck-dpa-shacl" aria-label="...">
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-code-square"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-play-fill"></i>
+                                        </a>
+                                        <label class="form-check-label" for="flexSwitchCheck-dpa-shacl">DPA Template</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input me-1" type="checkbox" value="" id="flexSwitchCheck-dpaclient-shacl" aria-label="...">
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-code-square"></i>
+                                        </a>
+                                        <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="bi bi-play-fill"></i>
+                                        </a>
+                                        <label class="form-check-label" for="flexSwitchCheck-dpaclient-shacl">DPA Template Client</label>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    </div>
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/bootstrap-5.0.0-dist/js/bootstrap.bundle.js}"></script>
+    <script th:src="@{/static/fontawesome/js/all.js}"></script>
+    <script th:src="@{/static/js/bootstrap-treeview.js}"></script>
+    <script th:src="@{/static/index.js}"></script>
+
+</body>
+
+</html>

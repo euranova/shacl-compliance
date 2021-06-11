@@ -1,0 +1,91 @@
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+ex:LanguageExampleShape
+    a sh:NodeShape ;
+    sh:targetClass save:TestRequest ;
+    sh:property [ sh:minCount  "1"^^xsd:int ;
+                  sh:path      save:dataList ;
+                  sh:sparql [
+                                  sh:message "Data does not match this rule" ;
+                                  sh:prefixes ex: ;
+                                  sh:select """
+                            PREFIX save:<http://example.com/privacy-policy-model/>
+                            PREFIX save-ex:<http://example.com/privacy-policy-model/examples/>
+                            PREFIX ex:<http://example.org/shacl_examples#>
+                            PREFIX dpv:<http://www.w3.org/ns/dpv#>
+                            PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                            PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+                            SELECT $this ?value
+                            WHERE {
+                                {SELECT  $this (SUM(IF(?intersects,1,0)) AS ?nIntersect)
+                                       WHERE {
+                                           $this $PATH ?value .
+                                           ?value rdf:rest*/rdf:first ?item .
+                                           ?item rdf:type/rdfs:subClassOf* ?dataClass .
+                                           BIND (?dataClass IN (dpv:Like, dpv:PhysicalAddress, dpv:Name, dpv:Preference, dpv:Age, dpv:Gender, dpv:EmailAddress, dpv:Country, dpv:Dislike, dpv:TelephoneNumber) as ?intersects)
+                                        }
+                                   group by $this  }
+                                FILTER (?nIntersect = 0)
+                            }
+                            """ ;
+                              ]
+          ].
+
+#
+
+save-ex:Request_1_test_norm
+    a                        save:TestRequest  ;
+#    save:actionList          ( save:MakeAvailable save:Anonymise save:Derive save:Restrict save:Structure save:Adapt save:Alter save:Align save:Combine save:PseudoAnonymise ) ;
+#    save:controllerList      ( save:IMDB ) ;
+    save:dataList            ( save:Picture ) .
+#    save:hasDataSubjectList  ( save:IMDBUser ) ;
+#    save:hasTechnicalOrganisationalMeasureList
+#        ( save:EncryptionInRest ) ;
+#    save:legalBasisList      ( save:A6-1-f ) ;
+#    save:purposeList         ( save:UsageAnalytics ) .
+
+save:Picture rdf:type dpv:Picture .
+save:Name rdf:type dpv:Name .
+save:Age rdf:type dpv:Age .
+save:Gender rdf:type dpv:Gender .
+save:Like rdf:type dpv:Like .
+
+save:MakeAvailable rdf:type dpv:MakeAvailable .
+save:Anonymise rdf:type dpv:Anonymise .
+save:Derive rdf:type dpv:Derive .
+save:Restrict rdf:type dpv:Restrict .
+save:Structure rdf:type dpv:Structure .
+save:Adapt rdf:type dpv:Adapt .
+save:Alter rdf:type dpv:Alter .
+save:Align rdf:type dpv:Align .
+save:Combine rdf:type dpv:Combine .
+save:PseudoAnonymise rdf:type dpv:PseudoAnonymise.

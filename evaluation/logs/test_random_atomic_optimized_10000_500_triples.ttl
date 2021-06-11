@@ -1,0 +1,2049 @@
+@base          <http://example.org/random> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+save-ex:test_33_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Internal ;
+                             save:dataIntersection          save:PrivacyPreference ;
+                             save:purposeClassIntersection  dpv:ResearchAndDevelopment ;
+                             save:purposeIntersection       save:NonCommercialResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6976
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_50_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_14_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:Disseminate ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:DeviceBased ;
+                           save:dataIntersection          save:MACAddress ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:SellInsightsFromData ;
+                           save:rule                      save-ex:test_policy_500_10000permission_2630
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_31_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_12_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Combine ;
+                             save:actionIntersection        save:Combine ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Preference ;
+                             save:dataIntersection          save:Like ;
+                             save:purposeClassIntersection  dpv:OptimisationForController ;
+                             save:purposeIntersection       save:ImproveExistingProductsAndServices ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1108
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_60_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Erase ;
+                             save:actionIntersection        save:Erase ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Contact ;
+                             save:dataIntersection          save:TelephoneNumber ;
+                             save:purposeClassIntersection  dpv:RegistrationAuthentication ;
+                             save:purposeIntersection       save:RegistrationAuthentication ;
+                             save:rule                      save-ex:test_policy_500_10000permission_2280
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Erase ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Tracking ;
+                             save:dataIntersection          save:TelephoneNumber ;
+                             save:purposeClassIntersection  dpv:RegistrationAuthentication ;
+                             save:purposeIntersection       save:RegistrationAuthentication ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_372
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Erase ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Contact ;
+                             save:dataIntersection          save:TelephoneNumber ;
+                             save:purposeClassIntersection  dpv:ServiceProvision ;
+                             save:purposeIntersection       save:RegistrationAuthentication ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6866
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Erase ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Tracking ;
+                             save:dataIntersection          save:TelephoneNumber ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:RegistrationAuthentication ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_5545
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_24_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Record ;
+                             save:actionIntersection        save:Record ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Social ;
+                             save:dataIntersection          save:Salary ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_3640
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_41_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Move ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Tattoo ;
+                             save:dataIntersection          save:Tattoo ;
+                             save:purposeClassIntersection  dpv:DeliveryOfGoods ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_924
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_22_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_70_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Transactional ;
+                             save:dataIntersection          save:Sale ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000permission_8275
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Financial ;
+                             save:dataIntersection          save:Sale ;
+                             save:purposeClassIntersection  dpv:PersonalisedBenefits ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_3855
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_34_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_51_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Restrict ;
+                           save:actionIntersection        save:Restrict ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:External ;
+                           save:dataIntersection          save:Height ;
+                           save:purposeClassIntersection  dpv:ResearchAndDevelopment ;
+                           save:purposeIntersection       save:AcademicResearch ;
+                           save:rule                      save-ex:test_policy_500_10000permission_5123
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_15_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_32_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:AuthenticationHistory ;
+                             save:dataIntersection          save:AuthenticationHistory ;
+                             save:purposeClassIntersection  dpv:AcademicResearch ;
+                             save:purposeIntersection       save:AcademicResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_7393
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:AuthenticationHistory ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:AcademicResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1418
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_80_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Acquire ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Password ;
+                             save:purposeClassIntersection  dpv:OptimisationForController ;
+                             save:purposeIntersection       save:InternalResourceOptimisation ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_7861
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Obtain ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Internal ;
+                             save:dataIntersection          save:Password ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:InternalResourceOptimisation ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_2085
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Obtain ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Password ;
+                             save:purposeClassIntersection  dpv:OptimisationForController ;
+                             save:purposeIntersection       save:InternalResourceOptimisation ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_7270
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_44_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Disclose ;
+                             save:actionIntersection        save:Share ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:TelephoneNumber ;
+                             save:purposeClassIntersection  dpv:UsageAnalytics ;
+                             save:purposeIntersection       save:UsageAnalytics ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_8909
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Share ;
+                             save:actionIntersection        save:Share ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:TelephoneNumber ;
+                             save:purposeClassIntersection  dpv:ServiceProvision ;
+                             save:purposeIntersection       save:UsageAnalytics ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_7653
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_61_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_25_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_42_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:Alter ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PhysicalHealth ;
+                             save:dataIntersection          save:PhysicalHealth ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:AcademicResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1926
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_90_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Erase ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:VoiceCommunicationRecording ;
+                             save:dataIntersection          save:VoiceCommunicationRecording ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:LegalCompliance ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_7826
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_54_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Acquire ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Transaction ;
+                             save:dataIntersection          save:Transaction ;
+                             save:purposeClassIntersection  dpv:Security ;
+                             save:purposeIntersection       save:AccessControl ;
+                             save:rule                      save-ex:test_policy_500_10000permission_2718
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Transaction ;
+                             save:dataIntersection          save:Transaction ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:AccessControl ;
+                             save:rule                      save-ex:test_policy_500_10000permission_9430
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Acquire ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Financial ;
+                             save:dataIntersection          save:Transaction ;
+                             save:purposeClassIntersection  dpv:AccessControl ;
+                             save:purposeIntersection       save:AccessControl ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9699
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_71_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Analyse ;
+                             save:actionIntersection        save:Analyse ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                             save:dataIntersection          save:SexualHistory ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6462
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Analyse ;
+                             save:actionIntersection        save:Analyse ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:SexualHistory ;
+                             save:dataIntersection          save:SexualHistory ;
+                             save:purposeClassIntersection  dpv:ServicePersonalization ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1204
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_18_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_35_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Analyse ;
+                           save:actionIntersection        save:Analyse ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:BankAccount ;
+                           save:dataIntersection          save:BankAccount ;
+                           save:purposeClassIntersection  dpv:IdentityVerification ;
+                           save:purposeIntersection       save:IdentityVerification ;
+                           save:rule                      save-ex:test_policy_500_10000permission_3346
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Use ;
+                           save:actionIntersection        save:Analyse ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:FinancialAccount ;
+                           save:dataIntersection          save:BankAccount ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:IdentityVerification ;
+                           save:rule                      save-ex:test_policy_500_10000permission_7020
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_52_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_16_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Sibling ;
+                             save:purposeClassIntersection  dpv:SellTargettedAdvertisements ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:rule                      save-ex:test_policy_500_10000permission_8202
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Sibling ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1418
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Family ;
+                             save:dataIntersection          save:Sibling ;
+                             save:purposeClassIntersection  dpv:SellTargettedAdvertisements ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_4604
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_64_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Processing ;
+                           save:actionIntersection        save:Align ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:HealthRecord ;
+                           save:dataIntersection          save:HealthRecord ;
+                           save:purposeClassIntersection  dpv:ImproveInternalCRMProcesses ;
+                           save:purposeIntersection       save:ImproveInternalCRMProcesses ;
+                           save:rule                      save-ex:test_policy_500_10000permission_4082
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Transform ;
+                           save:actionIntersection        save:Align ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                           save:dataIntersection          save:HealthRecord ;
+                           save:purposeClassIntersection  dpv:OptimisationForController ;
+                           save:purposeIntersection       save:ImproveInternalCRMProcesses ;
+                           save:rule                      save-ex:test_policy_500_10000permission_7327
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_81_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Analyse ;
+                             save:actionIntersection        save:Analyse ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Transactional ;
+                             save:dataIntersection          save:PurchasesAndSpendingHabit ;
+                             save:purposeClassIntersection  dpv:OptimisationForConsumer ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:rule                      save-ex:test_policy_500_10000permission_9246
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Analyse ;
+                             save:actionIntersection        save:Analyse ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Transactional ;
+                             save:dataIntersection          save:PurchasesAndSpendingHabit ;
+                             save:purposeClassIntersection  dpv:OptimiseUserInterface ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1318
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_28_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transfer ;
+                             save:actionIntersection        save:Move ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:ServiceConsumptionBehavior ;
+                             save:dataIntersection          save:TVViewingBehavior ;
+                             save:purposeClassIntersection  dpv:NonCommercialResearch ;
+                             save:purposeIntersection       save:NonCommercialResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_5128
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_45_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Collect ;
+                             save:actionIntersection        save:Collect ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Professional ;
+                             save:dataIntersection          save:EmploymentHistory ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:CreateEventRecommendations ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9440
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_62_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Align ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Professional ;
+                             save:dataIntersection          save:DisciplinaryAction ;
+                             save:purposeClassIntersection  dpv:NonCommercialResearch ;
+                             save:purposeIntersection       save:NonCommercialResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1666
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Align ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Social ;
+                             save:dataIntersection          save:DisciplinaryAction ;
+                             save:purposeClassIntersection  dpv:ResearchAndDevelopment ;
+                             save:purposeIntersection       save:NonCommercialResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9425
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_26_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Retrieve ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Professional ;
+                             save:dataIntersection          save:DisciplinaryAction ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000permission_9399
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Retrieve ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Social ;
+                             save:dataIntersection          save:DisciplinaryAction ;
+                             save:purposeClassIntersection  dpv:OptimisationForController ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000permission_8083
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Retrieve ;
+                             save:actionIntersection        save:Retrieve ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:DisciplinaryAction ;
+                             save:dataIntersection          save:DisciplinaryAction ;
+                             save:purposeClassIntersection  dpv:OptimisationForController ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6796
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_43_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_74_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:External ;
+                             save:dataIntersection          save:MentalHealth ;
+                             save:purposeClassIntersection  dpv:DeliveryOfGoods ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000permission_1519
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                             save:dataIntersection          save:MentalHealth ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000permission_497
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Health ;
+                             save:dataIntersection          save:MentalHealth ;
+                             save:purposeClassIntersection  dpv:DeliveryOfGoods ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000permission_6969
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:MentalHealth ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1418
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                             save:dataIntersection          save:MentalHealth ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9662
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Health ;
+                             save:dataIntersection          save:MentalHealth ;
+                             save:purposeClassIntersection  dpv:RequestedServiceProvision ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1902
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:MentalHealth ;
+                             save:dataIntersection          save:MentalHealth ;
+                             save:purposeClassIntersection  dpv:DeliveryOfGoods ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_5745
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_91_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Combine ;
+                             save:actionIntersection        save:Combine ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Ownership ;
+                             save:dataIntersection          save:CarOwned ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:DirectMarketing ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1360
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_55_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_72_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Store ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:KnowledgeBelief ;
+                             save:dataIntersection          save:PhilosophicalBelief ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_8161
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_19_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Combine ;
+                           save:actionIntersection        save:Combine ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Social ;
+                           save:dataIntersection          save:CriminalPardon ;
+                           save:purposeClassIntersection  dpv:ServicePersonalization ;
+                           save:purposeIntersection       save:CreateProductRecommendations ;
+                           save:rule                      save-ex:test_policy_500_10000permission_1849
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_36_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Use ;
+                           save:actionIntersection        save:Analyse ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:PublicLife ;
+                           save:dataIntersection          save:CommunicationsMetadata ;
+                           save:purposeClassIntersection  dpv:OptimiseUserInterface ;
+                           save:purposeIntersection       save:OptimiseUserInterface ;
+                           save:rule                      save-ex:test_policy_500_10000permission_3604
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_53_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Processing ;
+                           save:actionIntersection        save:Retrieve ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:EmailAddress ;
+                           save:dataIntersection          save:EmailAddress ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:UsageAnalytics ;
+                           save:rule                      save-ex:test_policy_500_10000permission_8035
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_17_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Align ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Geographic ;
+                             save:dataIntersection          save:Geographic ;
+                             save:purposeClassIntersection  dpv:Security ;
+                             save:purposeIntersection       save:AccessControl ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9274
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_84_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_65_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Adapt ;
+                             save:actionIntersection        save:Adapt ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Height ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:rule                      save-ex:test_policy_500_10000permission_9133
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Adapt ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PhysicalCharacteristic ;
+                             save:dataIntersection          save:Height ;
+                             save:purposeClassIntersection  dpv:SellTargettedAdvertisements ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1388
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_82_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_29_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_46_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_63_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_27_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Move ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Social ;
+                             save:dataIntersection          save:WorkHistory ;
+                             save:purposeClassIntersection  dpv:ResearchAndDevelopment ;
+                             save:purposeIntersection       save:AcademicResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9425
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Move ;
+                             save:actionIntersection        save:Move ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Social ;
+                             save:dataIntersection          save:WorkHistory ;
+                             save:purposeClassIntersection  dpv:ResearchAndDevelopment ;
+                             save:purposeIntersection       save:AcademicResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_2906
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_3_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_94_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_75_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_1_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_92_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Store ;
+                           save:actionIntersection        save:Store ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:SocialNetwork ;
+                           save:dataIntersection          save:Association ;
+                           save:purposeClassIntersection  dpv:Payment ;
+                           save:purposeIntersection       save:Payment ;
+                           save:rule                      save-ex:test_policy_500_10000permission_5784
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Processing ;
+                           save:actionIntersection        save:Store ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Social ;
+                           save:dataIntersection          save:Association ;
+                           save:purposeClassIntersection  dpv:Payment ;
+                           save:purposeIntersection       save:Payment ;
+                           save:rule                      save-ex:test_policy_500_10000permission_6380
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Store ;
+                           save:actionIntersection        save:Store ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Association ;
+                           save:dataIntersection          save:Association ;
+                           save:purposeClassIntersection  dpv:ServiceProvision ;
+                           save:purposeIntersection       save:Payment ;
+                           save:rule                      save-ex:test_policy_500_10000permission_958
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_39_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:External ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:OptimisationForController ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000permission_8148
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000permission_497
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Disability ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_8250
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:IncreaseServiceRobustness ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_5385
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:MedicalHealth ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:IncreaseServiceRobustness ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_5672
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1418
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9662
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:MedicalHealth ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:OptimisationForController ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9843
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_56_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Obtain ;
+                             save:actionIntersection        save:Record ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Family ;
+                             save:dataIntersection          save:Relationship ;
+                             save:purposeClassIntersection  dpv:ServiceProvision ;
+                             save:purposeIntersection       save:CommunicationForCustomerCare ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_3124
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_73_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PublicLife ;
+                             save:dataIntersection          save:PoliticalAffiliation ;
+                             save:purposeClassIntersection  dpv:ServicePersonalization ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_743
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_37_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Retrieve ;
+                           save:actionIntersection        save:Retrieve ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Identifying ;
+                           save:dataIntersection          save:Username ;
+                           save:purposeClassIntersection  dpv:AcademicResearch ;
+                           save:purposeIntersection       save:AcademicResearch ;
+                           save:rule                      save-ex:test_policy_500_10000permission_7822
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_85_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Weight ;
+                             save:purposeClassIntersection  dpv:SellTargettedAdvertisements ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:rule                      save-ex:test_policy_500_10000permission_8202
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Weight ;
+                             save:dataIntersection          save:Weight ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_235
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Weight ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1418
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PhysicalCharacteristic ;
+                             save:dataIntersection          save:Weight ;
+                             save:purposeClassIntersection  dpv:SellTargettedAdvertisements ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1388
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_49_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Structure ;
+                             save:actionIntersection        save:Structure ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Transactional ;
+                             save:dataIntersection          save:Purchase ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:ImproveExistingProductsAndServices ;
+                             save:rule                      save-ex:test_policy_500_10000permission_566
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Structure ;
+                             save:actionIntersection        save:Structure ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Purchase ;
+                             save:purposeClassIntersection  dpv:ImproveExistingProductsAndServices ;
+                             save:purposeIntersection       save:ImproveExistingProductsAndServices ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6850
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_66_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:Anonymise ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Financial ;
+                             save:dataIntersection          save:CarOwned ;
+                             save:purposeClassIntersection  dpv:RegistrationAuthentication ;
+                             save:purposeIntersection       save:RegistrationAuthentication ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_7792
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_83_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Consult ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:DeviceBased ;
+                             save:dataIntersection          save:MACAddress ;
+                             save:purposeClassIntersection  dpv:CreatePersonalizedRecommendations ;
+                             save:purposeIntersection       save:CreateProductRecommendations ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6134
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_47_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Anonymise ;
+                             save:actionIntersection        save:Anonymise ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:EmploymentHistory ;
+                             save:purposeClassIntersection  dpv:SocialMediaMarketing ;
+                             save:purposeIntersection       save:SocialMediaMarketing ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_500
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_4_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Collect ;
+                             save:actionIntersection        save:Collect ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:PublicLife ;
+                             save:dataIntersection          save:CommunicationsMetadata ;
+                             save:purposeClassIntersection  dpv:Security ;
+                             save:purposeIntersection       save:IdentityVerification ;
+                             save:rule                      save-ex:test_policy_500_10000permission_1767
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Obtain ;
+                             save:actionIntersection        save:Collect ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:PublicLife ;
+                             save:dataIntersection          save:CommunicationsMetadata ;
+                             save:purposeClassIntersection  dpv:Security ;
+                             save:purposeIntersection       save:IdentityVerification ;
+                             save:rule                      save-ex:test_policy_500_10000permission_8950
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Collect ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:CommunicationsMetadata ;
+                             save:dataIntersection          save:CommunicationsMetadata ;
+                             save:purposeClassIntersection  dpv:Security ;
+                             save:purposeIntersection       save:IdentityVerification ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1467
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_95_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Acquire ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Authenticating ;
+                             save:dataIntersection          save:PINCode ;
+                             save:purposeClassIntersection  dpv:ServicePersonalization ;
+                             save:purposeIntersection       save:CreateProductRecommendations ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6298
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Obtain ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Authenticating ;
+                             save:dataIntersection          save:PINCode ;
+                             save:purposeClassIntersection  dpv:CreateProductRecommendations ;
+                             save:purposeIntersection       save:CreateProductRecommendations ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6672
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_59_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Adapt ;
+                             save:actionIntersection        save:Adapt ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:EthnicOrigin ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:rule                      save-ex:test_policy_500_10000permission_7527
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Adapt ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Ethnicity ;
+                             save:dataIntersection          save:EthnicOrigin ;
+                             save:purposeClassIntersection  dpv:OptimiseUserInterface ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_2228
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_76_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Disseminate ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Social ;
+                             save:dataIntersection          save:Character ;
+                             save:purposeClassIntersection  dpv:ResearchAndDevelopment ;
+                             save:purposeIntersection       save:AcademicResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9425
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_2_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_93_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Structure ;
+                             save:actionIntersection        save:Structure ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Transactional ;
+                             save:dataIntersection          save:LoanRecord ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:ImproveExistingProductsAndServices ;
+                             save:rule                      save-ex:test_policy_500_10000permission_566
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Structure ;
+                             save:actionIntersection        save:Structure ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:LoanRecord ;
+                             save:purposeClassIntersection  dpv:ImproveExistingProductsAndServices ;
+                             save:purposeIntersection       save:ImproveExistingProductsAndServices ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6850
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_57_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:Restrict ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:KnowledgeBelief ;
+                             save:dataIntersection          save:Thought ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:ImproveInternalCRMProcesses ;
+                             save:rule                      save-ex:test_policy_500_10000permission_852
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Restrict ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:KnowledgeBelief ;
+                             save:dataIntersection          save:Thought ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:ImproveInternalCRMProcesses ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_8161
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_38_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Transform ;
+                           save:actionIntersection        save:Combine ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Demographic ;
+                           save:dataIntersection          save:IncomeBracket ;
+                           save:purposeClassIntersection  dpv:ServicePersonalization ;
+                           save:purposeIntersection       save:PersonalisedBenefits ;
+                           save:rule                      save-ex:test_policy_500_10000permission_2908
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_69_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Acquire ;
+                             save:actionIntersection        save:Acquire ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                             save:dataIntersection          save:IndividualHealthHistory ;
+                             save:purposeClassIntersection  dpv:FraudPreventionAndDetection ;
+                             save:purposeIntersection       save:FraudPreventionAndDetection ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_2919
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_86_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Profiling ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:FinancialAccount ;
+                             save:dataIntersection          save:FinancialAccountNumber ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000permission_7020
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Profiling ;
+                             save:actionIntersection        save:Profiling ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:FinancialAccount ;
+                             save:dataIntersection          save:FinancialAccountNumber ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:IncreaseServiceRobustness ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6228
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_67_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000permission_497
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:External ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:DeliveryOfGoods ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000permission_1519
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Disability ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:ServiceProvision ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000permission_3460
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1418
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                             save:dataIntersection          save:Disability ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9662
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_48_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:PseudoAnonymise ;
+                           save:actionIntersection        save:PseudoAnonymise ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Retina ;
+                           save:dataIntersection          save:Retina ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:CreateEventRecommendations ;
+                           save:rule                      save-ex:test_policy_500_10000permission_1068
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_79_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_5_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disseminate ;
+                           save:actionIntersection        save:Disseminate ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Behavioral ;
+                           save:dataIntersection          save:Attitude ;
+                           save:purposeClassIntersection  dpv:LegalCompliance ;
+                           save:purposeIntersection       save:LegalCompliance ;
+                           save:rule                      save-ex:test_policy_500_10000permission_2651
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_96_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Copy ;
+                             save:actionIntersection        save:Copy ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Social ;
+                             save:dataIntersection          save:SocialStatus ;
+                             save:purposeClassIntersection  dpv:ServicePersonalization ;
+                             save:purposeIntersection       save:CreateEventRecommendations ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6342
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Copy ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PublicLife ;
+                             save:dataIntersection          save:SocialStatus ;
+                             save:purposeClassIntersection  dpv:ServicePersonalization ;
+                             save:purposeIntersection       save:CreateEventRecommendations ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_743
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_77_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:DiscloseByTransmission ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Contact ;
+                             save:dataIntersection          save:PhysicalAddress ;
+                             save:purposeClassIntersection  dpv:ServicePersonalization ;
+                             save:purposeIntersection       save:UserInterfacePersonalisation ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_3043
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_58_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:DeviceOperatingSystem ;
+                             save:dataIntersection          save:DeviceOperatingSystem ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:rule                      save-ex:test_policy_500_10000permission_1867
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:PseudoAnonymise ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:DeviceOperatingSystem ;
+                             save:dataIntersection          save:DeviceOperatingSystem ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_5565
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:DeviceBased ;
+                             save:dataIntersection          save:DeviceOperatingSystem ;
+                             save:purposeClassIntersection  dpv:OptimisationForConsumer ;
+                             save:purposeIntersection       save:OptimiseUserInterface ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_7015
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_89_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Store ;
+                             save:actionIntersection        save:Store ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Sexual ;
+                             save:dataIntersection          save:SexualHistory ;
+                             save:purposeClassIntersection  dpv:LegalCompliance ;
+                             save:purposeIntersection       save:LegalCompliance ;
+                             save:rule                      save-ex:test_policy_500_10000permission_3703
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Store ;
+                             save:actionIntersection        save:Store ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:SexualHistory ;
+                             save:dataIntersection          save:SexualHistory ;
+                             save:purposeClassIntersection  dpv:LegalCompliance ;
+                             save:purposeIntersection       save:LegalCompliance ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_7689
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_87_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_68_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Transactional ;
+                             save:dataIntersection          save:Income ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000permission_8275
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Derive ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Income ;
+                             save:dataIntersection          save:Income ;
+                             save:purposeClassIntersection  dpv:PersonalisedBenefits ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000permission_2691
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Derive ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Income ;
+                             save:dataIntersection          save:Income ;
+                             save:purposeClassIntersection  dpv:PersonalisedBenefits ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_5917
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Financial ;
+                             save:dataIntersection          save:Income ;
+                             save:purposeClassIntersection  dpv:PersonalisedBenefits ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_3855
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_8_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_6_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:DiscloseByTransmission ;
+                           save:actionIntersection        save:DiscloseByTransmission ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Transactional ;
+                           save:dataIntersection          save:Sale ;
+                           save:purposeClassIntersection  dpv:IncreaseServiceRobustness ;
+                           save:purposeIntersection       save:IncreaseServiceRobustness ;
+                           save:rule                      save-ex:test_policy_500_10000permission_9907
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:DiscloseByTransmission ;
+                           save:actionIntersection        save:DiscloseByTransmission ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Transactional ;
+                           save:dataIntersection          save:Sale ;
+                           save:purposeClassIntersection  dpv:ServiceOptimization ;
+                           save:purposeIntersection       save:IncreaseServiceRobustness ;
+                           save:rule                      save-ex:test_policy_500_10000permission_3926
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:DiscloseByTransmission ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Sale ;
+                           save:dataIntersection          save:Sale ;
+                           save:purposeClassIntersection  dpv:OptimisationForController ;
+                           save:purposeIntersection       save:IncreaseServiceRobustness ;
+                           save:rule                      save-ex:test_policy_500_10000permission_1266
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_97_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:Restrict ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:CriminalCharge ;
+                             save:dataIntersection          save:CriminalCharge ;
+                             save:purposeClassIntersection  dpv:ResearchAndDevelopment ;
+                             save:purposeIntersection       save:CommercialResearch ;
+                             save:rule                      save-ex:test_policy_500_10000permission_375
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Restrict ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Social ;
+                             save:dataIntersection          save:CriminalCharge ;
+                             save:purposeClassIntersection  dpv:ResearchAndDevelopment ;
+                             save:purposeIntersection       save:CommercialResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9425
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Restrict ;
+                             save:actionIntersection        save:Restrict ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:CriminalCharge ;
+                             save:dataIntersection          save:CriminalCharge ;
+                             save:purposeClassIntersection  dpv:CommercialResearch ;
+                             save:purposeIntersection       save:CommercialResearch ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_7998
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_78_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_100_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Remove ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                             save:dataIntersection          save:DrugTestResult ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:CreateEventRecommendations ;
+                             save:rule                      save-ex:test_policy_500_10000permission_497
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:DrugTestResult ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:CreateEventRecommendations ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_1418
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Destruct ;
+                             save:actionIntersection        save:Destruct ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                             save:dataIntersection          save:DrugTestResult ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:CreateEventRecommendations ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_9662
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_10_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:MakeAvailable ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:External ;
+                           save:dataIntersection          save:Race ;
+                           save:purposeClassIntersection  dpv:SellTargettedAdvertisements ;
+                           save:purposeIntersection       save:SellTargettedAdvertisements ;
+                           save:rule                      save-ex:test_policy_500_10000permission_4801
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:MakeAvailable ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:SpecialCategoryPersonalData ;
+                           save:dataIntersection          save:Race ;
+                           save:purposeClassIntersection  dpv:SellTargettedAdvertisements ;
+                           save:purposeIntersection       save:SellTargettedAdvertisements ;
+                           save:rule                      save-ex:test_policy_500_10000permission_3165
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_88_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_9_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:MakeAvailable ;
+                             save:actionIntersection        save:MakeAvailable ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:EmploymentHistory ;
+                             save:dataIntersection          save:EmploymentHistory ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:DirectMarketing ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_3442
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_20_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Obtain ;
+                             save:actionIntersection        save:Collect ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:CommunicationsMetadata ;
+                             save:dataIntersection          save:CommunicationsMetadata ;
+                             save:purposeClassIntersection  dpv:UserInterfacePersonalisation ;
+                             save:purposeIntersection       save:UserInterfacePersonalisation ;
+                             save:rule                      save-ex:test_policy_500_10000permission_4460
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Collect ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PublicLife ;
+                             save:dataIntersection          save:CommunicationsMetadata ;
+                             save:purposeClassIntersection  dpv:ServicePersonalization ;
+                             save:purposeIntersection       save:UserInterfacePersonalisation ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_743
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_7_10000_500_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Processing ;
+                             save:actionIntersection        save:Store ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Tattoo ;
+                             save:dataIntersection          save:Tattoo ;
+                             save:purposeClassIntersection  dpv:DeliveryOfGoods ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_924
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_98_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_13_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_30_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Consult ;
+                           save:actionIntersection        save:Consult ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Name ;
+                           save:dataIntersection          save:Name ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:DirectMarketing ;
+                           save:rule                      save-ex:test_policy_500_10000permission_592
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_11_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_23_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:HouseOwned ;
+                             save:dataIntersection          save:ApartmentOwned ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000permission_9357
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Ownership ;
+                             save:dataIntersection          save:ApartmentOwned ;
+                             save:purposeClassIntersection  dpv:PersonalisedBenefits ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_6466
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:PseudoAnonymise ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Financial ;
+                             save:dataIntersection          save:ApartmentOwned ;
+                             save:purposeClassIntersection  dpv:PersonalisedBenefits ;
+                             save:purposeIntersection       save:PersonalisedBenefits ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_3855
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_40_10000_500_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Transform ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Transactional ;
+                             save:dataIntersection          save:CreditRecord ;
+                             save:purposeClassIntersection  dpv:Purpose ;
+                             save:purposeIntersection       save:InternalResourceOptimisation ;
+                             save:rule                      save-ex:test_policy_500_10000permission_8275
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Derive ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:Transactional ;
+                             save:dataIntersection          save:CreditRecord ;
+                             save:purposeClassIntersection  dpv:InternalResourceOptimisation ;
+                             save:purposeIntersection       save:InternalResourceOptimisation ;
+                             save:rule                      save-ex:test_policy_500_10000permission_6511
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Derive ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CreditRecord ;
+                             save:purposeClassIntersection  dpv:InternalResourceOptimisation ;
+                             save:purposeIntersection       save:InternalResourceOptimisation ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_4080
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Derive ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:Transactional ;
+                             save:dataIntersection          save:CreditRecord ;
+                             save:purposeClassIntersection  dpv:OptimisationForController ;
+                             save:purposeIntersection       save:InternalResourceOptimisation ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_4049
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Derive ;
+                             save:actionIntersection        save:Derive ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:CreditRecord ;
+                             save:dataIntersection          save:CreditRecord ;
+                             save:purposeClassIntersection  dpv:ServiceOptimization ;
+                             save:purposeIntersection       save:InternalResourceOptimisation ;
+                             save:rule                      save-ex:test_policy_500_10000prohibition_3786
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "fully-permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_21_10000_500_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_99_10000_500_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Anonymise ;
+                           save:actionIntersection        save:Anonymise ;
+                           save:answer                    "permitted" ;
+                           save:dataClassIntersection     dpv:Religion ;
+                           save:dataIntersection          save:Religion ;
+                           save:purposeClassIntersection  dpv:CommercialInterest ;
+                           save:purposeIntersection       save:SellTargettedAdvertisements ;
+                           save:rule                      save-ex:test_policy_500_10000permission_2925
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .

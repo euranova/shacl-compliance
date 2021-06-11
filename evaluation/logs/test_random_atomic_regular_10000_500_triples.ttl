@@ -1,0 +1,934 @@
+@base          <http://example.org/random> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+save-ex:test_5_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_86_10000_500_0
+        save:answer        "permitted" , "prohibited" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_7020 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_6228 .
+
+save-ex:test_37_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_19_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_1849 .
+
+save-ex:test_67_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_97_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_36_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_3604 .
+
+save-ex:test_53_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_8035 .
+
+save-ex:test_70_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_8275 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_3855 .
+
+save-ex:test_4_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_8950 , save-ex:test_policy_500_10000permission_1767 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1467 .
+
+save-ex:test_48_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_1068 .
+
+save-ex:test_26_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_56_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_86_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_65_10000_500_0
+        save:answer        "permitted" , "prohibited" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_9133 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1388 .
+
+save-ex:test_20_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_4460 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_743 .
+
+save-ex:test_7_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_32_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_7393 , save-ex:test_policy_500_10000prohibition_1418 .
+
+save-ex:test_39_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_15_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_69_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_45_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_99_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_75_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_96_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_6342 , save-ex:test_policy_500_10000prohibition_743 .
+
+save-ex:test_28_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_58_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_88_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_80_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_7861 , save-ex:test_policy_500_10000prohibition_2085 , save-ex:test_policy_500_10000prohibition_7270 .
+
+save-ex:test_58_10000_500_0
+        save:answer        "permitted" , "prohibited" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_1867 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_7015 , save-ex:test_policy_500_10000prohibition_5565 .
+
+save-ex:test_17_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_47_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_77_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_92_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_958 , save-ex:test_policy_500_10000permission_6380 , save-ex:test_policy_500_10000permission_5784 .
+
+save-ex:test_42_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1926 .
+
+save-ex:test_36_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_66_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_89_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_3703 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_7689 .
+
+save-ex:test_39_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_497 , save-ex:test_policy_500_10000permission_8148 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_9843 , save-ex:test_policy_500_10000prohibition_5672 , save-ex:test_policy_500_10000prohibition_1418 , save-ex:test_policy_500_10000prohibition_9662 , save-ex:test_policy_500_10000prohibition_5385 , save-ex:test_policy_500_10000prohibition_8250 .
+
+save-ex:test_49_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_10_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_19_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_40_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_70_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_56_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_3124 .
+
+save-ex:test_79_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_7_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_924 .
+
+save-ex:test_73_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_743 .
+
+save-ex:test_100_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_90_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_7826 .
+
+save-ex:test_6_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_68_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_2691 , save-ex:test_policy_500_10000permission_8275 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_5917 , save-ex:test_policy_500_10000prohibition_3855 .
+
+save-ex:test_38_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_85_10000_500_0
+        save:answer        "permitted" , "prohibited" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_8202 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1388 , save-ex:test_policy_500_10000prohibition_1418 , save-ex:test_policy_500_10000prohibition_235 .
+
+save-ex:test_68_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_98_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_35_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_3346 , save-ex:test_policy_500_10000permission_7020 .
+
+save-ex:test_27_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_99_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_2925 .
+
+save-ex:test_8_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_14_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_2630 .
+
+save-ex:test_31_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_61_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_91_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_20_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_29_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_95_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_6672 , save-ex:test_policy_500_10000prohibition_6298 .
+
+save-ex:test_50_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_28_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_5128 .
+
+save-ex:test_59_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_80_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_89_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_45_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_9440 .
+
+save-ex:test_1_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_62_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1666 , save-ex:test_policy_500_10000prohibition_9425 .
+
+save-ex:test_18_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_57_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_852 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_8161 .
+
+save-ex:test_12_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1108 .
+
+save-ex:test_74_10000_500_0
+        save:answer        "permitted" , "prohibited" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_6969 , save-ex:test_policy_500_10000permission_497 , save-ex:test_policy_500_10000permission_1519 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1418 , save-ex:test_policy_500_10000prohibition_5745 , save-ex:test_policy_500_10000prohibition_9662 , save-ex:test_policy_500_10000prohibition_1902 .
+
+save-ex:test_91_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1360 .
+
+save-ex:test_24_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_3640 .
+
+save-ex:test_22_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_52_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_41_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_924 .
+
+save-ex:test_82_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_11_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_38_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_2908 .
+
+save-ex:test_41_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_71_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_6_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_9907 , save-ex:test_policy_500_10000permission_1266 , save-ex:test_policy_500_10000permission_3926 .
+
+save-ex:test_72_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_8161 .
+
+save-ex:test_67_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_1519 , save-ex:test_policy_500_10000permission_497 , save-ex:test_policy_500_10000permission_3460 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_9662 , save-ex:test_policy_500_10000prohibition_1418 .
+
+save-ex:test_30_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_60_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_90_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_100_10000_500_0
+        save:answer        "permitted" , "prohibited" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_497 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_9662 , save-ex:test_policy_500_10000prohibition_1418 .
+
+save-ex:test_17_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_9274 .
+
+save-ex:test_13_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_43_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_51_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_5123 .
+
+save-ex:test_73_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_9_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_32_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_62_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_92_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_30_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_592 .
+
+save-ex:test_77_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_3043 .
+
+save-ex:test_21_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_51_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_81_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_27_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_2906 , save-ex:test_policy_500_10000prohibition_9425 .
+
+save-ex:test_44_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_7653 , save-ex:test_policy_500_10000prohibition_8909 .
+
+save-ex:test_2_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_34_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_64_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_94_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_23_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_9357 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_6466 , save-ex:test_policy_500_10000prohibition_3855 .
+
+save-ex:test_23_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_53_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_9_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_3442 .
+
+save-ex:test_83_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_40_10000_500_0
+        save:answer        "permitted" , "prohibited" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_6511 , save-ex:test_policy_500_10000permission_8275 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_3786 , save-ex:test_policy_500_10000prohibition_4080 , save-ex:test_policy_500_10000prohibition_4049 .
+
+save-ex:test_4_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_12_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_96_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_42_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_72_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_37_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_7822 .
+
+save-ex:test_54_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_9430 , save-ex:test_policy_500_10000permission_2718 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_9699 .
+
+save-ex:test_5_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_2651 .
+
+save-ex:test_71_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1204 , save-ex:test_policy_500_10000prohibition_6462 .
+
+save-ex:test_49_10000_500_0
+        save:answer        "permitted" , "prohibited" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_566 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_6850 .
+
+save-ex:test_25_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_55_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_66_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_7792 .
+
+save-ex:test_85_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_83_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_6134 .
+
+save-ex:test_16_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_8202 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1418 , save-ex:test_policy_500_10000prohibition_4604 .
+
+save-ex:test_33_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_6976 .
+
+save-ex:test_14_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_44_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_74_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_97_10000_500_0
+        save:answer        "permitted" , "prohibited" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_375 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_9425 , save-ex:test_policy_500_10000prohibition_7998 .
+
+save-ex:test_57_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_33_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_47_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_500 .
+
+save-ex:test_87_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_63_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_93_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_64_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_4082 , save-ex:test_policy_500_10000permission_7327 .
+
+save-ex:test_81_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_9246 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_1318 .
+
+save-ex:test_59_10000_500_0
+        save:answer        "permitted" , "prohibited" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_7527 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_2228 .
+
+save-ex:test_16_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_76_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_9425 .
+
+save-ex:test_46_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_76_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_93_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_566 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_6850 .
+
+save-ex:test_26_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_9399 , save-ex:test_policy_500_10000permission_8083 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_6796 .
+
+save-ex:test_3_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_35_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_60_10000_500_0
+        save:answer        "prohibited" , "permitted" ;
+        save:conformsTo    save-ex:test_policy_500_10000permission_2280 ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_6866 , save-ex:test_policy_500_10000prohibition_5545 , save-ex:test_policy_500_10000prohibition_372 .
+
+save-ex:test_65_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_95_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_10_10000_500_0
+        save:answer      "permitted" ;
+        save:conformsTo  save-ex:test_policy_500_10000permission_4801 , save-ex:test_policy_500_10000permission_3165 .
+
+save-ex:test_48_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  0 .
+
+save-ex:test_24_10000_500
+        save:answer       "prohibited" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  1 .
+
+save-ex:test_78_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_54_10000_500
+        save:answer       "granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   1 ;
+        save:nProhibited  1 .
+
+save-ex:test_84_10000_500
+        save:answer       "not granted" ;
+        save:nChildren    1 ;
+        save:nPermitted   0 ;
+        save:nProhibited  0 .
+
+save-ex:test_69_10000_500_0
+        save:answer        "prohibited" ;
+        save:prohibitedBy  save-ex:test_policy_500_10000prohibition_2919 .

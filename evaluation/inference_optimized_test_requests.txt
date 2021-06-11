@@ -1,0 +1,9 @@
+Experiment: inference_optimized_test_requests
+	Policy: null
+	#Requests: 10
+	#Processed: 10
+	Mode: IMDB_TEST_REQUESTS
+	Triples inferred: 1067
+	Total exec time: 2974.0
+	Avg time per request: 297.4
+	Avg time per subrequest: 0.0

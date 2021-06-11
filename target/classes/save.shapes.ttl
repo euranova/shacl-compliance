@@ -1,0 +1,47 @@
+@prefix save:      <http://example.com/privacy-policy-model/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix dash:  <http://datashapes.org/dash#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+
+save:RequestBase  a          sh:NodeShape , rdfs:Class ;
+              rdfs:label       "RequestBase" ;
+              rdfs:subClassOf  rdfs:Resource , orcp:Request ;
+              skos:prefLabel   "RequestBase" ;
+              sh:property      [ sh:class     dpv:DataSubject ;
+                                 # sh:maxCount  1 ;
+                                 sh:path      save:dataSubject
+                               ] ;
+              sh:property      [ sh:class  save:LegalBasis ;
+                                 sh:path   save:legalBasis
+                               ] ;
+              sh:property      [ sh:class     dpv:PersonalDataCategory ;
+                                 sh:minCount  1 ;
+                                 sh:path      save:data
+                               ] ;
+              sh:property      [ sh:class  dpv:Purpose ;
+                                 sh:path   save:purpose
+                               ] ;
+              sh:property      [ sh:class  dpv:TechnicalOrganisationalMeasure ;
+                                 sh:path   save:hasTechnicalOrganisationalMeasure
+                               ] ;
+              sh:property      [ sh:class     dpv:DataController ;
+                                 # sh:maxCount  1 ;
+                                 sh:path      save:controller
+                               ] ;
+              sh:property      [ sh:class     dpv:Processing ;
+                                 sh:minCount  1 ;
+                                 sh:path      save:action
+                               ] .

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <title>SAVE Compliance POC demo</title>
+
+    <meta content="PP/DPA->SAVE POC demo" name="description">
+    <meta content="Katsiaryna Kransashchok" name="author">
+    <link th:href="@{/static/bootstrap-5.0.0-dist/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/static/fontawesome/css/all.css}" rel="stylesheet">
+    <link th:href="@{/static/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                    <button class="navbar-toggler" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"
+                        type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">RUNE Compliance</a>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<!--                        <ul class="navbar-nav">-->
+<!--                            <li class="nav-item dropdown active">-->
+<!--                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href=""-->
+<!--                                    id="navbarDropdownMenuLink0">Documents</a>-->
+<!--                                <div aria-labelledby="navbarDropdownMenuLink0" class="dropdown-menu">-->
+<!--                                    <a class="dropdown-item" href="#">Upload new</a> <a class="dropdown-item"-->
+<!--                                        href="#">Open</a>-->
+<!--                                    <a class="dropdown-item" href="#">Recent</a>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                        <form class="form-inline">-->
+<!--                            <input class="form-control mr-sm-2" type="text">-->
+<!--                            <button class="btn btn-primary my-2 my-sm-0" type="submit">-->
+<!--                                Search-->
+<!--                            </button>-->
+<!--                        </form>-->
+                        <ul class="navbar-nav ml-md-auto">
+                        </ul>
+                    </div>
+                </nav>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 align="center">
+                            Conflict Resolution: IMDB Privacy Notice
+                        </h1>
+                    </div>
+                </div>
+                <table class="table table-borderless">
+                    <tr>
+                        <td style="width: 33.333333%">
+                            <h3 align="center" >
+                                Original Permission
+                                <a href="#modal-container-add-rule" data-toggle="modal" type="button"
+                                   class="btn btn-outline-primary">
+                                    <i class="bi bi-check-square-fill"></i>
+                                </a>
+                            </h3>
+                        </td>
+                        <td style="width: 33.333333%">
+                            <h3 align="center" >
+                                Conflicted Parts
+                            </h3>
+                        </td>
+                        <td style="width: 33.333333%">
+                            <h3 align="center" >
+                                Original Prohibition
+                                <a href="#modal-container-add-rule" data-toggle="modal" type="button"
+                                   class="btn btn-outline-primary">
+                                    <i class="bi bi-check-square-fill"></i>
+                                </a>
+                            </h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 33.333333%">
+                            <p>We receive and store any information you enter on our Web site or give us in any other way. ......you might supply us with such information as your name;... your age and gender.We use the information that you provide for such purposes as responding to your requests, ... personalized advertisements. </p>
+                        </td>
+                        <td style="width: 33.333333%" align="center">
+                            <button type="button" class="btn btn-outline-primary" >
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill svg-event"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z">
+                                    </path>
+                                </svg>
+                                Previous Conflict
+                            </button>
+                            <button type="button" class="btn btn-outline-primary" >
+                                Next Conflict
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill svg-event"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </td>
+                        <td style="width: 33.333333%">
+                            <p>We do not use personally identifiable customer information that we gather to personalize advertisements.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 33.333333%">
+                            <div align="left">
+                                <div>
+                                    <table class="table table-striped table-hover table-success">
+                                        <tr>
+                                            <td>action</td> <td align="right">save:Obtain</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td> <td align="right">save:Store</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td> <td align="right">save:Use</td>
+                                        </tr>
+                                        <tr>
+                                            <td>data</td> <td align="right">save:Name</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td> <td align="right">save:Age</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td> <td align="right">save:Gender</td>
+                                        </tr>
+                                        <tr>
+                                            <td>purpose</td> <td align="right">save:CustomerCare</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td> <td align="right">save:PersonalisedAdvertising</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 33.333333%">
+                            <div align="left" >
+                                <div>
+                                    <table class="table table-striped table-hover table-warning">
+                                        <tr>
+                                            <td>action</td> <td align="right">save:Collect</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td> <td align="right">save:Use</td>
+                                        </tr>
+                                        <tr>
+                                            <td>data</td> <td align="right">save:Name</td>
+                                        </tr>
+                                        <tr>
+                                            <td>purpose</td> <td align="right">save:PersonalisedAdvertising</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 33.333333%">
+                            <div align="left">
+                                <div>
+                                    <table class="table table-striped table-hover table-danger" >
+                                        <tr>
+                                            <td>action</td> <td align="right">save:Collect</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td> <td align="right">save:Use</td>
+                                        </tr>
+                                        <tr>
+                                            <td>data</td> <td align="right">save:Identifying</td>
+                                        </tr>
+                                        <tr>
+                                            <td>purpose</td> <td align="right">save:PersonalisedAdvertising</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col-md-4">
+
+
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <p></p>
+
+                    </div>
+                    <div class="col-md-4">
+
+
+
+                    </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/bootstrap-5.0.0-dist/js/bootstrap.bundle.js}"></script>
+    <script th:src="@{/static/fontawesome/js/all.js}"></script>
+    <script th:src="@{/static/js/bootstrap-treeview.js}"></script>
+    <script th:src="@{/static/index.js}"></script>
+
+</body>
+
+</html>

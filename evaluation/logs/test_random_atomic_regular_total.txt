@@ -1,0 +1,15 @@
+Experiment: test_random_atomic_regular_total
+	Policy: Random
+	#Rules: 3000
+	#Processed: 3000
+	Atomic: true
+	Triples inferred: 13877
+	Total exec time: 441807.0
+	Avg time per request: 176.52133333333333
+	Avg time per subrequest: 177.62233333333333
+	Count per # of subrequests: {1=3000}
+	Avg time per # of subrequests: {1=176.52133333333333}
+	Count per # of atomic requests in a batch: {100=30}
+	Avg time per # of atomic requests in a batch: {100=14726.9}
+	Count per # of simple rules in a policy: {10000=6, 1=6, 100=6, 1000=6, 10=6}
+	Avg time per # of simple rules in a policy: {10000=656.4233333333333, 1=0.615, 100=8.608333333333333, 1000=69.57666666666667, 10=1.1216666666666666}

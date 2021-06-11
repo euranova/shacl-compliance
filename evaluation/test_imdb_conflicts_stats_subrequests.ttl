@@ -1,0 +1,88 @@
+@base          <http://example.org/random> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+save-ex:IMDBProhibition7_opt
+        a                 save-ex:RequestIMDBPolicyPreconflictPermissions ;
+        save:purposeList  ( save:SellProductsToDataSubject save:DirectMarketing save:SellDataToThirdParties save:SocialMediaMarketing save:SellTargettedAdvertisements save:SellInsightsFromData save:PersonalisedAdvertising ) .
+
+save-ex:IMDBProhibition8_opt
+        a              save-ex:RequestIMDBPolicyPreconflictPermissions ;
+        save:dataList  ( save:Picture save:Username save:OfficialID save:UID save:Name save:Fingerprint save:Retina ) .
+
+save-ex:IMDBProhibition3_opt
+        a                   save-ex:RequestIMDBPolicyPreconflictPermissions ;
+        save:actionList     ( save:Retrieve save:Analyse save:Consult save:Profiling ) ;
+        save:dataList       ( save:Picture save:CreditCapacity save:PhysicalTrait save:PINCode save:Tattoo save:CommunicationsMetadata save:MACAddress save:HairColor save:WorkHistory save:Dialect save:BrowsingBehavior save:Sale save:DerivedPersonalData save:Proclivitie save:Dislike save:IPAddress save:CallLog save:Job save:CreditCardNumber save:GeneralReputation save:SocialStatus save:SexualPreference save:Offspring save:Country save:CriminalCharge save:Connection save:MaritalStatus save:EmailAddress save:LifeHistory save:Fetish save:ProfessionalInterview save:Salary save:TVViewingBehavior save:Marriage save:TelephoneNumber save:EthnicOrigin save:CriminalConviction save:Acquantaince save:FavoriteMusic save:Prescription save:Interaction save:DeviceOperatingSystem save:Reference save:BloodType save:Character save:Piercing save:FinancialAccountNumber save:ProfessionalEvaluation save:Race save:BrowserFingerprint save:PhysicalHealth save:IncomeBracket save:Weight save:PoliticalAffiliation save:Height save:Religion save:Age save:Divorce save:Demeanor save:PurchasesAndSpendingHabit save:CarOwned save:RoomNumber save:SocialMediaCommunication save:ApartmentOwned save:EmploymentHistory save:Relationship save:Fingerprint save:Opinion save:Parent save:AuthenticationHistory save:School save:VoiceMail save:SexualHistory save:PersonalPossession save:DNACode save:UID save:Retina save:Gender save:CreditRecord save:EmailContent save:Intention save:FamilyHealthHistory save:BankAccount save:LoanRecord save:CriminalPardon save:Purchase save:ReligiousBelief save:DisciplinaryAction save:Like save:GPSCoordinate save:FavoriteColor save:DeviceApplications save:Friend save:Thought save:FavoriteFood save:Personality save:Income save:VoiceCommunicationRecording save:Transaction save:DrugTestResult save:Association save:GroupMembership save:SkinTone save:Tax save:Username save:OfficialID save:Disability save:Name save:SecretText save:Accent save:CreditStanding save:ProfessionalCertification save:MentalHealth save:Sibling save:Attitude save:PaymentCardExpiry save:CreditScore save:LinkClicked save:PrivacyPreference save:IndividualHealthHistory save:Password save:Geographic save:PhilosophicalBelief save:PhysicalAddress save:HealthRecord ) ;
+        save:processorList  ( save-ex:Agent ) .
+
+save-ex:IMDBProhibition3_ConflictFree_opt
+        a                   save-ex:RequestIMDBPolicyPreconflictPermissions ;
+        save:actionList     ( save:Retrieve save:Analyse save:Consult save:Profiling ) ;
+        save:dataList       ( save:Picture save:CreditCapacity save:PhysicalTrait save:PINCode save:Tattoo save:CommunicationsMetadata save:MACAddress save:HairColor save:WorkHistory save:Dialect save:BrowsingBehavior save:Sale save:DerivedPersonalData save:Proclivitie save:Dislike save:IPAddress save:CallLog save:Job save:CreditCardNumber save:GeneralReputation save:SocialStatus save:SexualPreference save:Offspring save:Country save:CriminalCharge save:Connection save:MaritalStatus save:EmailAddress save:LifeHistory save:Fetish save:ProfessionalInterview save:Salary save:TVViewingBehavior save:Marriage save:TelephoneNumber save:EthnicOrigin save:CriminalConviction save:Acquantaince save:FavoriteMusic save:Prescription save:Interaction save:DeviceOperatingSystem save:Reference save:BloodType save:Character save:Piercing save:FinancialAccountNumber save:ProfessionalEvaluation save:Race save:BrowserFingerprint save:PhysicalHealth save:IncomeBracket save:Weight save:PoliticalAffiliation save:Height save:Religion save:Age save:Divorce save:Demeanor save:PurchasesAndSpendingHabit save:CarOwned save:RoomNumber save:SocialMediaCommunication save:ApartmentOwned save:EmploymentHistory save:Relationship save:Fingerprint save:Opinion save:Parent save:AuthenticationHistory save:School save:VoiceMail save:SexualHistory save:PersonalPossession save:DNACode save:UID save:Retina save:Gender save:CreditRecord save:EmailContent save:Intention save:FamilyHealthHistory save:BankAccount save:LoanRecord save:CriminalPardon save:Purchase save:ReligiousBelief save:DisciplinaryAction save:Like save:GPSCoordinate save:FavoriteColor save:DeviceApplications save:Friend save:Thought save:FavoriteFood save:Personality save:Income save:VoiceCommunicationRecording save:Transaction save:DrugTestResult save:Association save:GroupMembership save:SkinTone save:Tax save:Username save:OfficialID save:Disability save:Name save:SecretText save:Accent save:CreditStanding save:ProfessionalCertification save:MentalHealth save:Sibling save:Attitude save:PaymentCardExpiry save:CreditScore save:LinkClicked save:PrivacyPreference save:IndividualHealthHistory save:Password save:Geographic save:PhilosophicalBelief save:PhysicalAddress save:HealthRecord ) ;
+        save:processorList  ( save-ex:Agent ) ;
+        save:purposeList    ( save:OptimiseUserInterface save:SellProductsToDataSubject save:DirectMarketing save:AcademicResearch save:NonCommercialResearch save:SocialMediaMarketing save:ImproveInternalCRMProcesses save:AccessControl save:PersonalisedBenefits save:DeliveryOfGoods save:IncreaseServiceRobustness save:ImproveExistingProductsAndServices save:SellDataToThirdParties save:UserInterfacePersonalisation save:IdentityVerification save:FraudPreventionAndDetection save:SellTargettedAdvertisements save:InternalResourceOptimisation save:SellInsightsFromData save:CreateEventRecommendations save:PersonalisedAdvertising ) .
+
+save-ex:IMDBProhibition4_opt
+        a                    save-ex:RequestIMDBPolicyPreconflictPermissions ;
+        save:actionList      ( save:Share ) ;
+        save:controllerList  ( save-ex:IMDB ) ;
+        save:dataList        ( save:EmailAddress save:Name ) ;
+        save:purposeList     ( save:SellTargettedAdvertisements ) ;
+        save:recipientList   ( save-ex:OtherBusinesses ) .
+
+save-ex:IMDBProhibition5_opt
+        a                    save-ex:RequestIMDBPolicyPreconflictPermissions ;
+        save:actionList      ( save:MakeAvailable save:Transmit save:Disseminate save:Share save:DiscloseByTransmission ) ;
+        save:controllerList  ( save-ex:IMDB ) ;
+        save:dataList        ( save:Picture save:Username save:OfficialID save:UID save:Name save:Fingerprint save:Retina ) ;
+        save:purposeList     ( save:SellTargettedAdvertisements ) ;
+        save:recipientList   ( save-ex:ThirdPartyAdvertisers ) .
+
+save-ex:IMDBProhibition6_opt
+        a                        save-ex:RequestIMDBPolicyPreconflictPermissions ;
+        save:actionList          ( save:MakeAvailable save:Record save:Retrieve save:Disseminate save:Structure save:Consult save:Align save:Destruct save:Profiling save:PseudoAnonymise save:Anonymise save:Move save:Transmit save:DiscloseByTransmission save:Adapt save:Collect save:Store save:Erase save:Combine save:Derive save:Restrict save:Share save:Alter save:Copy save:Analyse save:Acquire ) ;
+        save:controllerList      ( save-ex:IMDB ) ;
+        save:dataList            ( save:Picture save:CreditCapacity save:PhysicalTrait save:PINCode save:Tattoo save:CommunicationsMetadata save:MACAddress save:HairColor save:WorkHistory save:Dialect save:BrowsingBehavior save:Sale save:DerivedPersonalData save:Proclivitie save:Dislike save:IPAddress save:CallLog save:Job save:CreditCardNumber save:GeneralReputation save:SocialStatus save:SexualPreference save:Offspring save:Country save:CriminalCharge save:Connection save:MaritalStatus save:EmailAddress save:LifeHistory save:Fetish save:ProfessionalInterview save:Salary save:TVViewingBehavior save:Marriage save:TelephoneNumber save:EthnicOrigin save:CriminalConviction save:Acquantaince save:FavoriteMusic save:Prescription save:Interaction save:DeviceOperatingSystem save:Reference save:BloodType save:Character save:Piercing save:FinancialAccountNumber save:ProfessionalEvaluation save:Race save:BrowserFingerprint save:PhysicalHealth save:IncomeBracket save:Weight save:PoliticalAffiliation save:Height save:Religion save:Age save:Divorce save:Demeanor save:PurchasesAndSpendingHabit save:CarOwned save:RoomNumber save:SocialMediaCommunication save:ApartmentOwned save:EmploymentHistory save:Relationship save:Fingerprint save:Opinion save:Parent save:AuthenticationHistory save:School save:VoiceMail save:SexualHistory save:PersonalPossession save:DNACode save:UID save:Retina save:Gender save:CreditRecord save:EmailContent save:Intention save:FamilyHealthHistory save:BankAccount save:LoanRecord save:CriminalPardon save:Purchase save:ReligiousBelief save:DisciplinaryAction save:Like save:GPSCoordinate save:FavoriteColor save:DeviceApplications save:Friend save:Thought save:FavoriteFood save:Personality save:Income save:VoiceCommunicationRecording save:Transaction save:DrugTestResult save:Association save:GroupMembership save:SkinTone save:Tax save:Username save:OfficialID save:Disability save:Name save:SecretText save:Accent save:CreditStanding save:ProfessionalCertification save:MentalHealth save:Sibling save:Attitude save:PaymentCardExpiry save:CreditScore save:LinkClicked save:PrivacyPreference save:IndividualHealthHistory save:Password save:Geographic save:PhilosophicalBelief save:PhysicalAddress save:HealthRecord ) ;
+        save:hasDataSubjectList  ( save-ex:ChildUser ) .
+
+save-ex:IMDBProhibition1_opt
+        a                    save-ex:RequestIMDBPolicyPreconflictPermissions ;
+        save:actionList      ( save:MakeAvailable save:Transmit save:Disseminate save:Share save:DiscloseByTransmission ) ;
+        save:controllerList  ( save-ex:IMDB ) ;
+        save:dataList        ( save:Picture save:CreditCapacity save:PhysicalTrait save:PINCode save:Tattoo save:CommunicationsMetadata save:MACAddress save:HairColor save:WorkHistory save:Dialect save:BrowsingBehavior save:Sale save:DerivedPersonalData save:Proclivitie save:Dislike save:IPAddress save:CallLog save:Job save:CreditCardNumber save:GeneralReputation save:SocialStatus save:SexualPreference save:Offspring save:Country save:CriminalCharge save:Connection save:MaritalStatus save:EmailAddress save:LifeHistory save:Fetish save:ProfessionalInterview save:Salary save:TVViewingBehavior save:Marriage save:TelephoneNumber save:EthnicOrigin save:CriminalConviction save:Acquantaince save:FavoriteMusic save:Prescription save:Interaction save:DeviceOperatingSystem save:Reference save:BloodType save:Character save:Piercing save:FinancialAccountNumber save:ProfessionalEvaluation save:Race save:BrowserFingerprint save:PhysicalHealth save:IncomeBracket save:Weight save:PoliticalAffiliation save:Height save:Religion save:Age save:Divorce save:Demeanor save:PurchasesAndSpendingHabit save:CarOwned save:RoomNumber save:SocialMediaCommunication save:ApartmentOwned save:EmploymentHistory save:Relationship save:Fingerprint save:Opinion save:Parent save:AuthenticationHistory save:School save:VoiceMail save:SexualHistory save:PersonalPossession save:DNACode save:UID save:Retina save:Gender save:CreditRecord save:EmailContent save:Intention save:FamilyHealthHistory save:BankAccount save:LoanRecord save:CriminalPardon save:Purchase save:ReligiousBelief save:DisciplinaryAction save:Like save:GPSCoordinate save:FavoriteColor save:DeviceApplications save:Friend save:Thought save:FavoriteFood save:Personality save:Income save:VoiceCommunicationRecording save:Transaction save:DrugTestResult save:Association save:GroupMembership save:SkinTone save:Tax save:Username save:OfficialID save:Disability save:Name save:SecretText save:Accent save:CreditStanding save:ProfessionalCertification save:MentalHealth save:Sibling save:Attitude save:PaymentCardExpiry save:CreditScore save:LinkClicked save:PrivacyPreference save:IndividualHealthHistory save:Password save:Geographic save:PhilosophicalBelief save:PhysicalAddress save:HealthRecord ) ;
+        save:recipientList   ( save:ThirdParty ) .
+
+save-ex:IMDBProhibition2_opt
+        a                    save-ex:RequestIMDBPolicyPreconflictPermissions ;
+        save:actionList      ( save:Share ) ;
+        save:controllerList  ( save-ex:IMDB ) ;
+        save:dataList        ( save:Picture save:CreditCapacity save:PhysicalTrait save:PINCode save:Tattoo save:CommunicationsMetadata save:MACAddress save:HairColor save:WorkHistory save:Dialect save:BrowsingBehavior save:Sale save:DerivedPersonalData save:Proclivitie save:Dislike save:IPAddress save:CallLog save:Job save:CreditCardNumber save:GeneralReputation save:SocialStatus save:SexualPreference save:Offspring save:Country save:CriminalCharge save:Connection save:MaritalStatus save:EmailAddress save:LifeHistory save:Fetish save:ProfessionalInterview save:Salary save:TVViewingBehavior save:Marriage save:TelephoneNumber save:EthnicOrigin save:CriminalConviction save:Acquantaince save:FavoriteMusic save:Prescription save:Interaction save:DeviceOperatingSystem save:Reference save:BloodType save:Character save:Piercing save:FinancialAccountNumber save:ProfessionalEvaluation save:Race save:BrowserFingerprint save:PhysicalHealth save:IncomeBracket save:Weight save:PoliticalAffiliation save:Height save:Religion save:Age save:Divorce save:Demeanor save:PurchasesAndSpendingHabit save:CarOwned save:RoomNumber save:SocialMediaCommunication save:ApartmentOwned save:EmploymentHistory save:Relationship save:Fingerprint save:Opinion save:Parent save:AuthenticationHistory save:School save:VoiceMail save:SexualHistory save:PersonalPossession save:DNACode save:UID save:Retina save:Gender save:CreditRecord save:EmailContent save:Intention save:FamilyHealthHistory save:BankAccount save:LoanRecord save:CriminalPardon save:Purchase save:ReligiousBelief save:DisciplinaryAction save:Like save:GPSCoordinate save:FavoriteColor save:DeviceApplications save:Friend save:Thought save:FavoriteFood save:Personality save:Income save:VoiceCommunicationRecording save:Transaction save:DrugTestResult save:Association save:GroupMembership save:SkinTone save:Tax save:Username save:OfficialID save:Disability save:Name save:SecretText save:Accent save:CreditStanding save:ProfessionalCertification save:MentalHealth save:Sibling save:Attitude save:PaymentCardExpiry save:CreditScore save:LinkClicked save:PrivacyPreference save:IndividualHealthHistory save:Password save:Geographic save:PhilosophicalBelief save:PhysicalAddress save:HealthRecord ) ;
+        save:purposeList     ( save:SellDataToThirdParties ) .

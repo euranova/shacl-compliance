@@ -1,0 +1,174 @@
+@prefix save-ex:      <http://example.com/privacy-policy-model/examples/> .
+@prefix save: <http://example.com/privacy-policy-model/> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dpv: <http://www.w3.org/ns/dpv#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix ex: <http://example.org/shacl_examples#> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix orcp: <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################
+# EXPECTED RESULT
+# save:answerPermitted   "part-granted" ;
+# save:answerProhibited  "part-prohibited" ;
+save-ex:Request_1_test
+    a save-ex:RequestIMDBPolicy ;
+    save:action save:Transform , save:Analyse , save:Copy ;
+    save:controller save-ex:IMDB ;
+    save:data save:Like , save:Name , save:Behavioral ;
+    save:hasDataSubject save-ex:IMDBUser ;
+    save:purpose save:UsageAnalytics, save:CustomerCare, save:ResearchAndDevelopment
+.
+
+
+#################################
+# EXPECTED RESULT
+# save:answerPermitted   "part-granted" ;
+# save:answerProhibited  "prohibited" ;
+
+save-ex:Request_2_test
+    a save-ex:RequestIMDBPolicy ;
+    save:action save:Retrieve ;
+    save:controller save-ex:IMDB ;
+    save:data save:Name , save:Picture ;
+    save:hasDataSubject save-ex:IMDBUser ;
+    save:purpose save:Advertising
+.
+
+
+#################################
+# EXPECTED RESULT
+# save:answerPermitted   "not granted" ;
+# save:answerProhibited  "prohibited" ;
+
+save-ex:Request_3_test
+    a save-ex:RequestIMDBPolicy ;
+    save:action save:Collect ;
+    save:controller save-ex:IMDB ;
+    save:data save:Authenticating ;
+    save:hasDataSubject save-ex:ChildUser ;
+    save:purpose save:Security
+.
+
+
+#################################
+# EXPECTED RESULT
+# save:answerPermitted   "granted" ;
+# save:answerProhibited  "prohibited" ;
+
+save-ex:Request_4_test
+    a save-ex:RequestIMDBPolicy ;
+    save:action save:Share ;
+    save:controller save-ex:IMDB ;
+    save:data save:Behavioral ;
+    save:legalBasis save:Contract ;
+    save:recipient save:ThirdParties ;
+    save:purpose save:SellDataToThirdParties
+.
+
+
+#################################
+# EXPECTED RESULT
+# save:answerPermitted   "not granted" ;
+# save:answerProhibited  "not prohibited"
+
+
+save-ex:Request_5_test
+    a save-ex:RequestIMDBPolicy ;
+    save:action save:Collect , save:Remove ;
+    save:controller save-ex:IMDB ;
+    save:data save:DeviceBased ;
+    save:hasDataSubject  save-ex:IMDBUser ;
+    save:purpose save:ServiceOptimization, save:ServiceProvision
+.
+
+
+#################################
+# EXPECTED RESULT
+# save:answerPermitted   "part-granted" ;
+# save:answerProhibited  "prohibited" ;
+
+save-ex:Request_6_test
+    a save-ex:RequestIMDBPolicy ;
+    save:action  save:Disclose, save:Transfer ;
+    save:controller save-ex:IMDB ;
+    save:data save:Identifying ;
+    save:hasDataSubject  save-ex:IMDBUser ;
+    save:legalBasis   save:LegalObligation ;
+    save:purpose save:CommercialInterest, save:Security
+.
+
+
+#################################
+# EXPECTED RESULT
+# save:answerPermitted   "part-granted" ;
+# save:answerProhibited  "not prohibited" ;
+
+save-ex:Request_7_test
+    a save-ex:RequestIMDBPolicy ;
+    save:action  save:Copy, save:Use ;
+    save:controller save-ex:IMDB ;
+    save:data save:Contact ;
+    save:hasDataSubject  save-ex:IMDBUser ;
+    save:purpose   save:DeliveryOfGoods
+.
+
+
+#################################
+# EXPECTED RESULT
+# save:answerPermitted   "granted" ;
+# save:answerProhibited  "part-prohibited" ;
+
+save-ex:Request_8_test
+    a save-ex:RequestIMDBPolicy ;
+    save:action  save:Use , save:Collect , save:Store ;
+    save:controller save-ex:IMDB ;
+    save:data save:Username , save:Password ;
+    save:hasDataSubject  save-ex:IMDBUser ;
+    save:purpose   save:FraudPreventionAndDetection
+.
+
+
+#################################
+# EXPECTED RESULT
+#  save:answerPermitted   "granted" ;
+#  save:answerProhibited  "prohibited" ;
+
+save-ex:Request_9_test
+    a save-ex:RequestIMDBPolicy ;
+    save:action  save:Use ;
+    save:controller save-ex:IMDB ;
+    save:processor  save-ex:Agent ;
+    save:data save:Tracking ;
+    save:hasDataSubject  save-ex:IMDBUser ;
+    save:purpose save:CommercialResearch , save:Marketing, save:dpv:CommercialInterest
+.
+
+
+#################################
+# EXPECTED RESULT
+#  save:answerPermitted   "granted" ;
+#  save:answerProhibited  "prohibited" ;
+
+save-ex:Request_10_test
+    a save-ex:RequestIMDBPolicy ;
+    save:action  save:Retrieve ;
+    save:controller save-ex:IMDB ;
+    save:processor  save-ex:Agent ;
+    save:data save:Contact ;
+    save:hasDataSubject  save-ex:IMDBUser ;
+    save:purpose save:CustomerCare
+.
+
+#################################

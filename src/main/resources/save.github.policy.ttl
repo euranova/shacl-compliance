@@ -1,0 +1,116 @@
+@prefix save-ex:      <http://example.com/privacy-policy-model/examples/> .
+@prefix save:      <http://example.com/privacy-policy-model/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix dash:  <http://datashapes.org/dash#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+
+
+save-ex:GitHubPolicy  a       orcp:Set , owl:NamedIndividual ;
+                   save:dispensation  save-ex:GitHubDispensation1 ;
+                   save:permission    save-ex:GitHubPermission7 , save-ex:GitHubPermission3 , save-ex:GitHubPermission6 , save-ex:GitHubPermission2 , save-ex:GitHubPermission5 , save-ex:GitHubPermission1 , save-ex:GitHubPermission4 ;
+                   save:prohibition   save-ex:GitHubProhibition1 , save-ex:GitHubProhibition2 .
+
+
+save-ex:GitHubPermission1  a  owl:NamedIndividual , orcp:Permission ;
+                        save:action      save:Collect ;
+                        save:controller  save-ex:GitHub ;
+                        save:data        save:BrowsingBehavior , save:BrowserFingerprint , save:DeviceBased ;
+                        save:legalBasis  save:Consent ;
+                        save:purpose     save:ServiceProvision ;
+                        save:sender      save-ex:GitHubUser .
+
+
+save-ex:GitHubPermission2  a  orcp:Permission , owl:NamedIndividual ;
+                        save:action      save:Collect ;
+                        save:controller  save-ex:GitHub ;
+                        save:data        save:PersonalInformation ;
+                        save:sender      save:ThirdParty .
+
+save-ex:GitHubPermission3  a  owl:NamedIndividual ;
+                        save:action       save:Use ;
+                        save:controller   save-ex:GitHub ;
+                        save:data         save:PersonalInformation ;
+                        save:prohibition  save-ex:GitHubProhibition1 ;
+                        save:purpose      save:ResearchAndDevelopment , save:ServiceProvision , save:ServiceOptimization .
+
+
+save-ex:GitHubPermission4  a  orcp:Permission , owl:NamedIndividual ;
+                        save:action      save:Collect ;
+                        save:controller  save-ex:GitHub ;
+                        save:data        save:EmailAddress , save:Username , save:Password ;
+                        save:purpose     save:ServiceProvision ;
+                        save:sender      save-ex:GitHubUser .
+
+save-ex:GitHubPermission5  a  owl:NamedIndividual , orcp:Permission ;
+                        save:action      save:Collect ;
+                        save:controller  save-ex:GitHub ;
+                        save:data        save:AccountIdentifier , save:CreditCardNumber , save:PhysicalAddress , save:Name ;
+                        save:purpose     save:ServiceProvision ;
+                        save:sender      save-ex:GitHubPayingUser .
+
+
+save-ex:GitHubPermission6  a  orcp:Permission , owl:NamedIndividual ;
+                        save:action      save:Collect ;
+                        save:controller  save-ex:GitHub ;
+                        save:data        save:BankAccount ;
+                        save:purpose     save:ServiceProvision ;
+                        save:sender      save-ex:GitHubSellingUser .
+
+save-ex:GitHubPermission7  a  orcp:Permission , owl:NamedIndividual ;
+                        save:action      save:Collect ;
+                        save:controller  save-ex:GitHub ;
+                        save:data        save:PersonalInformation ;
+                        save:purpose     save:ServiceProvision ;
+                        save:sender      save-ex:GitHubSponsorProgramUser .
+
+save-ex:GitHubProhibition1  a   orcp:Prohibition , owl:NamedIndividual ;
+                         orcp:constraint  save-ex:GitHubConstraint1 .
+
+
+save-ex:GitHubProhibition2  a  orcp:Prohibition , owl:NamedIndividual ;
+                         save:action        save:Store , save:Use ;
+                         save:controller    save-ex:GitHub ;
+                         save:data          save:CreditCardNumber , save:AccountIdentifier ;
+                         save:dispensation  save-ex:GitHubDispensation1 .
+
+
+save-ex:GitHubDispensation1  a  orcp:Dispensation , owl:NamedIndividual ;
+                          orcp:constraint  save-ex:GitHubConstraint2 .
+
+
+save-ex:GitHubConstraint1  a      orcp:PredicateConstraint , owl:NamedIndividual ;
+                        orcp:leftOperand   save:data ;
+                        orcp:operator      orcp:isA ;
+                        orcp:rightOperand  save:Identifying .
+
+
+save-ex:GitHubConstraint2  a      orcp:PredicateConstraint , owl:NamedIndividual ;
+                        orcp:leftOperand   save:processor ;
+                        orcp:operator      orcp:isA ;
+                        orcp:rightOperand  save-ex:ThirdPartyPaymentProcessor .
+
+
+
+save-ex:GitHubUser  a   dpv:DataSubject .
+save-ex:GitHubSellingUser  a   dpv:DataSubject .
+save-ex:GitHubPayingUser  a   dpv:DataSubject .
+save-ex:GitHubSponsorProgramUser  a   dpv:DataSubject .
+
+save-ex:GitHub  a   dpv:DataController .
+
+save-ex:ThirdPartyPaymentProcessor a dpv:ThirdParty .
+

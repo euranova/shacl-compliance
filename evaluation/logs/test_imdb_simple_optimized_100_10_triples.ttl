@@ -1,0 +1,1070 @@
+@base          <http://example.org/random> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+save-ex:test_4_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_80_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_73_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_30_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_66_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_23_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_59_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_16_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellProductsToDataSubject ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_92_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_85_10_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Use ;
+                           save:actionIntersection        save:Consult ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:Password ;
+                           save:dataIntersection          save:Password ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:IMDBUser ;
+                           save:purposeClassIntersection  dpv:FraudPreventionAndDetection ;
+                           save:purposeIntersection       save:FraudPreventionAndDetection ;
+                           save:rule                      save-ex:IMDBPermission2
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "partly-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_42_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_78_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_35_10_opt
+        save:prohibitedBy  [ a                             save-ex:RuleIntersection ;
+                             save:actionClassIntersection  dpv:Use ;
+                             save:actionIntersection       save:Retrieve , save:Analyse , save:Consult , save:Profiling ;
+                             save:answer                   "prohibited" ;
+                             save:dataClassIntersection    dpv:PersonalDataCategory ;
+                             save:dataIntersection         save:GeneralReputation ;
+                             save:processorIntersection    save-ex:Agent ;
+                             save:rule                     save-ex:IMDBProhibition3
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_28_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_51_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_44_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_37_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_70_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_63_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_20_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_99_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_56_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing , save:PersonalisedAdvertising , save:SocialMediaMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:prohibitedBy  [ a                           save-ex:RuleIntersection ;
+                             save:answer                 "prohibited" ;
+                             save:dataClassIntersection  dpv:Identifying ;
+                             save:dataIntersection       save:UID , save:Retina , save:Fingerprint , save:Name , save:Picture , save:OfficialID , save:Username ;
+                             save:rule                   save-ex:IMDBProhibition8
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "partly-prohibited"
+                           ] .
+
+save-ex:test_13_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_49_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_3_10_opt
+        save:prohibitedBy  [ a                           save-ex:RuleIntersection ;
+                             save:answer                 "prohibited" ;
+                             save:dataClassIntersection  dpv:Identifying ;
+                             save:dataIntersection       save:Retina , save:Fingerprint ;
+                             save:rule                   save-ex:IMDBProhibition8
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "partly-prohibited"
+                           ] .
+
+save-ex:test_72_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellDataToThirdParties ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_22_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_15_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_91_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_84_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_41_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_77_10_opt
+        save:prohibitedBy  [ a                             save-ex:RuleIntersection ;
+                             save:actionClassIntersection  dpv:Use ;
+                             save:actionIntersection       save:Profiling , save:Retrieve , save:Analyse , save:Consult ;
+                             save:answer                   "prohibited" ;
+                             save:dataClassIntersection    dpv:PersonalDataCategory ;
+                             save:dataIntersection         save:CreditCardNumber , save:FinancialAccountNumber ;
+                             save:processorIntersection    save-ex:Agent ;
+                             save:rule                     save-ex:IMDBProhibition3
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Profiling , save:Analyse , save:Retrieve , save:Consult ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CreditCardNumber , save:FinancialAccountNumber ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:rule                      save-ex:IMDBProhibition3_ConflictFree
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "partly-prohibited"
+                           ] .
+
+save-ex:test_34_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_27_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_50_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_62_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_98_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_55_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_12_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SocialMediaMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_48_10_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Profiling ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CarOwned ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:Marketing ;
+                             save:purposeIntersection       save:SocialMediaMarketing , save:DirectMarketing , save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBDispensation1
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Profiling ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CarOwned ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:Marketing ;
+                             save:purposeIntersection       save:PersonalisedAdvertising , save:SocialMediaMarketing , save:DirectMarketing ;
+                             save:rule                      save-ex:IMDBPermission9
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing , save:PersonalisedAdvertising , save:SocialMediaMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Profiling ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CarOwned ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SocialMediaMarketing , save:DirectMarketing , save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition3_ConflictFree
+                           ] ;
+        save:prohibitedBy  [ a                             save-ex:RuleIntersection ;
+                             save:actionClassIntersection  dpv:Use ;
+                             save:actionIntersection       save:Profiling ;
+                             save:answer                   "prohibited" ;
+                             save:dataClassIntersection    dpv:PersonalDataCategory ;
+                             save:dataIntersection         save:CarOwned ;
+                             save:processorIntersection    save-ex:Agent ;
+                             save:rule                     save-ex:IMDBProhibition3
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "partly-permitted" ;
+                             save:answerProhibited  "partly-prohibited"
+                           ] .
+
+save-ex:test_2_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_21_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SocialMediaMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_7_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellDataToThirdParties ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_90_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_83_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_40_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_76_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_33_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_69_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_26_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_19_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_9_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_61_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_97_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:prohibitedBy  [ a                           save-ex:RuleIntersection ;
+                             save:answer                 "prohibited" ;
+                             save:dataClassIntersection  dpv:Identifying ;
+                             save:dataIntersection       save:Username ;
+                             save:rule                   save-ex:IMDBProhibition8
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_54_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_11_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_47_10_opt
+        save:prohibitedBy  [ a                             save-ex:RuleIntersection ;
+                             save:actionClassIntersection  dpv:Processing ;
+                             save:actionIntersection       save:Align ;
+                             save:answer                   "prohibited" ;
+                             save:controllerIntersection   save-ex:IMDB ;
+                             save:dataClassIntersection    dpv:PersonalDataCategory ;
+                             save:dataIntersection         save:FamilyHealthHistory ;
+                             save:rule                     save-ex:IMDBProhibition6 ;
+                             save:senderIntersection       save-ex:ChildUser
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_1_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_6_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_82_10_opt
+        save:conformsTo  [ a                             save-ex:RuleIntersection ;
+                           save:actionClassIntersection  dpv:Disclose ;
+                           save:actionIntersection       save:Share , save:Transmit , save:Disseminate , save:MakeAvailable , save:DiscloseByTransmission ;
+                           save:answer                   "permitted" ;
+                           save:controllerIntersection   save-ex:IMDB ;
+                           save:dataClassIntersection    dpv:PersonalDataCategory ;
+                           save:dataIntersection         save:Income ;
+                           save:legalBasisClassIntersection
+                                   orcp:VitalInterest ;
+                           save:legalBasisIntersection   save:A9-2-c , save:A6-1-d ;
+                           save:rule                     save-ex:IMDBPermission10
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "fully-permitted" ;
+                           save:answerProhibited  "not prohibited"
+                         ] .
+
+save-ex:test_75_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_32_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising , save:DirectMarketing , save:SellProductsToDataSubject , save:SocialMediaMarketing , save:SellTargettedAdvertisements , save:SellDataToThirdParties , save:SellInsightsFromData ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "partly-prohibited"
+                           ] .
+
+save-ex:test_68_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_25_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_18_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_94_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising , save:SocialMediaMarketing , save:DirectMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_87_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData , save:DirectMarketing , save:SellProductsToDataSubject , save:SocialMediaMarketing , save:SellTargettedAdvertisements , save:PersonalisedAdvertising , save:SellDataToThirdParties ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "partly-prohibited"
+                           ] .
+
+save-ex:test_8_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_60_10_opt
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Profiling , save:Retrieve , save:Consult , save:Analyse ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CreditCapacity ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CommercialResearch , dpv:CustomerCare , dpv:Marketing ;
+                             save:purposeIntersection       save:CommercialResearch , save:DirectMarketing , save:CommunicationForCustomerCare , save:SocialMediaMarketing , save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBPermission9
+                           ] ;
+        save:conformsTo    [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Analyse , save:Consult , save:Retrieve , save:Profiling ;
+                             save:answer                    "permitted" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CreditCapacity ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CommercialResearch , dpv:CustomerCare , dpv:Marketing ;
+                             save:purposeIntersection       save:SocialMediaMarketing , save:DirectMarketing , save:CommercialResearch , save:CommunicationForCustomerCare , save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBDispensation1
+                           ] ;
+        save:prohibitedBy  [ a                             save-ex:RuleIntersection ;
+                             save:actionClassIntersection  dpv:Use ;
+                             save:actionIntersection       save:Consult , save:Analyse , save:Retrieve , save:Profiling ;
+                             save:answer                   "prohibited" ;
+                             save:dataClassIntersection    dpv:PersonalDataCategory ;
+                             save:dataIntersection         save:CreditCapacity ;
+                             save:processorIntersection    save-ex:Agent ;
+                             save:rule                     save-ex:IMDBProhibition3
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Analyse , save:Profiling , save:Retrieve , save:Consult ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:CreditCapacity ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CommercialInterest , dpv:DeliveryOfGoods , dpv:UserInterfacePersonalisation , dpv:AcademicResearch , dpv:ServiceOptimization , dpv:CreateEventRecommendations , dpv:Security , dpv:NonCommercialResearch , dpv:PersonalisedBenefits ;
+                             save:purposeIntersection       save:ImproveExistingProductsAndServices , save:CreateEventRecommendations , save:PersonalisedBenefits , save:DirectMarketing , save:SellDataToThirdParties , save:AccessControl , save:OptimiseUserInterface , save:NonCommercialResearch , save:AcademicResearch , save:PersonalisedAdvertising , save:FraudPreventionAndDetection , save:UserInterfacePersonalisation , save:IdentityVerification , save:SellTargettedAdvertisements , save:InternalResourceOptimisation , save:DeliveryOfGoods , save:IncreaseServiceRobustness , save:SocialMediaMarketing , save:ImproveInternalCRMProcesses , save:SellInsightsFromData , save:SellProductsToDataSubject ;
+                             save:rule                      save-ex:IMDBProhibition3_ConflictFree
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellTargettedAdvertisements , save:DirectMarketing , save:SocialMediaMarketing , save:SellDataToThirdParties , save:SellInsightsFromData , save:SellProductsToDataSubject , save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "partly-permitted" ;
+                             save:answerProhibited  "partly-prohibited"
+                           ] .
+
+save-ex:test_96_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_53_10_opt
+        save:prohibitedBy  [ a                             save-ex:RuleIntersection ;
+                             save:actionClassIntersection  dpv:Use ;
+                             save:actionIntersection       save:Retrieve ;
+                             save:answer                   "prohibited" ;
+                             save:dataClassIntersection    dpv:PersonalDataCategory ;
+                             save:dataIntersection         save:FamilyHealthHistory , save:Height , save:CallLog , save:Tattoo , save:LinkClicked , save:Picture , save:AuthenticationHistory , save:Name , save:Attitude , save:Accent , save:SexualHistory , save:Personality , save:TVViewingBehavior , save:Fetish , save:Username , save:Gender , save:Weight , save:IncomeBracket , save:EthnicOrigin , save:Age , save:HairColor , save:Disability , save:HealthRecord , save:PhysicalTrait , save:Prescription , save:PhysicalHealth , save:Retina , save:Proclivitie , save:OfficialID , save:Piercing , save:SkinTone , save:DNACode , save:Demeanor , save:IndividualHealthHistory , save:UID , save:BrowsingBehavior , save:Fingerprint , save:DrugTestResult , save:MentalHealth , save:Race , save:Geographic , save:SexualPreference , save:Dialect , save:BloodType ;
+                             save:processorIntersection    save-ex:Agent ;
+                             save:rule                     save-ex:IMDBProhibition3
+                           ] ;
+        save:prohibitedBy  [ a                           save-ex:RuleIntersection ;
+                             save:answer                 "prohibited" ;
+                             save:dataClassIntersection  dpv:Identifying ;
+                             save:dataIntersection       save:Picture , save:UID , save:Retina , save:Username , save:OfficialID , save:Name , save:Fingerprint ;
+                             save:rule                   save-ex:IMDBProhibition8
+                           ] ;
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Retrieve ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:Prescription , save:Username , save:Retina , save:Height , save:SexualHistory , save:Name , save:Piercing , save:Picture , save:HairColor , save:Fetish , save:Attitude , save:BloodType , save:Age , save:HealthRecord , save:EthnicOrigin , save:IncomeBracket , save:PhysicalHealth , save:UID , save:DNACode , save:CallLog , save:TVViewingBehavior , save:Proclivitie , save:Fingerprint , save:BrowsingBehavior , save:FamilyHealthHistory , save:Personality , save:IndividualHealthHistory , save:SexualPreference , save:Dialect , save:PhysicalTrait , save:AuthenticationHistory , save:LinkClicked , save:Accent , save:Gender , save:Geographic , save:DrugTestResult , save:Disability , save:MentalHealth , save:Race , save:Weight , save:SkinTone , save:OfficialID , save:Tattoo , save:Demeanor ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:DeliveryOfGoods ;
+                             save:purposeIntersection       save:DeliveryOfGoods ;
+                             save:rule                      save-ex:IMDBProhibition3_ConflictFree
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "partly-prohibited"
+                           ] .
+
+save-ex:test_10_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_89_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_46_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_39_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_65_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellInsightsFromData ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_58_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_5_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_81_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_74_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_31_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_67_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellDataToThirdParties ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_24_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_17_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_100_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellDataToThirdParties ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_93_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_86_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_43_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_79_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SellProductsToDataSubject ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_36_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_29_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_95_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_52_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:prohibitedBy  [ a                           save-ex:RuleIntersection ;
+                             save:answer                 "prohibited" ;
+                             save:dataClassIntersection  dpv:Identifying ;
+                             save:dataIntersection       save:Retina , save:Fingerprint ;
+                             save:rule                   save-ex:IMDBProhibition8
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_88_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_45_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_38_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:actionClassIntersection   dpv:Use ;
+                             save:actionIntersection        save:Retrieve ;
+                             save:answer                    "prohibited" ;
+                             save:dataClassIntersection     dpv:PersonalDataCategory ;
+                             save:dataIntersection          save:DisciplinaryAction ;
+                             save:processorIntersection     save-ex:Agent ;
+                             save:purposeClassIntersection  dpv:CreateEventRecommendations ;
+                             save:purposeIntersection       save:CreateEventRecommendations ;
+                             save:rule                      save-ex:IMDBProhibition3_ConflictFree
+                           ] ;
+        save:prohibitedBy  [ a                             save-ex:RuleIntersection ;
+                             save:actionClassIntersection  dpv:Use ;
+                             save:actionIntersection       save:Retrieve ;
+                             save:answer                   "prohibited" ;
+                             save:dataClassIntersection    dpv:PersonalDataCategory ;
+                             save:dataIntersection         save:DisciplinaryAction ;
+                             save:processorIntersection    save-ex:Agent ;
+                             save:rule                     save-ex:IMDBProhibition3
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "partly-prohibited"
+                           ] .
+
+save-ex:test_71_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:DirectMarketing , save:PersonalisedAdvertising , save:SocialMediaMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_64_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:SocialMediaMarketing ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:prohibitedBy  [ a                           save-ex:RuleIntersection ;
+                             save:answer                 "prohibited" ;
+                             save:dataClassIntersection  dpv:Identifying ;
+                             save:dataIntersection       save:Name ;
+                             save:rule                   save-ex:IMDBProhibition8
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .
+
+save-ex:test_57_10_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not permitted" ;
+                       save:answerProhibited  "not prohibited"
+                     ] .
+
+save-ex:test_14_10_opt
+        save:prohibitedBy  [ a                              save-ex:RuleIntersection ;
+                             save:answer                    "prohibited" ;
+                             save:purposeClassIntersection  dpv:CommercialInterest ;
+                             save:purposeIntersection       save:PersonalisedAdvertising , save:SellProductsToDataSubject , save:SellInsightsFromData , save:SellTargettedAdvertisements , save:DirectMarketing , save:SocialMediaMarketing , save:SellDataToThirdParties ;
+                             save:rule                      save-ex:IMDBProhibition7
+                           ] ;
+        save:result        [ a                      save-ex:RequestAnswer ;
+                             save:answerPermitted   "not permitted" ;
+                             save:answerProhibited  "fully-prohibited"
+                           ] .

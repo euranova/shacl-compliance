@@ -1,0 +1,21 @@
+
+
+                  SELECT *
+                      WHERE
+                        {   { SELECT  $this (SUM(if(?intersects, 1, 0)) AS ?nIntersect)
+                              WHERE
+                                {
+                                   OPTIONAL {
+                                   bind(save-ex:Request_6_test_opt as $this) .
+                                   $this save:processorList ?value .
+                                   ?value (rdf:rest)*/rdf:first ?item .
+                                  ?item rdf:type/(rdfs:subClassOf)* ?attrClass .
+                                  BIND(( ?attrClass IN (dpv:DataController) ) AS ?intersects)
+                                  }
+                                }
+                              GROUP BY $this
+                            }
+                            FILTER (?nIntersect = 0)
+
+
+                       }

@@ -1,0 +1,528 @@
+@base          <http://example.org/random> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+save-ex:IMDBProhibition3_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Use ;
+                           save:actionIntersection        save:Consult , save:Profiling , save:Analyse , save:Retrieve ;
+                           save:answer                    "permitted" ;
+                           save:controllerClassIntersection
+                                   dpv:DataController ;
+                           save:controllerIntersection    save-ex:IMDB_1 ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:SecretText , save:Personality , save:FavoriteFood , save:Income , save:Character , save:SkinTone , save:MaritalStatus , save:Attitude , save:AuthenticationHistory , save:Weight , save:Interaction , save:Thought , save:GPSCoordinate , save:Fetish , save:IndividualHealthHistory , save:VoiceCommunicationRecording , save:PINCode , save:ProfessionalEvaluation , save:BrowsingBehavior , save:PhilosophicalBelief , save:Opinion , save:Disability , save:Picture , save:CriminalPardon , save:Salary , save:TVViewingBehavior , save:ProfessionalCertification , save:IncomeBracket , save:DeviceApplications , save:PurchasesAndSpendingHabit , save:IPAddress , save:Reference , save:Retina , save:Like , save:OfficialID , save:Transaction , save:School , save:ReligiousBelief , save:EmailContent , save:Connection , save:PhysicalTrait , save:SexualHistory , save:Demeanor , save:Age , save:BloodType , save:Username , save:TelephoneNumber , save:CreditCardNumber , save:Sale , save:GroupMembership , save:EmploymentHistory , save:MACAddress , save:Gender , save:Height , save:WorkHistory , save:SexualPreference , save:Intention , save:CreditCapacity , save:EthnicOrigin , save:Proclivitie , save:Tax , save:LinkClicked , save:DerivedPersonalData , save:Relationship , save:Religion , save:Country , save:DrugTestResult , save:DNACode , save:ProfessionalInterview , save:PoliticalAffiliation , save:SocialStatus , save:CriminalConviction , save:BrowserFingerprint , save:BankAccount , save:UID , save:VoiceMail , save:Prescription , save:DisciplinaryAction , save:HealthRecord , save:CreditRecord , save:LoanRecord , save:Parent , save:FavoriteMusic , save:CreditStanding , save:RoomNumber , save:Name , save:Tattoo , save:CommunicationsMetadata , save:Marriage , save:Friend , save:CreditScore , save:PersonalPossession , save:Dislike , save:FavoriteColor , save:Divorce , save:Association , save:Sibling , save:PhysicalHealth , save:Race , save:Accent , save:Purchase , save:LifeHistory , save:Dialect , save:HairColor , save:PhysicalAddress , save:PrivacyPreference , save:Fingerprint , save:Acquantaince , save:FamilyHealthHistory , save:MentalHealth , save:Job , save:Offspring , save:Geographic , save:DeviceOperatingSystem , save:FinancialAccountNumber , save:PaymentCardExpiry , save:EmailAddress , save:SocialMediaCommunication , save:GeneralReputation , save:ApartmentOwned , save:Piercing , save:CallLog , save:Password , save:CarOwned , save:CriminalCharge ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:IMDBUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   save:LegalBasis ;
+                           save:legalBasisIntersection    save:AnyLegalBasis ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:CustomerCare , dpv:CommercialResearch , dpv:Marketing ;
+                           save:purposeIntersection       save:CommercialResearch , save:Marketing , save:CustomerCare ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:AnyParty ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission9 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Use ;
+                           save:actionIntersection        save:Consult , save:Retrieve , save:Analyse , save:Profiling ;
+                           save:answer                    "permitted" ;
+                           save:controllerClassIntersection
+                                   dpv:DataController ;
+                           save:controllerIntersection    save-ex:IMDB_1 ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:IPAddress , save:Height , save:Username , save:LoanRecord , save:Tattoo , save:CreditCapacity , save:CommunicationsMetadata , save:Interaction , save:CreditStanding , save:SecretText , save:Reference , save:IndividualHealthHistory , save:SocialStatus , save:SocialMediaCommunication , save:Like , save:Piercing , save:AuthenticationHistory , save:PhysicalHealth , save:Connection , save:EmailAddress , save:CriminalConviction , save:Marriage , save:PrivacyPreference , save:CriminalPardon , save:DeviceApplications , save:ApartmentOwned , save:Divorce , save:Accent , save:EmailContent , save:Offspring , save:CreditScore , save:Dislike , save:Transaction , save:PurchasesAndSpendingHabit , save:Proclivitie , save:CallLog , save:PoliticalAffiliation , save:Parent , save:BankAccount , save:Purchase , save:DeviceOperatingSystem , save:HealthRecord , save:Password , save:Race , save:BrowsingBehavior , save:GeneralReputation , save:FamilyHealthHistory , save:IncomeBracket , save:Gender , save:ProfessionalInterview , save:Prescription , save:HairColor , save:SexualHistory , save:TelephoneNumber , save:EthnicOrigin , save:Weight , save:Salary , save:Fetish , save:DNACode , save:Association , save:FavoriteFood , save:Job , save:Friend , save:ProfessionalCertification , save:BloodType , save:DisciplinaryAction , save:Intention , save:LifeHistory , save:VoiceCommunicationRecording , save:ProfessionalEvaluation , save:PersonalPossession , save:Acquantaince , save:MaritalStatus , save:Picture , save:OfficialID , save:Personality , save:School , save:PhysicalAddress , save:PINCode , save:GroupMembership , save:CarOwned , save:MACAddress , save:MentalHealth , save:Sale , save:DrugTestResult , save:PhysicalTrait , save:Attitude , save:WorkHistory , save:Name , save:Thought , save:Age , save:Opinion , save:RoomNumber , save:ReligiousBelief , save:Disability , save:Dialect , save:FavoriteMusic , save:TVViewingBehavior , save:UID , save:GPSCoordinate , save:FavoriteColor , save:Sibling , save:LinkClicked , save:PaymentCardExpiry , save:Income , save:Country , save:Character , save:Geographic , save:Relationship , save:Retina , save:DerivedPersonalData , save:SexualPreference , save:Religion , save:EmploymentHistory , save:CreditCardNumber , save:PhilosophicalBelief , save:VoiceMail , save:CreditRecord , save:Tax , save:BrowserFingerprint , save:CriminalCharge , save:FinancialAccountNumber , save:Fingerprint , save:SkinTone , save:Demeanor ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:IMDBUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   save:LegalBasis ;
+                           save:legalBasisIntersection    save:AnyLegalBasis ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Marketing , dpv:CommercialResearch , dpv:CustomerCare ;
+                           save:purposeIntersection       save:Marketing , save:CustomerCare , save:CommercialResearch ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:AnyParty ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBDispensation1 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    3 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      3 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:IMDBProhibition8_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:IMDBProhibition5_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:Disseminate , save:Share , save:MakeAvailable , save:DiscloseByTransmission , save:Transmit ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:Picture , save:Name , save:UID , save:Retina , save:OfficialID , save:Fingerprint , save:Username ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:IMDBUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   orcp:VitalInterest , orcp:LegalObligation , orcp:Contract ;
+                           save:legalBasisIntersection    save:LegalObligation , save:Contract , save:VitalInterest ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:SellTargettedAdvertisements ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save-ex:ThirdPartyAdvertisers ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission10 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    5 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      5 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:IMDBProhibition2_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:Share ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:CreditRecord , save:Dialect , save:FavoriteMusic , save:IndividualHealthHistory , save:Interaction , save:Age , save:CriminalPardon , save:Religion , save:PhysicalAddress , save:MaritalStatus , save:DisciplinaryAction , save:FinancialAccountNumber , save:Purchase , save:LifeHistory , save:UID , save:Sibling , save:FavoriteColor , save:CreditStanding , save:BankAccount , save:Username , save:Intention , save:HairColor , save:EmailAddress , save:Friend , save:Weight , save:Offspring , save:Transaction , save:Parent , save:Character , save:Retina , save:CreditCardNumber , save:Accent , save:Association , save:Dislike , save:CarOwned , save:Reference , save:ApartmentOwned , save:WorkHistory , save:TVViewingBehavior , save:ProfessionalInterview , save:PhysicalHealth , save:SocialMediaCommunication , save:PurchasesAndSpendingHabit , save:SocialStatus , save:DNACode , save:Disability , save:PoliticalAffiliation , save:GeneralReputation , save:Country , save:GroupMembership , save:Piercing , save:FamilyHealthHistory , save:Opinion , save:Demeanor , save:CriminalConviction , save:Connection , save:FavoriteFood , save:Geographic , save:Divorce , save:DeviceApplications , save:EmailContent , save:PrivacyPreference , save:SkinTone , save:ProfessionalCertification , save:DrugTestResult , save:VoiceMail , save:Like , save:SecretText , save:Height , save:Password , save:BloodType , save:Marriage , save:Race , save:Tattoo , save:TelephoneNumber , save:EmploymentHistory , save:Fingerprint , save:IncomeBracket , save:Proclivitie , save:Sale , save:CallLog , save:VoiceCommunicationRecording , save:Thought , save:Picture , save:Tax , save:GPSCoordinate , save:IPAddress , save:PhysicalTrait , save:ProfessionalEvaluation , save:CreditCapacity , save:OfficialID , save:Income , save:Name , save:AuthenticationHistory , save:LoanRecord , save:PersonalPossession , save:Salary , save:SexualHistory , save:LinkClicked , save:DerivedPersonalData , save:Attitude , save:Acquantaince , save:PhilosophicalBelief , save:MACAddress , save:DeviceOperatingSystem , save:BrowserFingerprint , save:Fetish , save:SexualPreference , save:HealthRecord , save:MentalHealth , save:Personality , save:Relationship , save:Job , save:CommunicationsMetadata , save:PINCode , save:BrowsingBehavior , save:CreditScore , save:Gender , save:CriminalCharge , save:School , save:Prescription , save:EthnicOrigin , save:PaymentCardExpiry , save:ReligiousBelief , save:RoomNumber ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:IMDBUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   orcp:LegalObligation , orcp:VitalInterest , orcp:Contract ;
+                           save:legalBasisIntersection    save:VitalInterest , save:Contract , save:LegalObligation ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:SellDataToThirdParties ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:AnyParty ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission10 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    4 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      4 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:IMDBProhibition3_ConflictFree_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Use ;
+                           save:actionIntersection        save:Profiling , save:Retrieve , save:Consult , save:Analyse ;
+                           save:answer                    "permitted" ;
+                           save:controllerClassIntersection
+                                   dpv:DataController ;
+                           save:controllerIntersection    save-ex:IMDB_1 ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:PersonalPossession , save:ApartmentOwned , save:EmploymentHistory , save:DisciplinaryAction , save:Fingerprint , save:Acquantaince , save:CommunicationsMetadata , save:MACAddress , save:ProfessionalInterview , save:BrowserFingerprint , save:Transaction , save:CallLog , save:DerivedPersonalData , save:Divorce , save:Disability , save:PoliticalAffiliation , save:Personality , save:Association , save:EmailAddress , save:Relationship , save:Job , save:PhysicalTrait , save:Retina , save:FinancialAccountNumber , save:CreditRecord , save:LifeHistory , save:Salary , save:UID , save:OfficialID , save:IPAddress , save:Dislike , save:Password , save:IncomeBracket , save:BankAccount , save:Height , save:Age , save:VoiceCommunicationRecording , save:Weight , save:LoanRecord , save:CreditStanding , save:Prescription , save:School , save:DeviceOperatingSystem , save:AuthenticationHistory , save:SexualHistory , save:SocialMediaCommunication , save:DNACode , save:Sale , save:CreditCapacity , save:Opinion , save:IndividualHealthHistory , save:TelephoneNumber , save:Piercing , save:Marriage , save:BrowsingBehavior , save:Username , save:LinkClicked , save:CriminalPardon , save:CriminalCharge , save:Picture , save:Country , save:VoiceMail , save:Name , save:FavoriteFood , save:Gender , save:PINCode , save:Like , save:Attitude , save:FavoriteColor , save:Income , save:Character , save:RoomNumber , save:FamilyHealthHistory , save:GeneralReputation , save:WorkHistory , save:Geographic , save:MaritalStatus , save:Fetish , save:Thought , save:CriminalConviction , save:Parent , save:GroupMembership , save:Intention , save:SexualPreference , save:ProfessionalEvaluation , save:CreditScore , save:HairColor , save:DeviceApplications , save:Race , save:Proclivitie , save:Tattoo , save:Interaction , save:TVViewingBehavior , save:Connection , save:SecretText , save:CarOwned , save:Friend , save:EmailContent , save:PhysicalAddress , save:PurchasesAndSpendingHabit , save:PrivacyPreference , save:Reference , save:ProfessionalCertification , save:Purchase , save:Sibling , save:PhilosophicalBelief , save:CreditCardNumber , save:GPSCoordinate , save:Accent , save:Dialect , save:Tax , save:SocialStatus , save:Offspring , save:Religion , save:EthnicOrigin , save:HealthRecord , save:PaymentCardExpiry , save:BloodType , save:Demeanor , save:ReligiousBelief , save:DrugTestResult , save:PhysicalHealth , save:MentalHealth , save:SkinTone , save:FavoriteMusic ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:IMDBUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   save:LegalBasis ;
+                           save:legalBasisIntersection    save:AnyLegalBasis ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Marketing ;
+                           save:purposeIntersection       save:SocialMediaMarketing , save:PersonalisedAdvertising , save:DirectMarketing ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:AnyParty ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBDispensation1 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Use ;
+                           save:actionIntersection        save:Consult , save:Retrieve , save:Profiling , save:Analyse ;
+                           save:answer                    "permitted" ;
+                           save:controllerClassIntersection
+                                   dpv:DataController ;
+                           save:controllerIntersection    save-ex:IMDB_1 ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:IPAddress , save:Prescription , save:PersonalPossession , save:PurchasesAndSpendingHabit , save:Weight , save:Interaction , save:Password , save:IncomeBracket , save:Intention , save:Fetish , save:SexualPreference , save:SexualHistory , save:CallLog , save:Friend , save:LinkClicked , save:Gender , save:Fingerprint , save:TVViewingBehavior , save:PaymentCardExpiry , save:Age , save:Dislike , save:Piercing , save:CreditScore , save:Character , save:Demeanor , save:ProfessionalCertification , save:TelephoneNumber , save:Divorce , save:VoiceCommunicationRecording , save:CommunicationsMetadata , save:Thought , save:FamilyHealthHistory , save:Parent , save:Association , save:Salary , save:School , save:MentalHealth , save:Country , save:Sibling , save:Relationship , save:Acquantaince , save:SocialMediaCommunication , save:MaritalStatus , save:DrugTestResult , save:AuthenticationHistory , save:EmploymentHistory , save:Purchase , save:LifeHistory , save:Retina , save:SkinTone , save:CriminalPardon , save:Offspring , save:PhysicalHealth , save:HealthRecord , save:CriminalConviction , save:FavoriteFood , save:BankAccount , save:FinancialAccountNumber , save:Geographic , save:DeviceApplications , save:OfficialID , save:EmailAddress , save:RoomNumber , save:EmailContent , save:Tattoo , save:WorkHistory , save:Attitude , save:LoanRecord , save:DerivedPersonalData , save:SocialStatus , save:BrowsingBehavior , save:DeviceOperatingSystem , save:HairColor , save:DisciplinaryAction , save:CreditCardNumber , save:Connection , save:PrivacyPreference , save:CreditCapacity , save:PhysicalAddress , save:BrowserFingerprint , save:Transaction , save:BloodType , save:Disability , save:FavoriteMusic , save:GroupMembership , save:DNACode , save:Dialect , save:Personality , save:ProfessionalInterview , save:UID , save:ApartmentOwned , save:Tax , save:ProfessionalEvaluation , save:Picture , save:CarOwned , save:Reference , save:GeneralReputation , save:Username , save:Income , save:EthnicOrigin , save:Job , save:Proclivitie , save:PINCode , save:Name , save:Height , save:IndividualHealthHistory , save:CriminalCharge , save:ReligiousBelief , save:VoiceMail , save:FavoriteColor , save:Like , save:GPSCoordinate , save:SecretText , save:Sale , save:PhilosophicalBelief , save:MACAddress , save:PoliticalAffiliation , save:Religion , save:Race , save:Accent , save:CreditRecord , save:Marriage , save:PhysicalTrait , save:Opinion , save:CreditStanding ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:IMDBUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   save:LegalBasis ;
+                           save:legalBasisIntersection    save:AnyLegalBasis ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Marketing ;
+                           save:purposeIntersection       save:DirectMarketing , save:PersonalisedAdvertising , save:SocialMediaMarketing ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:AnyParty ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission9 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "part-granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    4 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      3 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:IMDBProhibition7_opt
+        save:result  [ a                      save-ex:RequestAnswer ;
+                       save:answerPermitted   "not granted" ;
+                       save:answerProhibited  "not prohibited" ;
+                       save:countPermitted    0 ;
+                       save:countProhibited   0 ;
+                       save:sumPermitted      0 ;
+                       save:sumProhibited     0
+                     ] .
+
+save-ex:IMDBProhibition4_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:Share ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:Name , save:EmailAddress ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:IMDBUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   orcp:VitalInterest , orcp:LegalObligation , orcp:Contract ;
+                           save:legalBasisIntersection    save:LegalObligation , save:Contract , save:VitalInterest ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:SellTargettedAdvertisements ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save-ex:OtherBusinesses ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission10 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    5 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      5 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:IMDBProhibition1_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:MakeAvailable , save:Share , save:Transmit , save:Disseminate , save:DiscloseByTransmission ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:CriminalCharge , save:PrivacyPreference , save:FavoriteMusic , save:Divorce , save:UID , save:CriminalConviction , save:PoliticalAffiliation , save:GroupMembership , save:CreditCardNumber , save:CreditRecord , save:Intention , save:Accent , save:Transaction , save:Offspring , save:ProfessionalEvaluation , save:OfficialID , save:Fetish , save:ApartmentOwned , save:ProfessionalCertification , save:Interaction , save:PhysicalAddress , save:ProfessionalInterview , save:BrowsingBehavior , save:IncomeBracket , save:TVViewingBehavior , save:CallLog , save:CriminalPardon , save:SkinTone , save:Reference , save:Piercing , save:Proclivitie , save:SocialStatus , save:Association , save:Like , save:Dialect , save:Attitude , save:CreditScore , save:TelephoneNumber , save:FavoriteFood , save:Retina , save:Name , save:GeneralReputation , save:CommunicationsMetadata , save:HealthRecord , save:Tax , save:SocialMediaCommunication , save:Opinion , save:MentalHealth , save:Salary , save:Thought , save:Personality , save:CarOwned , save:Picture , save:Dislike , save:PersonalPossession , save:Religion , save:EmploymentHistory , save:WorkHistory , save:AuthenticationHistory , save:Job , save:Username , save:Sibling , save:EthnicOrigin , save:HairColor , save:DrugTestResult , save:PINCode , save:ReligiousBelief , save:Password , save:LifeHistory , save:Geographic , save:Parent , save:Gender , save:Tattoo , save:DeviceApplications , save:Demeanor , save:SexualPreference , save:MaritalStatus , save:Weight , save:SecretText , save:EmailAddress , save:Prescription , save:School , save:DisciplinaryAction , save:Country , save:DNACode , save:Income , save:LoanRecord , save:DeviceOperatingSystem , save:DerivedPersonalData , save:GPSCoordinate , save:PhysicalHealth , save:Disability , save:Friend , save:Connection , save:PurchasesAndSpendingHabit , save:PhilosophicalBelief , save:Race , save:SexualHistory , save:VoiceMail , save:Marriage , save:Fingerprint , save:Sale , save:Height , save:Acquantaince , save:FavoriteColor , save:BankAccount , save:FamilyHealthHistory , save:Character , save:CreditCapacity , save:BrowserFingerprint , save:IPAddress , save:Relationship , save:IndividualHealthHistory , save:MACAddress , save:RoomNumber , save:PaymentCardExpiry , save:Age , save:VoiceCommunicationRecording , save:Purchase , save:CreditStanding , save:LinkClicked , save:PhysicalTrait , save:FinancialAccountNumber , save:BloodType , save:EmailContent ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:IMDBUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   orcp:Contract , orcp:LegalObligation , orcp:VitalInterest ;
+                           save:legalBasisIntersection    save:LegalObligation , save:Contract , save:VitalInterest ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:Purpose ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:ThirdParty ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission10 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    4 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      4 ;
+                           save:sumProhibited     0
+                         ] .
+
+save-ex:IMDBProhibition6_opt
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Disclose ;
+                           save:actionIntersection        save:Disseminate , save:DiscloseByTransmission , save:Share , save:MakeAvailable , save:Transmit ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:OfficialID , save:Opinion , save:Gender , save:School , save:ProfessionalInterview , save:Age , save:EthnicOrigin , save:Password , save:Character , save:Purchase , save:Country , save:CreditCapacity , save:ProfessionalEvaluation , save:PersonalPossession , save:ProfessionalCertification , save:PrivacyPreference , save:Relationship , save:EmailAddress , save:Connection , save:DNACode , save:GeneralReputation , save:Acquantaince , save:CreditRecord , save:Dislike , save:SexualHistory , save:PINCode , save:CriminalCharge , save:MentalHealth , save:PhilosophicalBelief , save:SecretText , save:Income , save:IncomeBracket , save:CarOwned , save:Picture , save:FavoriteMusic , save:FinancialAccountNumber , save:Fetish , save:EmploymentHistory , save:Personality , save:GPSCoordinate , save:BloodType , save:Sale , save:TelephoneNumber , save:UID , save:GroupMembership , save:PhysicalAddress , save:Piercing , save:WorkHistory , save:EmailContent , save:Dialect , save:Reference , save:FavoriteFood , save:Height , save:CommunicationsMetadata , save:Tax , save:Parent , save:MaritalStatus , save:TVViewingBehavior , save:BrowserFingerprint , save:BrowsingBehavior , save:Attitude , save:Interaction , save:PurchasesAndSpendingHabit , save:HealthRecord , save:LifeHistory , save:Prescription , save:Sibling , save:CriminalPardon , save:PoliticalAffiliation , save:VoiceMail , save:Marriage , save:Job , save:Thought , save:Like , save:Name , save:DeviceOperatingSystem , save:FavoriteColor , save:SkinTone , save:Weight , save:Association , save:RoomNumber , save:Demeanor , save:Salary , save:SocialMediaCommunication , save:CreditScore , save:SocialStatus , save:CallLog , save:DrugTestResult , save:Accent , save:HairColor , save:VoiceCommunicationRecording , save:BankAccount , save:CreditCardNumber , save:AuthenticationHistory , save:ApartmentOwned , save:DisciplinaryAction , save:Proclivitie , save:LinkClicked , save:SexualPreference , save:IPAddress , save:ReligiousBelief , save:Divorce , save:Offspring , save:IndividualHealthHistory , save:Race , save:CriminalConviction , save:Retina , save:PaymentCardExpiry , save:DeviceApplications , save:Tattoo , save:FamilyHealthHistory , save:PhysicalHealth , save:Transaction , save:Disability , save:LoanRecord , save:Friend , save:Intention , save:Username , save:Fingerprint , save:Geographic , save:PhysicalTrait , save:CreditStanding , save:MACAddress , save:DerivedPersonalData , save:Religion ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:ChildUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   orcp:Contract , orcp:VitalInterest , orcp:LegalObligation ;
+                           save:legalBasisIntersection    save:Contract , save:VitalInterest , save:LegalObligation ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:Purpose ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:AnyParty ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission10 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Use ;
+                           save:actionIntersection        save:Analyse , save:Retrieve , save:Profiling , save:Consult ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:Preference ;
+                           save:dataIntersection          save:FavoriteFood , save:Like , save:FavoriteMusic , save:FavoriteColor , save:PrivacyPreference , save:Dislike , save:Intention , save:Opinion ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:ChildUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   save:LegalBasis ;
+                           save:legalBasisIntersection    save:AnyLegalBasis ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:SellTargettedAdvertisements , dpv:PersonalisedBenefits ;
+                           save:purposeIntersection       save:PersonalisedBenefits , save:SellTargettedAdvertisements ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:AnyParty ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission12 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Use ;
+                           save:actionIntersection        save:Analyse , save:Consult , save:Profiling , save:Retrieve ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:BrowserFingerprint ;
+                           save:dataIntersection          save:BrowserFingerprint ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:ChildUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   save:LegalBasis ;
+                           save:legalBasisIntersection    save:AnyLegalBasis ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:ServiceProvision ;
+                           save:purposeIntersection       save:ServiceProvision ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:AnyParty ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission5 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:conformsTo  [ a                              save-ex:RuleIntersection ;
+                           save:actionClassIntersection   dpv:Store ;
+                           save:actionIntersection        save:Store ;
+                           save:answer                    "permitted" ;
+                           save:controllerIntersection    save-ex:IMDB ;
+                           save:dataClassIntersection     dpv:PersonalDataCategory ;
+                           save:dataIntersection          save:Personality , save:PINCode , save:SocialMediaCommunication , save:Fetish , save:ProfessionalCertification , save:PrivacyPreference , save:DeviceApplications , save:SexualHistory , save:IPAddress , save:Job , save:PoliticalAffiliation , save:PhysicalAddress , save:Weight , save:WorkHistory , save:SexualPreference , save:BrowserFingerprint , save:Sibling , save:Relationship , save:FinancialAccountNumber , save:Retina , save:Disability , save:Attitude , save:Password , save:DrugTestResult , save:Piercing , save:HairColor , save:DeviceOperatingSystem , save:SkinTone , save:CriminalPardon , save:UID , save:ReligiousBelief , save:Dialect , save:CommunicationsMetadata , save:Transaction , save:BloodType , save:DisciplinaryAction , save:Connection , save:School , save:GeneralReputation , save:CreditCapacity , save:Geographic , save:Religion , save:PhysicalTrait , save:Like , save:CreditScore , save:IndividualHealthHistory , save:RoomNumber , save:Reference , save:Username , save:DNACode , save:CreditStanding , save:Salary , save:Acquantaince , save:CallLog , save:CarOwned , save:PaymentCardExpiry , save:Opinion , save:Interaction , save:BrowsingBehavior , save:Proclivitie , save:EmploymentHistory , save:Fingerprint , save:AuthenticationHistory , save:Age , save:LinkClicked , save:Purchase , save:FavoriteFood , save:Picture , save:Intention , save:Tax , save:IncomeBracket , save:HealthRecord , save:Income , save:Sale , save:CreditCardNumber , save:BankAccount , save:ProfessionalInterview , save:OfficialID , save:CreditRecord , save:CriminalCharge , save:ApartmentOwned , save:Association , save:Divorce , save:Friend , save:Country , save:Demeanor , save:LifeHistory , save:Parent , save:Character , save:CriminalConviction , save:VoiceCommunicationRecording , save:Marriage , save:MACAddress , save:PhysicalHealth , save:FavoriteMusic , save:EthnicOrigin , save:Height , save:EmailAddress , save:GPSCoordinate , save:TelephoneNumber , save:PhilosophicalBelief , save:EmailContent , save:ProfessionalEvaluation , save:PurchasesAndSpendingHabit , save:Offspring , save:Accent , save:FamilyHealthHistory , save:SocialStatus , save:Gender , save:MentalHealth , save:LoanRecord , save:TVViewingBehavior , save:PersonalPossession , save:Prescription , save:MaritalStatus , save:Thought , save:VoiceMail , save:Tattoo , save:Race , save:Name , save:SecretText , save:DerivedPersonalData , save:FavoriteColor , save:Dislike , save:GroupMembership ;
+                           save:hasDataSubjectClassIntersection
+                                   dpv:DataSubject ;
+                           save:hasDataSubjectIntersection
+                                   save-ex:ChildUser ;
+                           save:hasTechnicalOrganisationalMeasureClassIntersection
+                                   dpv:TechnicalOrganisationalMeasure ;
+                           save:hasTechnicalOrganisationalMeasureIntersection
+                                   save:TechnicalOrganisationalMeasure ;
+                           save:legalBasisClassIntersection
+                                   save:LegalBasis ;
+                           save:legalBasisIntersection    save:AnyLegalBasis ;
+                           save:processorClassIntersection
+                                   dpv:DataProcessor ;
+                           save:processorIntersection     save-ex:Agent ;
+                           save:purposeClassIntersection  dpv:Purpose ;
+                           save:purposeIntersection       save:Purpose ;
+                           save:recipientClassIntersection
+                                   save:Party ;
+                           save:recipientIntersection     save:AnyParty ;
+                           save:responsiblePartyClassIntersection
+                                   save:Party ;
+                           save:responsiblePartyIntersection
+                                   save:AnyParty ;
+                           save:rule                      save-ex:IMDBPermission14 ;
+                           save:senderClassIntersection   save:Party ;
+                           save:senderIntersection        save:AnyParty
+                         ] ;
+        save:result      [ a                      save-ex:RequestAnswer ;
+                           save:answerPermitted   "part-granted" ;
+                           save:answerProhibited  "not prohibited" ;
+                           save:countPermitted    4 ;
+                           save:countProhibited   0 ;
+                           save:sumPermitted      3 ;
+                           save:sumProhibited     0
+                         ] .

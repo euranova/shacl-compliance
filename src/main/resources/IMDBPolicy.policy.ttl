@@ -1,0 +1,212 @@
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix save:  <http://example.com/privacy-policy-model/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ppmprof: <http://example.com/privacy-policy-model/odrl-profile/> .
+@prefix ns1:   <http://purl.org/vocab/vann/> .
+@prefix svpr:  <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix save-ex: <http://example.com/privacy-policy-model/examples/> .
+@prefix orcp:  <http://example.com/odrl:profile:regulatoryCompliance/> .
+@prefix sw:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dpv:   <http://www.w3.org/ns/dpv#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix ex:    <http://example.org/shacl_examples#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+@prefix dash:  <http://datashapes.org/dash#> .
+
+save-ex:IMDBProhibition1
+        a                orcp:Prohibition ;
+        save:action      save:Disclose ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:PersonalInformation ;
+        save:recipient   save:ThirdParty .
+
+save-ex:IMDBProhibition7
+        a             orcp:Prohibition ;
+        save:purpose  save:CommercialInterest .
+
+save-ex:IMDBPermission11
+        a                    orcp:Permission ;
+        save:action          save:Obtain , save:Use ;
+        save:data            save:BrowserFingerprint , save:IPAddress ;
+        save:hasDataSubject  save-ex:IMDBUser ;
+        save:purpose         save:PersonalisedBenefits , save:ServiceOptimization , save:SellTargettedAdvertisements ;
+        save:recipient       save-ex:ThirdPartyAdvertisers , save-ex:ThirdPartyWebsites .
+
+save-ex:IMDBPermission6
+        a                orcp:Permission ;
+        save:action      save:Share ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:PersonalInformation ;
+        save:recipient   save-ex:ParentCorporationAmazon , save-ex:SubsidiariesOfAmazon .
+
+save-ex:IMDBProhibition6
+        a                    orcp:Prohibition ;
+        save:action          save:AnyProcessing ;
+        save:controller      save-ex:IMDB ;
+        save:data            save:PersonalInformation ;
+        save:hasDataSubject  save-ex:ChildUser .
+
+save-ex:IMDBPermission10
+        a                orcp:Permission ;
+        save:action      save:Disclose ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:PersonalInformation ;
+        save:legalBasis  save:Contract , save:LegalObligation , save:VitalInterest .
+
+save-ex:IMDBPermission5
+        a                orcp:Permission ;
+        save:action      save:Use ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:BrowserFingerprint ;
+        save:purpose     save:ServiceProvision .
+
+save-ex:IMDBProhibition5
+        a                orcp:Prohibition ;
+        save:action      save:Disclose ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:Identifying ;
+        save:purpose     save:SellTargettedAdvertisements ;
+        save:recipient   save-ex:ThirdPartyAdvertisers .
+
+save-ex:IMDBDispensation1
+        a               orcp:Dispensation ;
+        save:action     save:Use ;
+        save:data       save:PersonalInformation ;
+        save:processor  save-ex:Agent ;
+        save:purpose    save:Marketing , save:CustomerCare , save:CommercialResearch .
+
+save-ex:IMDBPermission4
+        a                    orcp:Permission ;
+        save:action          save:Obtain , save:Use ;
+        save:controller      save-ex:IMDB ;
+        save:data            save:PhysicalAddress ;
+        save:hasDataSubject  save-ex:IMDBUser ;
+        save:purpose         save:DeliveryOfGoods , save:CustomerCare .
+
+save-ex:IMDBProhibition4
+        a                orcp:Prohibition ;
+        save:action      save:Share ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:EmailAddress , save:Name ;
+        save:purpose     save:SellTargettedAdvertisements ;
+        save:recipient   save-ex:OtherBusinesses .
+
+save-ex:IMDBPermission14
+        a                orcp:Permission ;
+        save:action      save:KeepACopy ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:PersonalInformation .
+
+save-ex:IMDBPermission3
+        a                    orcp:Permission ;
+        save:action          save:Obtain , save:Use ;
+        save:controller      save-ex:IMDB ;
+        save:data            save:DeviceBased , save:GPSCoordinate ;
+        save:hasDataSubject  save-ex:IMDBUser ;
+        save:purpose         save:Advertising , save:ServicePersonalization .
+
+save-ex:IMDBPermission9
+        a               orcp:Permission ;
+        save:action     save:Use ;
+        save:data       save:PersonalInformation ;
+        save:processor  save-ex:Agent ;
+        save:purpose    save:Marketing , save:CustomerCare , save:CommercialResearch .
+
+save-ex:IMDBProhibition3
+        a               orcp:Prohibition ;
+        save:action     save:Use ;
+        save:data       save:PersonalInformation ;
+        save:processor  save-ex:Agent .
+
+save-ex:IMDBProhibition3_ConflictFree
+        a               orcp:Prohibition ;
+        save:action     save:Use ;
+        save:data       save:PersonalInformation ;
+        save:processor  save-ex:Agent ;
+        save:purpose    save:CommercialInterest , save:ServiceOptimization , save:UserInterfacePersonalisation , save:PersonalisedBenefits , save:Security , save:DeliveryOfGoods , save:AcademicResearch , save:CreateEventRecommendations , save:NonCommercialResearch .
+
+save-ex:IMDBPermission13
+        a                orcp:Permission ;
+        save:action      save:Use ;
+        save:controller  save-ex:ThirdPartyAdvertisers , save-ex:ThirdPartyWebsites ;
+        save:data        save:PersonalInformation ;
+        save:purpose     save:PersonalisedAdvertising .
+
+save-ex:IMDBPermission2
+        a                    orcp:Permission ;
+        save:action          save:Use , save:Collect , save:Store , save:Analyse ;
+        save:controller      save-ex:IMDB ;
+        save:data            save:BrowsingBehavior , save:LinkClicked , save:Password , save:IPAddress , save:Username , save:Purchase , save:BrowserFingerprint ;
+        save:hasDataSubject  save-ex:IMDBUser ;
+        save:purpose         save:FraudPreventionAndDetection , save:ServicePersonalization .
+
+save-ex:IMDBPermission8
+        a                orcp:Permission ;
+        save:action      save:Share ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:PersonalInformation ;
+        save:purpose     save:Marketing , save:CustomerCare , save:CommercialResearch ;
+        save:recipient   save-ex:Agent .
+
+save-ex:IMDBProhibition2
+        a                orcp:Prohibition ;
+        save:action      save:Share ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:PersonalInformation ;
+        save:purpose     save:SellDataToThirdParties .
+
+save-ex:IMDBProhibition8
+        a          orcp:Prohibition ;
+        save:data  save:Identifying .
+
+save-ex:IMDBObligation1
+        a                orcp:Obligation ;
+        save:action      save:Transfer ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:Authenticating ;
+        save:hasTechnicalOrganisationalMeasure
+                save:EncryptionInTransfer .
+
+save-ex:IMDBPermission12
+        a                orcp:Permission ;
+        save:action      save:Use ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:Preference ;
+        save:purpose     save:PersonalisedBenefits , save:SellTargettedAdvertisements .
+
+save-ex:IMDBPermission1
+        a                    orcp:Permission ;
+        save:action          save:Store , save:Use , save:Collect ;
+        save:controller      save-ex:IMDB ;
+        save:data            save:Country , save:Preference , save:Age , save:Dislike , save:EmailAddress , save:Name , save:PhysicalAddress , save:Gender , save:Like , save:TelephoneNumber ;
+        save:hasDataSubject  save-ex:IMDBUser ;
+        save:purpose         save:CustomerCare , save:UserInterfacePersonalisation , save:ServicePersonalization .
+
+save-ex:IMDBPolicy  a      orcp:Set ;
+        save:dispensation  save-ex:IMDBDispensation1 ;
+        save:obligation    save-ex:IMDBObligation1 ;
+        save:permission    save-ex:IMDBPermission2 , save-ex:IMDBPermission10 , save-ex:IMDBPermission14 , save-ex:IMDBPermission12 , save-ex:IMDBPermission9 , save-ex:IMDBPermission11 , save-ex:IMDBPermission8 , save-ex:IMDBPermission4 , save-ex:IMDBPermission5 , save-ex:IMDBPermission1 , save-ex:IMDBPermission13 , save-ex:IMDBPermission7 , save-ex:IMDBPermission6 , save-ex:IMDBPermission3 ;
+        save:prohibition   save-ex:IMDBProhibition6 , save-ex:IMDBProhibition3_ConflictFree , save-ex:IMDBProhibition3 , save-ex:IMDBProhibition1 , save-ex:IMDBProhibition8 , save-ex:IMDBProhibition2 , save-ex:IMDBProhibition5 , save-ex:IMDBProhibition7 , save-ex:IMDBProhibition4 .
+
+save-ex:IMDBPermission7
+        a                orcp:Permission ;
+        save:action      save:Share ;
+        save:controller  save-ex:IMDB ;
+        save:data        save:PersonalInformation ;
+        save:purpose     save:SellTargettedAdvertisements ;
+        save:recipient   save-ex:AffiliatedBusinesses .

@@ -1,0 +1,71 @@
+PREFIX  save-ex: <http://example.com/privacy-policy-model/examples/>
+PREFIX  orcp: <http://example.com/odrl:profile:regulatoryCompliance/>
+PREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX  owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX  dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#>
+PREFIX  save: <http://example.com/privacy-policy-model/>
+PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX  dpv:  <http://www.w3.org/ns/dpv#>
+
+SELECT
+     ?ans ?ansProh ?cnt  ?su  ?cntProh ?suProh
+
+WHERE
+{
+ BIND(BNODE() as ?bnode) .
+ {SELECT (COUNT(*) as ?cnt) (SUM(?answerPermitted) as ?su)
+     WHERE
+     {
+         {SELECT $this ?attrLabel (COUNT(DISTINCT *) AS ?attrsPermitted) (group_concat(?item) as ?itemsPermitted)
+             WHERE {
+             $this save:conformsTo ?permission .
+                     ?permission ?attr ?item .
+                     FILTER (?attr IN (save:senderIntersection, save:legalBasisIntersection, save:controllerIntersection, save:hasTechnicalOrganisationalMeasureIntersection, save:responsiblePartyIntersection, save:dataIntersection, save:purposeIntersection, save:actionIntersection, save:recipientIntersection, save:processorIntersection, save:hasDataSubjectIntersection))
+             bind(strbefore(strafter(str(?attr), "model/"), "Intersection") as ?attrLabel)
+         }
+             group by $this ?attrLabel
+         }
+         {SELECT $this ?requestAttrLabel (COUNT(DISTINCT *) AS ?requestAttrsTotal) (group_concat(?item) as ?requestItemsTotal)
+             WHERE {
+             $this ?requestAttr ?requestBNode .
+                     ?requestBNode rdf:rest*/rdf:first ?requestItem .
+                     FILTER (?requestAttr IN (save:responsiblePartyList, save:actionList, save:hasDataSubjectList, save:recipientList, save:legalBasisList, save:senderList, save:purposeList, save:controllerList, save:dataList, save:processorList, save:hasTechnicalOrganisationalMeasureList))
+             bind(strbefore(strafter(str(?requestAttr), "model/"), "List") as ?requestAttrLabel)
+         }
+             group by $this ?requestAttrLabel
+         }
+         FILTER(?attrLabel = ?requestAttrLabel)
+         BIND(IF(?attrsPermitted = ?requestAttrsTotal, 1, 0) as ?answerPermitted)
+
+     }
+ }
+
+ {SELECT (COUNT(*) as ?cntProh) (SUM(?answerProhibited) as ?suProh)
+     WHERE
+     {
+         {SELECT $this ?attrLabelProh (COUNT(DISTINCT *) AS ?attrsProhibited)
+             WHERE {
+             $this save:prohibitedBy ?prohibition .
+                     ?prohibition ?attrProh ?itemProh .
+                     FILTER (?attrProh IN (save:senderIntersection, save:legalBasisIntersection, save:controllerIntersection, save:hasTechnicalOrganisationalMeasureIntersection, save:responsiblePartyIntersection, save:dataIntersection, save:purposeIntersection, save:actionIntersection, save:recipientIntersection, save:processorIntersection, save:hasDataSubjectIntersection))
+             bind(strbefore(strafter(str(?attrProh), "model/"), "Intersection") as ?attrLabelProh)
+         }
+             group by $this ?attrLabelProh
+         }
+         {SELECT $this ?requestAttrLabelProh (COUNT(DISTINCT *) AS ?requestAttrsTotalProh)
+             WHERE {
+             $this ?requestAttrProh ?requestBNodeProh .
+                     ?requestBNodeProh rdf:rest*/rdf:first ?requestItemProh .
+                     FILTER (?requestAttrProh IN (save:responsiblePartyList, save:actionList, save:hasDataSubjectList, save:recipientList, save:legalBasisList, save:senderList, save:purposeList, save:controllerList, save:dataList, save:processorList, save:hasTechnicalOrganisationalMeasureList))
+             bind(strbefore(strafter(str(?requestAttrProh), "model/"), "List") as ?requestAttrLabelProh)
+         }
+             group by $this ?requestAttrLabelProh
+         }
+         FILTER(?attrLabelProh = ?requestAttrLabelProh)
+         BIND(IF(?attrsProhibited = ?requestAttrsTotalProh, 1, 0) as ?answerProhibited)
+     }
+ }
+
+ BIND(IF(?cnt = 0, "not granted", IF(?cnt = ?su, "granted", "part-granted")) as ?ans)
+ BIND(IF(?cntProh = 0, "not prohibited", IF(?cntProh = ?suProh, "prohibited", "part-prohibited")) as ?ansProh)
+}
