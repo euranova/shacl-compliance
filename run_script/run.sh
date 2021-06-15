@@ -19,7 +19,7 @@ mode="eval" # {inf (=0), eval (=1), confl (=2)}
 
 
 # if using inference mode
-optimized=false # or true
+sparql=false # or true
 ultimate=true # or true
 
 # if using evaluation mode
@@ -49,7 +49,7 @@ fi
 # because in case of using docker we will need to output the stats outside the container
 if [ "$mode" = "0" ] || [ "$mode" = "inf" ]; then
         mode="inf"
-        outputFolder="${shared_volume}/output_${mode}_optimized${optimized}_ultimate${ultimate}/"
+        outputFolder="${shared_volume}/output_${mode}_sparql${sparql}_ultimate${ultimate}/"
 else
         if [ "$mode" = "1" ] || [ "$mode" = "eval" ]; then
             mode="eval"
@@ -76,7 +76,7 @@ if [ $use_docker = true ]; then
 
   cont_name="run_${mode}"
 
-  docker run --rm --name=${cont_name} -v ${shared_volume}/:${shared_volume} -it ${image_name} --mode=${mode}  --outputFolder=${outputFolder} --optimized="${optimized}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}" --policySizes="${policySizes}" --nRules="${nRules}"
+  docker run --rm --name=${cont_name} -v ${shared_volume}/:${shared_volume} -it ${image_name} --mode=${mode}  --outputFolder=${outputFolder} --sparql="${sparql}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}" --policySizes="${policySizes}" --nRules="${nRules}"
   #sleep 3
 
 
@@ -84,5 +84,5 @@ if [ $use_docker = true ]; then
   #
   #echo "${cont_name}.log"
 else
-  java -jar shacl-compl-1.0-SNAPSHOT.jar --mode=${mode}  --outputFolder=${outputFolder} --optimized="${optimized}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}"  --policySizes="${policySizes}" --nRules="${nRules}"
+  java -jar shacl-compl-1.0-SNAPSHOT.jar --mode=${mode}  --outputFolder=${outputFolder} --sparql="${sparql}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}"  --policySizes="${policySizes}" --nRules="${nRules}"
 fi

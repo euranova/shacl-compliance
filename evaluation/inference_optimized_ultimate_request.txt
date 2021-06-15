@@ -1,9 +1,0 @@
-Experiment: inference_optimized_ultimate_request
-	Policy: null
-	#Requests: 1
-	#Processed: 1
-	Mode: IMDB_ULTIMATE_REQUEST
-	Triples inferred: 1537
-	Total exec time: 313276.0
-	Avg time per request: 313276.0
-	Avg time per subrequest: 0.0

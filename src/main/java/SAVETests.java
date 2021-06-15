@@ -2,12 +2,17 @@
 import org.apache.commons.cli.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Statement;
+
 import org.example.*;
 import org.topbraid.jenax.util.JenaUtil;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static org.example.SHACLComplianceResult.createTotalResultFromList;
@@ -22,7 +27,11 @@ public class SAVETests {
     public static void main(String[] args) throws Exception {
 //        System.setProperty("java.awt.headless", "true");
 //        boolean headless = GraphicsEnvironment.isHeadless();
-
+        Logger rootLogger = LogManager.getLogManager().getLogger("");
+        rootLogger.setLevel(Level.INFO);
+        for (Handler h : rootLogger.getHandlers()) {
+            h.setLevel(Level.INFO);
+        }
         boolean headless = GraphicsEnvironment.isHeadless();
         System.out.println("Headless: " + headless);
         if(headless){
@@ -38,11 +47,11 @@ public class SAVETests {
         outputOption.setRequired(true);
         options.addOption(outputOption);
 
-        Option optimizedOption = new Option("p", "optimized", true, "whether to use optimized inference (true/false), default = false");
-        optimizedOption.setRequired(false);
-        options.addOption(optimizedOption);
+        Option sparqlOption = new Option("p", "sparql", true, "whether to use sparql inference (true/false), default = false");
+        sparqlOption.setRequired(false);
+        options.addOption(sparqlOption);
 
-        Option ultimateOption = new Option("u", "ultimate", true, "whether to use ultimate request (true/false, only works with optimized option), default = false");
+        Option ultimateOption = new Option("u", "ultimate", true, "whether to use ultimate request (true/false, only works with sparql option), default = false");
         ultimateOption.setRequired(false);
         options.addOption(ultimateOption);
 
@@ -70,7 +79,7 @@ public class SAVETests {
             cmd = parser.parse(options, args);
             String mode = cmd.getOptionValue("mode");
             String outputFolder = cmd.getOptionValue("outputFolder");
-            boolean optimized = Boolean.parseBoolean(cmd.getOptionValue("optimized", "false"));
+            boolean sparql = Boolean.parseBoolean(cmd.getOptionValue("sparql", "false"));
             boolean ultimate = Boolean.parseBoolean(cmd.getOptionValue("ultimate", "false"));
             String evalMode = cmd.getOptionValue("evalMode", "imdb_simple");
             List<Integer> seeds = Arrays.stream(cmd.getOptionValue("seeds", "1,5,10,100,200,500,1000").split(","))
@@ -85,13 +94,13 @@ public class SAVETests {
 
             if (mode.equals("inf")){
                 //test the compliance checking
-                System.out.println("Optimized: " + optimized);
+                System.out.println("sparql: " + sparql);
                 System.out.println("Ultimate Request: " + ultimate);
-                if (!optimized && ultimate){
-                    System.out.println("Cannot process ultimate request with regular procedure, please choose optimized version by setting -p True");
+                if (!sparql && ultimate){
+                    System.out.println("Cannot process ultimate request with SHACL-Core procedure, please choose sparql version by setting -p True");
                     System.exit(1);
                 }
-                testComplianceChecking(optimized, outputFolder, ultimate, headless);
+                testComplianceChecking(sparql, outputFolder, ultimate, headless);
             } else if(mode.equals("eval")){
                 System.out.println("Seeds to use: " + seeds);
                 if(evalMode.equals("imdb_simple")){
@@ -107,7 +116,7 @@ public class SAVETests {
                     //wrong value
                 }
             } else if(mode.equals("confl")){
-                System.out.println("Checking for conflicts in IMDB policy by using permissions as policy and prohibitions as requests in optimized mode");
+                System.out.println("Checking for conflicts in IMDB policy by using permissions as policy and prohibitions as requests in sparql mode");
                 testConflictDetection(outputFolder);
             }
             System.out.println("Test done. The output can be found in " + outputFolder + " folder");
@@ -127,8 +136,8 @@ public class SAVETests {
 //        int[] seeds = {1, 5, 10, 100, 200, 500, 1000}; // we generate policies of each size 7 times
         Model unionModel = ModelUtils.loadFullSAVEModel();
         Model saveModel = ModelUtils.loadSAVEModel();
-        List<SHACLComplianceResult> resultsTotalRegular = new ArrayList<>();
-        List<SHACLComplianceResult> resultsTotalOptimized = new ArrayList<>();
+        List<SHACLComplianceResult> resultsTotalCore = new ArrayList<>();
+        List<SHACLComplianceResult> resultsTotalSPARQL = new ArrayList<>();
         SAVEVocabulary vocab = new SAVEVocabulary(unionModel);
 //        int[] nRules = new int[seeds.size()];
 //        Arrays.fill(nRules, 100);
@@ -145,19 +154,19 @@ public class SAVETests {
                 SAVEPolicy policy = generator.generateRandomPolicy(policyName, policySize, false, attributes);
 //                Model policyModel = ;
 //                unionModel.add(policyModel);
-                SHACLPolicyTranslator shaclPolicyTranslatorOptimized = new SHACLPolicyTranslator(unionModel, policy);
-                SHACLPolicyTranslator shaclPolicyTranslatorRegular = new SHACLPolicyTranslator(unionModel, policy);
-//                shaclPolicyTranslatorOptimized.writeSHACLPolicyToFile("src/main/resources/", optimized);
-//                finalModel.add(shaclPolicyTranslatorOptimized.getInfModel());
-                shaclPolicyTranslatorRegular.translateSAVEPolicyToSHACL();
-                shaclPolicyTranslatorOptimized.translateSAVEPolicyToSHACLOptimized();
-                Model shapeModelOptimized = shaclPolicyTranslatorOptimized.getInfModel();
-                Model shapeModelRegular = shaclPolicyTranslatorRegular.getInfModel();
-                shaclPolicyTranslatorRegular.writeSHACLPolicyToFile(outputFolder+"generated_policies/", false);
-                shaclPolicyTranslatorOptimized.writeSHACLPolicyToFile(outputFolder+"generated_policies/", true);
+                SHACLPolicyTranslator shaclPolicyTranslatorSPARQL = new SHACLPolicyTranslator(unionModel, policy);
+                SHACLPolicyTranslator shaclPolicyTranslatorCore = new SHACLPolicyTranslator(unionModel, policy);
+//                shaclPolicyTranslatorSPARQL.writeSHACLPolicyToFile("src/main/resources/", SPARQL);
+//                finalModel.add(shaclPolicyTranslatorSPARQL.getInfModel());
+                shaclPolicyTranslatorCore.translateSAVEPolicyToSHACL();
+                shaclPolicyTranslatorSPARQL.translateSAVEPolicyToSHACLSPARQL();
+                Model shapeModelSPARQL = shaclPolicyTranslatorSPARQL.getInfModel();
+                Model shapeModelCore = shaclPolicyTranslatorCore.getInfModel();
+                shaclPolicyTranslatorCore.writeSHACLPolicyToFile(outputFolder+"generated_policies/", false);
+                shaclPolicyTranslatorSPARQL.writeSHACLPolicyToFile(outputFolder+"generated_policies/", true);
                 SAVENormalizer normalizer = new SAVENormalizer(unionModel);
-                SHACLInferenceRunner runnerRegular = new SHACLInferenceRunner(unionModel, saveModel, shapeModelRegular);
-                SHACLInferenceRunner runnerOptimized = new SHACLInferenceRunner(unionModel, saveModel, shapeModelOptimized);
+                SHACLInferenceRunner runnerCore = new SHACLInferenceRunner(unionModel, saveModel, shapeModelCore);
+                SHACLInferenceRunner runnerSPARQL = new SHACLInferenceRunner(unionModel, saveModel, shapeModelSPARQL);
                 List<SAVERuleNormalized> saveRules = new ArrayList<>();
                 String shaclPolocyName = String.format("save-ex:Request%s", policyName.split(":")[1]);
 //                System.out.println("PolicyName: " + shaclPolocyName);
@@ -168,37 +177,37 @@ public class SAVETests {
                     saveRules.add(ruleNormalized);
 //                    System.out.println("Request type: " + ruleNormalized.getType());
                 }
-                //do regular with a whole batch and separately, then do "optimized" one by one (since it's not one request)
-                // actually, optimized is not needed, since for atomic requests almost always the regular way will be faster,
+                //do Core with a whole batch and separately, then do "SPARQL" one by one (since it's not one request)
+                // actually, SPARQL is not needed, since for atomic requests almost always the Core way will be faster,
                 // just need to prove it empirically
-                SHACLComplianceResult resultBatchRegular = runnerRegular.checkNormalizedSAVERulesBatchAtomicRegular(saveRules, SHACLComplianceResult.Mode.RANDOM_SIMPLE_POLICIES, false);
-                resultBatchRegular.setPolicy(policyName);
-                resultBatchRegular.addnRulesPerPolicy(policySize);
-                resultBatchRegular.writeToFile(outputFolder + "logs/", "test_random_atomic_regular_" + policySize + "_" + seed);
-                resultsTotalRegular.add(resultBatchRegular);
+                SHACLComplianceResult resultBatchCore = runnerCore.checkNormalizedSAVERulesBatchAtomicCore(saveRules, SHACLComplianceResult.Mode.RANDOM_SIMPLE_POLICIES, false);
+                resultBatchCore.setPolicy(policyName);
+                resultBatchCore.addnRulesPerPolicy(policySize);
+                resultBatchCore.writeToFile(outputFolder + "logs/", "test_random_atomic_Core_" + policySize + "_" + seed);
+                resultsTotalCore.add(resultBatchCore);
 
-                SHACLComplianceResult resultBatchOptimized = runnerOptimized.checkNormalizedSAVERulesBatchAtomicOptimized(saveRules, SHACLComplianceResult.Mode.RANDOM_SIMPLE_POLICIES, false);
-                resultBatchOptimized.setPolicy(policyName);
-                resultBatchOptimized.addnRulesPerPolicy(policySize);
-                resultBatchOptimized.writeToFile(outputFolder + "logs/", "test_random_atomic_optimized_" + policySize + "_" + seed);
-                resultsTotalOptimized.add(resultBatchOptimized);
+                SHACLComplianceResult resultBatchSPARQL = runnerSPARQL.checkNormalizedSAVERulesBatchAtomicSPARQL(saveRules, SHACLComplianceResult.Mode.RANDOM_SIMPLE_POLICIES, false);
+                resultBatchSPARQL.setPolicy(policyName);
+                resultBatchSPARQL.addnRulesPerPolicy(policySize);
+                resultBatchSPARQL.writeToFile(outputFolder + "logs/", "test_random_atomic_SPARQL_" + policySize + "_" + seed);
+                resultsTotalSPARQL.add(resultBatchSPARQL);
             }
         }
         //consolidate results for all seeds
-        SHACLComplianceResult resultRegular = createTotalResultFromList(resultsTotalRegular,
+        SHACLComplianceResult resultCore = createTotalResultFromList(resultsTotalCore,
                 nRules.get(0)*policySizes.size()*seeds.size(), unionModel, SHACLComplianceResult.Mode.RANDOM_SIMPLE_POLICIES);
-        resultRegular.setPolicy("Random");
-        resultRegular.writeToFile(outputFolder, "test_random_atomic_regular_total_stats");
-        SHACLComplianceResult resultOptimized = createTotalResultFromList(resultsTotalOptimized,
+        resultCore.setPolicy("Random");
+        resultCore.writeToFile(outputFolder, "test_random_atomic_Core_total_stats");
+        SHACLComplianceResult resultSPARQL = createTotalResultFromList(resultsTotalSPARQL,
                 nRules.get(0)*policySizes.size()*seeds.size(), unionModel, SHACLComplianceResult.Mode.RANDOM_SIMPLE_POLICIES);
-        resultOptimized.setPolicy("Random");
-        resultOptimized.writeToFile(outputFolder, "test_random_atomic_optimized_total_stats");
+        resultSPARQL.setPolicy("Random");
+        resultSPARQL.writeToFile(outputFolder, "test_random_atomic_SPARQL_total_stats");
         //chart
         if(!headless) {
             EvaluationChart chart = new EvaluationChart("Batch of 100 atomic requests against random policies",
                     "# of simple rules per policy", "Avg time per request (ms)");
-            chart.addSeries(resultRegular.getAvgTimePerNumberOfRules(true), "Regular");
-            chart.addSeries(resultOptimized.getAvgTimePerNumberOfRules(true), "Optimized");
+            chart.addSeries(resultCore.getAvgTimePerNumberOfRules(true), "Core");
+            chart.addSeries(resultSPARQL.getAvgTimePerNumberOfRules(true), "SPARQL");
             chart.initChart();
             try {
                 chart.saveAsPng(outputFolder, "random_policies");
@@ -215,10 +224,10 @@ public class SAVETests {
         Model saveModel = ModelUtils.loadSAVEModel();
         Model policyModel = ModelUtils.loadModelFromResourceFile("save.imdb.policy.ttl");
         unionModel.add(policyModel);
-        Model shapeModelOptimized = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.optimized.ttl");
-        Model shapeModelRegular = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.ttl");
-        List<SHACLComplianceResult> resultsTotalRegular = new ArrayList<>();
-        List<SHACLComplianceResult> resultsTotalOptimized = new ArrayList<>();
+        Model shapeModelSPARQL = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.sparql.ttl");
+        Model shapeModelCore = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.core.ttl");
+        List<SHACLComplianceResult> resultsTotalCore = new ArrayList<>();
+        List<SHACLComplianceResult> resultsTotalSPARQL = new ArrayList<>();
 //        int[] seeds = {1, 5, 10, 100, 200, 500, 1000};
 //        int[] nRules = new int[]{10, 50, 100, 1000, 5000};
         for (int seed : seeds) {
@@ -226,8 +235,8 @@ public class SAVETests {
             for (int nRulesj : nRules) {
                 System.out.println("# of requests: " + nRulesj);
                 SAVENormalizer normalizer = new SAVENormalizer(unionModel);
-                SHACLInferenceRunner runnerRegular = new SHACLInferenceRunner(unionModel, saveModel, shapeModelRegular);
-                SHACLInferenceRunner runnerOptimized = new SHACLInferenceRunner(unionModel, saveModel, shapeModelOptimized);
+                SHACLInferenceRunner runnerCore = new SHACLInferenceRunner(unionModel, saveModel, shapeModelCore);
+                SHACLInferenceRunner runnerSPARQL = new SHACLInferenceRunner(unionModel, saveModel, shapeModelSPARQL);
                 List<SAVERuleNormalized> saveRules = new ArrayList<>();
                 SAVERuleGenerator generator = new SAVERuleGenerator(unionModel, seed);
                 for (int i = 1; i <= nRulesj; i++) {
@@ -237,35 +246,35 @@ public class SAVETests {
                     saveRules.add(ruleNormalized);
 //            System.out.println(ruleNormalized);
                 }
-                //do regular with a whole batch and separately, then do "optimized" one by one (since it's not one request)
-                // actually, optimized is not needed, since for atomic requests almost always the regular way will be faster,
+                //do Core with a whole batch and separately, then do "SPARQL" one by one (since it's not one request)
+                // actually, SPARQL is not needed, since for atomic requests almost always the Core way will be faster,
                 // just need to prove it empirically
-                SHACLComplianceResult resultBatchRegular = runnerRegular.checkNormalizedSAVERulesBatchAtomicRegular(saveRules, SHACLComplianceResult.Mode.IMDB_ATOMIC_REQUESTS, false);
-                resultBatchRegular.setPolicy("IMDB");
-                resultBatchRegular.writeToFile(outputFolder + "logs/", "test_imdb_atomic_regular_" + nRulesj + "_" + seed);
-                resultsTotalRegular.add(resultBatchRegular);
+                SHACLComplianceResult resultBatchCore = runnerCore.checkNormalizedSAVERulesBatchAtomicCore(saveRules, SHACLComplianceResult.Mode.IMDB_ATOMIC_REQUESTS, false);
+                resultBatchCore.setPolicy("IMDB");
+                resultBatchCore.writeToFile(outputFolder + "logs/", "test_imdb_atomic_Core_" + nRulesj + "_" + seed);
+                resultsTotalCore.add(resultBatchCore);
 
-                SHACLComplianceResult resultBatchOptimized = runnerOptimized.checkNormalizedSAVERulesBatchAtomicOptimized(saveRules, SHACLComplianceResult.Mode.IMDB_ATOMIC_REQUESTS, false);
-                resultBatchOptimized.setPolicy("IMDB");
-                resultBatchOptimized.writeToFile(outputFolder + "logs/", "test_imdb_atomic_optimized_" + nRulesj + "_" + seed);
-                resultsTotalOptimized.add(resultBatchOptimized);
+                SHACLComplianceResult resultBatchSPARQL = runnerSPARQL.checkNormalizedSAVERulesBatchAtomicSPARQL(saveRules, SHACLComplianceResult.Mode.IMDB_ATOMIC_REQUESTS, false);
+                resultBatchSPARQL.setPolicy("IMDB");
+                resultBatchSPARQL.writeToFile(outputFolder + "logs/", "test_imdb_atomic_SPARQL_" + nRulesj + "_" + seed);
+                resultsTotalSPARQL.add(resultBatchSPARQL);
             }
         }
         //consolidate results for all seeds
-        SHACLComplianceResult resultRegular = createTotalResultFromList(resultsTotalRegular,
+        SHACLComplianceResult resultCore = createTotalResultFromList(resultsTotalCore,
                 nRules.stream().mapToInt(Integer::intValue).sum() *seeds.size(), unionModel, SHACLComplianceResult.Mode.IMDB_ATOMIC_REQUESTS);
-        resultRegular.setPolicy("IMDB");
-        resultRegular.writeToFile(outputFolder, "test_imdb_atomic_regular_total_stats");
-        SHACLComplianceResult resultOptimized = createTotalResultFromList(resultsTotalOptimized,
+        resultCore.setPolicy("IMDB");
+        resultCore.writeToFile(outputFolder, "test_imdb_atomic_Core_total_stats");
+        SHACLComplianceResult resultSPARQL = createTotalResultFromList(resultsTotalSPARQL,
                 nRules.stream().mapToInt(Integer::intValue).sum()*seeds.size(), unionModel, SHACLComplianceResult.Mode.IMDB_ATOMIC_REQUESTS);
-        resultOptimized.setPolicy("IMDB");
-        resultOptimized.writeToFile(outputFolder, "test_imdb_atomic_optimized_total_stats");
+        resultSPARQL.setPolicy("IMDB");
+        resultSPARQL.writeToFile(outputFolder, "test_imdb_atomic_SPARQL_total_stats");
         //chart
         if(!headless) {
             EvaluationChart chart = new EvaluationChart("Batch of atomic requests",
                     "# of atomic requests in batch", "Avg time per batch (ms)");
-            chart.addSeries(resultRegular.getAvgTimePerNumberOfBatchRequests(), "Regular");
-            chart.addSeries(resultOptimized.getAvgTimePerNumberOfBatchRequests(), "Optimized");
+            chart.addSeries(resultCore.getAvgTimePerNumberOfBatchRequests(), "Core");
+            chart.addSeries(resultSPARQL.getAvgTimePerNumberOfBatchRequests(), "SPARQL");
             chart.initChart();
             try {
                 chart.saveAsPng(outputFolder, "atomic");
@@ -281,10 +290,10 @@ public class SAVETests {
         Model saveModel = ModelUtils.loadSAVEModel();
         Model policyModel = ModelUtils.loadModelFromResourceFile("save.imdb.policy.ttl");
         unionModel.add(policyModel);
-        Model shapeModelOptimized = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.optimized.ttl");
-        Model shapeModelRegular = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.ttl");
-        List<SHACLComplianceResult> resultsTotalRegular = new ArrayList<>();
-        List<SHACLComplianceResult> resultsTotalOptimized = new ArrayList<>();
+        Model shapeModelSPARQL = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.sparql.ttl");
+        Model shapeModelCore = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.core.ttl");
+        List<SHACLComplianceResult> resultsTotalCore = new ArrayList<>();
+        List<SHACLComplianceResult> resultsTotalSPARQL = new ArrayList<>();
 //        List<Integer> seeds = seeds.//{1, 5, 10, 100, 200, 500, 1000};
 //        int[] nRules = new int[seeds.size()];
 //        Arrays.fill(nRules, 100);
@@ -294,8 +303,8 @@ public class SAVETests {
             nRulesj = nRules.get(0);
             System.out.println("Seed: " + seed);
             SAVENormalizer normalizer = new SAVENormalizer(unionModel);
-            SHACLInferenceRunner runnerRegular = new SHACLInferenceRunner(unionModel, saveModel, shapeModelRegular);
-            SHACLInferenceRunner runnerOptimized = new SHACLInferenceRunner(unionModel, saveModel, shapeModelOptimized);
+            SHACLInferenceRunner runnerCore = new SHACLInferenceRunner(unionModel, saveModel, shapeModelCore);
+            SHACLInferenceRunner runnerSPARQL = new SHACLInferenceRunner(unionModel, saveModel, shapeModelSPARQL);
             List<SAVERuleNormalized> saveRules = new ArrayList<>();
             SAVERuleGenerator generator = new SAVERuleGenerator(unionModel, seed);
             for (int i = 1; i <= nRulesj; i++) {
@@ -305,49 +314,49 @@ public class SAVETests {
                 saveRules.add(ruleNormalized);
 //            System.out.println(ruleNormalized);
             }
-            //do each request one by one regularly and optimized, compare time
-            List<SHACLComplianceResult> resultsRegular = new ArrayList<>();
-            List<SHACLComplianceResult> resultsOptimized = new ArrayList<>();
+            //do each request one by one Corely and SPARQL, compare time
+            List<SHACLComplianceResult> resultsCore = new ArrayList<>();
+            List<SHACLComplianceResult> resultsSPARQL = new ArrayList<>();
             for (SAVERuleNormalized rule : saveRules) {
 //                System.out.println("Rule " + rule.getName());
                 try {
-                    resultsRegular.add(runnerRegular.checkNormalizedSAVERuleRegular(rule, true, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS, false));
+                    resultsCore.add(runnerCore.checkNormalizedSAVERuleCore(rule, true, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS, false));
                 } catch (Exception e) {
                     System.out.println("Request " + rule.getName() + " could not be processed, too many subrequests!");
                 }
-                resultsOptimized.add(runnerOptimized.checkNormalizedSAVERuleOptimized(rule, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS, false));
+                resultsSPARQL.add(runnerSPARQL.checkNormalizedSAVERuleSPARQL(rule, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS, false));
             }
-            SHACLComplianceResult resultBatchRegular = createTotalResultFromList(resultsRegular, saveRules.size(), unionModel, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS);
-            resultBatchRegular.setPolicy("IMDB");
-            resultBatchRegular.writeToFile(outputFolder + "logs/", "test_imdb_simple_regular_" + nRulesj + "_" + seed);
-            resultsTotalRegular.add(resultBatchRegular);
+            SHACLComplianceResult resultBatchCore = createTotalResultFromList(resultsCore, saveRules.size(), unionModel, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS);
+            resultBatchCore.setPolicy("IMDB");
+            resultBatchCore.writeToFile(outputFolder + "logs/", "test_imdb_simple_Core_" + nRulesj + "_" + seed);
+            resultsTotalCore.add(resultBatchCore);
 
-            SHACLComplianceResult resultBatchOptimized = createTotalResultFromList(resultsOptimized, saveRules.size(), unionModel, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS);
-            resultBatchOptimized.setPolicy("IMDB");
-            resultBatchOptimized.writeToFile(outputFolder + "logs/", "test_imdb_simple_optimized_" + nRulesj + "_" + seed);
-            resultsTotalOptimized.add(resultBatchOptimized);
+            SHACLComplianceResult resultBatchSPARQL = createTotalResultFromList(resultsSPARQL, saveRules.size(), unionModel, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS);
+            resultBatchSPARQL.setPolicy("IMDB");
+            resultBatchSPARQL.writeToFile(outputFolder + "logs/", "test_imdb_simple_SPARQL_" + nRulesj + "_" + seed);
+            resultsTotalSPARQL.add(resultBatchSPARQL);
         }
         //consolidate results for all seeds
-        SHACLComplianceResult resultRegular = createTotalResultFromList(resultsTotalRegular, nRules.get(0)*seeds.size(), unionModel, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS);
-        resultRegular.setPolicy("IMDB");
-        resultRegular.writeToFile(outputFolder, "test_imdb_simple_regular_total_stats");
-        SHACLComplianceResult resultOptimized = createTotalResultFromList(resultsTotalOptimized, nRules.get(0)*seeds.size(), unionModel, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS);
-        resultOptimized.setPolicy("IMDB");
-        resultOptimized.writeToFile(outputFolder, "test_imdb_simple_optimized_total_stats");
+        SHACLComplianceResult resultCore = createTotalResultFromList(resultsTotalCore, nRules.get(0)*seeds.size(), unionModel, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS);
+        resultCore.setPolicy("IMDB");
+        resultCore.writeToFile(outputFolder, "test_imdb_simple_Core_total_stats");
+        SHACLComplianceResult resultSPARQL = createTotalResultFromList(resultsTotalSPARQL, nRules.get(0)*seeds.size(), unionModel, SHACLComplianceResult.Mode.IMDB_SIMPLE_REQUESTS);
+        resultSPARQL.setPolicy("IMDB");
+        resultSPARQL.writeToFile(outputFolder, "test_imdb_simple_SPARQL_total_stats");
         //chart
         if(!headless) {
 //            EvaluationChart chart = new EvaluationChart("Batch of simple requests",
 //                    "# of subrequests", "Avg time per request (ms)");
-//            chart.addSeries(resultRegular.getAvgTimePerNumberOfSubrequests(), "Regular");
-//            chart.addSeries(resultOptimized.getAvgTimePerNumberOfSubrequests(), "Optimized");
+//            chart.addSeries(resultCore.getAvgTimePerNumberOfSubrequests(), "Core");
+//            chart.addSeries(resultSPARQL.getAvgTimePerNumberOfSubrequests(), "SPARQL");
 //            chart.initChart();
 
 
             //bucketed chart
             EvaluationChart chartBucketed = new EvaluationChart("Batch of simple requests",
                     "# of subrequests (bins)", "Avg time per request (ms)");
-            chartBucketed.addSeries(resultRegular.getAvgTimePerNumberOfSubrequestsBucketed(), "Regular");
-            chartBucketed.addSeries(resultOptimized.getAvgTimePerNumberOfSubrequestsBucketed(), "Optimized");
+            chartBucketed.addSeries(resultCore.getAvgTimePerNumberOfSubrequestsBucketed(), "Core");
+            chartBucketed.addSeries(resultSPARQL.getAvgTimePerNumberOfSubrequestsBucketed(), "SPARQL");
             chartBucketed.initChart();
             try {
 //                chart.saveAsPng(outputFolder, "simple");
@@ -360,15 +369,15 @@ public class SAVETests {
 
 
 
-    private static void testComplianceChecking(boolean optimized, String outputFolder, boolean ultimate, boolean headless) {
+    private static void testComplianceChecking(boolean SPARQL, String outputFolder, boolean ultimate, boolean headless) {
         Model unionModel = ModelUtils.loadFullSAVEModel();
         Model saveModel = ModelUtils.loadSAVEModel();
         Model policyModel = ModelUtils.loadModelFromResourceFile("save.imdb.policy.ttl");
         Model shapeModel;
-        if (optimized) {
-            shapeModel = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.optimized.ttl");
+        if (SPARQL) {
+            shapeModel = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.sparql.ttl");
         } else {
-            shapeModel = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.ttl");
+            shapeModel = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.core.ttl");
         }
         Model requestsModel = ModelUtils.loadModelFromResourceFile(ultimate ? "testIMDBRequestUltimate.ttl" : "testIMDBRequests.ttl");
 //        requestsModel.add(shapeModel);
@@ -381,15 +390,15 @@ public class SAVETests {
             SAVERuleNormalized requestNormalized = normalizer.normalizeSAVERule(request, false, true);
             SHACLInferenceRunner runner = new SHACLInferenceRunner(unionModel, saveModel, shapeModel);
             SHACLComplianceResult result = null;
-            if (optimized) {
-                result = runner.checkNormalizedSAVERuleOptimized(requestNormalized,
+            if (SPARQL) {
+                result = runner.checkNormalizedSAVERuleSPARQL(requestNormalized,
                         (ultimate) ? SHACLComplianceResult.Mode.IMDB_ULTIMATE_REQUEST : SHACLComplianceResult.Mode.IMDB_TEST_REQUESTS, true);
             } else {
                 try {
-                    result = runner.checkNormalizedSAVERuleRegular(requestNormalized, false,
+                    result = runner.checkNormalizedSAVERuleCore(requestNormalized, false,
                             (ultimate) ? SHACLComplianceResult.Mode.IMDB_ULTIMATE_REQUEST : SHACLComplianceResult.Mode.IMDB_TEST_REQUESTS, true);
                 } catch (Exception e) {
-                    System.out.println("The regular method should not have stopped but it did!");
+                    System.out.println("The Core method should not have stopped but it did!");
                 }
             }
             if(result != null) {
@@ -401,7 +410,7 @@ public class SAVETests {
         }
         SHACLComplianceResult resultTotal = createTotalResultFromList(results, requests.size(), unionModel,
                 (ultimate) ? SHACLComplianceResult.Mode.IMDB_ULTIMATE_REQUEST : SHACLComplianceResult.Mode.IMDB_TEST_REQUESTS);
-        resultTotal.writeToFile(outputFolder, "inference" +(optimized?"_optimized":"_regular")+((ultimate?"_ultimate_request":"_test_requests")));
+        resultTotal.writeToFile(outputFolder, "inference" +(SPARQL?"_SPARQL":"_Core")+((ultimate?"_ultimate_request":"_test_requests")));
     }
 
     private static void testConflictDetection(String outputFolder){

@@ -113,7 +113,6 @@ save:sender  a                  owl:ObjectProperty , skos:Concept , owl:NamedInd
 
 orcp:VitalInterest  rdfs:subClassOf  save:LegalBasis .
 
-dpv:DataProcessor  rdfs:subClassOf  save:Party .
 
 <http://example.com/privacy-policy-model/odrl-profile/#Policy>
     a               skos:Collection , owl:NamedIndividual ;
@@ -257,8 +256,6 @@ orcp:processor  a  owl:NamedIndividual , owl:ObjectProperty .
 
 save:unitBusinessDay  a  owl:NamedIndividual , time:TemporalUnit .
 
-orcp:PublicAuthority  rdfs:subClassOf  save:Party .
-
 orcp:purpose  a  owl:NamedIndividual , owl:ObjectProperty .
 
 orcp:LegallyBindingAndEnforceableInstrument
@@ -274,8 +271,6 @@ dpv-gdpr:A9-2-g  rdfs:subClassOf  orcp:PublicInterest .
 orcp:BindingCorporateRules
     rdfs:subClassOf  save:Resource .
 
-orcp:InternationalOrganisation
-    rdfs:subClassOf  save:Party .
 
 save:obligation  a           rdfs:Property , owl:NamedIndividual , owl:ObjectProperty ;
              rdfs:domain      [ a            owl:Class ;
@@ -317,7 +312,6 @@ save:controller  a              owl:ObjectProperty , owl:NamedIndividual , skos:
              skos:definition     "A Data Controller participating in the Rule." ;
              skos:note           "Initially was defined by ORCP, and redefined in SAVE for having corresponfing DataController in the Range." .
 
-dpv:ThirdParty  rdfs:subClassOf  save:Party .
 
 save:hasTechnicalOrganisationalMeasure
     a                rdfs:Property , owl:NamedIndividual , owl:ObjectProperty ;
@@ -388,7 +382,6 @@ save:prohibition  a          rdfs:Property , owl:NamedIndividual , owl:ObjectPro
 
 dpv-gdpr:A9-2-d  rdfs:subClassOf  save:LegalBasis .
 
-dpv:DataController  rdfs:subClassOf  save:Party .
 
 <http://example.com/privacy-policy-model/odrl-profile/#PartyProfileSubclasses>
     a               skos:Collection , owl:NamedIndividual ;
@@ -402,7 +395,6 @@ dpv:DataController  rdfs:subClassOf  save:Party .
     skos:prefLabel  "Technical and Organisational Measures" ;
     skos:scopeNote  "SAVE Vocabulary Terms (adopted from DPV)" .
 
-dpv:DataSubject  rdfs:subClassOf  save:Party .
 
 odrl:lteq  a    orcp:Operator , owl:NamedIndividual .
 
@@ -481,6 +473,7 @@ save:function  a             rdfs:Property , owl:NamedIndividual , owl:ObjectPro
 
 save:KeepACopy  a  dpv:Copy , dpv:Store .
 
+dpv:LegalEntity rdfs:subClassOf save:Party .
 
 save:AcademicResearch a dpv:AcademicResearch .
 save:Accent a dpv:Accent .
@@ -800,8 +793,6 @@ save:VulnerableDataSubject a dpv:VulnerableDataSubject .
 save:Weight a dpv:Weight .
 save:WorkHistory a dpv:WorkHistory .
 
-save:InternationalOrganisation a orcp:InternationalOrganisation .
-save:PublicAuthority a orcp:PublicAuthority .
 save:AnyLegalBasis a save:LegalBasis .
 save:A6-1-b a dpv-gdpr:A6-1-b .
 save:A6-1-c a dpv-gdpr:A6-1-c .

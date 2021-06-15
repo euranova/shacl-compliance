@@ -23,9 +23,9 @@ public class SAVEDebug {
      * Main file for evaluation of SHACL rules based on SAVE model
      */
     public static void main(String[] args) throws Exception {
-//        testCreation(true);
+        testCreation(true);
 //        testConflictDetection();
-        testSAVEPolicyToTtl();
+//        testSAVEPolicyToTtl();
 //        testComplianceChecking(false);
 
 //        testEvaluationRandomAtomic();
@@ -45,7 +45,7 @@ public class SAVEDebug {
 
     private static void testDPVTre() {
         Model saveModel = ModelUtils.loadFullSAVEModel();
-        SPARQLUtils.getDPVTree(saveModel, "save:LegalBasis");
+        SPARQLUtils.getDPVTreeNLP(saveModel, "save:Party");
 
 
     }
@@ -160,7 +160,7 @@ public class SAVEDebug {
     }
 
 
-    private static void testCreation(boolean optimized) {
+    private static void testCreation(boolean SPARQL) {
         Model unionModel = ModelUtils.loadFullSAVEModel();
         Model policyModel = ModelUtils.loadModelFromResourceFile("save.imdb.policy.ttl");
         unionModel.add(policyModel);
@@ -168,12 +168,12 @@ public class SAVEDebug {
         List<SAVEPolicy> policies = extractPoliciesFromModel(unionModel);
         for (SAVEPolicy policy: policies) {
             SHACLPolicyTranslator shaclPolicyTranslator = new SHACLPolicyTranslator(unionModel, policy);
-            if (optimized) {
-                shaclPolicyTranslator.translateSAVEPolicyToSHACLOptimized();
+            if (SPARQL) {
+                shaclPolicyTranslator.translateSAVEPolicyToSHACLSPARQL();
             } else {
                 shaclPolicyTranslator.translateSAVEPolicyToSHACL();
             }
-            shaclPolicyTranslator.writeSHACLPolicyToFile("src/main/resources/", optimized);
+            shaclPolicyTranslator.writeSHACLPolicyToFile("src/main/resources/", SPARQL);
             finalModel.add(shaclPolicyTranslator.getInfModel());
         }
     }
@@ -206,7 +206,7 @@ public class SAVEDebug {
         Model unionModel = ModelUtils.loadFullSAVEModel();
         // try to load test file and run inference
         Model policyModel = ModelUtils.loadModelFromResourceFile("save.imdb.policy.ttl");
-        Model shapeModel = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.ttl");
+        Model shapeModel = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.core.ttl");
         Model requestsModel = ModelUtils.loadModelFromResourceFile("test10.ttl"); // "testIMDBRequests.ttl"
         unionModel.add(shapeModel).add(policyModel).add(requestsModel);
 
@@ -223,7 +223,7 @@ public class SAVEDebug {
         // Perform the rule calculation, using the data model
         // also as the rule model - you may have them separated
         Model policyModel = ModelUtils.loadModelFromResourceFile("save.imdb.policy.ttl");
-        Model testModel = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.ttl");
+        Model testModel = ModelUtils.loadModelFromResourceFile("IMDBPolicy.shapes.core.ttl");
         Model requestsModel = ModelUtils.loadModelFromResourceFile("test10.ttl"); // "testIMDBRequests.ttl"
         unionModel.add(policyModel).add(requestsModel);
         Model dataModel = unionModel;

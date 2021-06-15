@@ -32,9 +32,9 @@ This first version of the prototype implements the following components:
 - and from Compliance Checking module - Request Preprocessing (normalization only) and Compliance Checking.
 
 ### Two versions of compliance checking procedure
-***The regular*** version of the compliance checking procedure follows the straightforward definition of compliance checking: it materializes each subrequest and checks it separately against the policy.
+***The SHACL-Core*** version of the compliance checking procedure follows the straightforward definition of compliance checking: it materializes each subrequest and checks it separately against the policy.
 
-***The optimized*** version avoids materialization of subrequests and instead creates a "combined" normalized request using RDFList properties. SHACL core components are not capable of processing conditions for this type of properties, therefore the checking is done thorugh SPARQL constraints. Due to heavy usage of SPARQL this version is slower on atomic requests or requests with small number of subrequests, however it wins in performance on heavy requests.
+***The SHACL-SPARQL*** version avoids materialization of subrequests and instead creates a "combined" normalized request using RDFList properties. SHACL core components are not capable of processing conditions for this type of properties, therefore the checking is done thorugh SPARQL constraints. Due to heavy usage of SPARQL this version is slower on atomic requests or requests with small number of subrequests, however it wins in performance on heavy requests.
 
 Both versions provide, besides the answer to the request - *granted*, *prohibited*, *partly-granted*, etc. - a detailed report (as RDF triples) of which subrequests (or groups of subrequests) are "covered" by which rules. The format of the full report of both version may be slightly different due to implementation specifics.
 
@@ -91,7 +91,7 @@ Then, `sh run.sh` command will run the tests with jre by default.
 
 **If you cannot run the `run.sh` script**, you can run the program without the script. You need to run the following command (from the `target/` folder):
 ```shell
-java -jar shacl-compl-1.0-SNAPSHOT.jar --mode=${mode}  --outputFolder=${outputFolder} --optimized="${optimized}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}"  --policySizes="${policySizes}" --nRules="${nRules}"
+java -jar shacl-compl-1.0-SNAPSHOT.jar --mode=${mode}  --outputFolder=${outputFolder} --sparql="${sparql}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}"  --policySizes="${policySizes}" --nRules="${nRules}"
 ```
 Where each parameter should be set according to the format presented in `run.sh` script. If you want to stick to default parameters, you will 
 only need to set the two required parameters: `outputFolder` and `mode` (explained down below).
@@ -155,13 +155,13 @@ This test runs when `mode=inf`. It will perform compliance checking against the 
 
 FYI the policy files are (no need to set anything, the test will know where to find the files):
 - `src/main/resources/save.imdb.policy.ttl`: original policy expressed in SAVE terms;
-- `src/main/resources/IMDBPolicy.shapes.ttl`: SHACL shapes for the *regular* compliance checking procedure;
-- `src/main/resources/IMDBPolicy.shapes.optimized.ttl`: SHACL shapes for the *optimized* compliance checking procedure.
+- `src/main/resources/IMDBPolicy.shapes.core.ttl`: SHACL shapes for the *SHACL-Core* compliance checking procedure;
+- `src/main/resources/IMDBPolicy.shapes.sparql.ttl`: SHACL shapes for the *SHACL-SPARQL* compliance checking procedure.
 
-The test runs either regular or optimized version, depending on the parameters set in `run.sh`. The necessary parameters:
-- `optimized=true/false(default)`: whether to run the regular or the optimized version;
+The test runs either SHACL-Core or SHACL-SPARQL version, depending on the parameters set in `run.sh`. The necessary parameters:
+- `sparql=true/false(default)`: whether to run the SHACL-Core or the SHACL-SPARQL version;
 - `ultimate=true/false(default)`: whether to run the "worst case" request. If `true`, the request will be parsed from the `src/main/resources/testIMDBRequestUltimate.ttl` file, if `false` - from `src/main/resources/testIMDBRequests.ttl`. 
-  **WARNING:** The "worst case" request cannot be tested with the regular procedure. The optimized one should take about 5 min.
+  **WARNING:** The "worst case" request cannot be tested with the SHACL-Core procedure. The SHACL-SPARQL one should take about 5 min.
   
 **Note: since the conflict detection/resolution functionality is not integrated in this version, 
 the IMDB policy in the tests contains conflicts. Therefore, any request checked against it can be both granted and prohibited at the same time. 
@@ -170,23 +170,23 @@ Some prohibitions in the policy are very general, therefore almost any request t
 
 The test file `src/main/resources/testIMDBRequests.ttl` contains 10 manually created requests that can be verified against IMDB policy. 
 `src/main/resources/testIMDBRequestUltimate.ttl` contains only one request with roots of SAVE taxonomies for hierarchical attributes, and one or more values for constant attributes. 
-It is intended to recreate the "worst case" situation where the number of subrequests explodes. This is the reason it cannot be run with the regular procedure, only the onptimized one (should take roughly 5 min).
+It is intended to recreate the "worst case" situation where the number of subrequests explodes. This is the reason it cannot be run with the SHACL-Core procedure, only the onptimized one (should take roughly 5 min).
 
-**The output** folder for this test (according to `run.sh`) will be called `${shared_volume}output_inf_optimized${optimized}_ultimate${ultimate}` (or you can set it to whatever value suits you). 
+**The output** folder for this test (according to `run.sh`) will be called `${shared_volume}output_inf_sparql${sparql}_ultimate${ultimate}` (or you can set it to whatever value suits you). 
 Inside this folder you will find several output files:
-- `inference_regular_test_requests.txt`: output stats for the regular version. The metrics calculated there are:
+- `inference_core_test_requests.txt`: output stats for the SHACL-Core version. The metrics calculated there are:
   - **#Requests**: how many requests were supposed to be processed;
   - **#Processed**: how many were actually processed (without errors); 
-  - **Triples inferred**: how many triples were inferred (may differ for regular due to slightly different implementations);
+  - **Triples inferred**: how many triples were inferred (may differ for SHACL-Core due to slightly different implementations);
   - **Total exec time**: total time for the batch; 
   - **Avg time per request**: average time for one request; 
   - **Avg time per subrequest**: average time for one subrequest;
-- `inference_regular_test_requests_subrequests.ttl`: file containing all subrequests for each request is regular mode;
-- `inference_regular_test_requests_triples.ttl`: file containing all inferred triples with query answers for regular mode.
+- `inference_core_test_requests_subrequests.ttl`: file containing all subrequests for each request is SHACL-Core mode;
+- `inference_core_test_requests_triples.ttl`: file containing all inferred triples with query answers for SHACL-Core mode.
   The triples are inferred for each subreqeust separately and then for the whole request. To find the final answer for a request, search for the name of the request WITHOUT the subrequest number at the end, i,.e. `save-ex:Request_10_test`, NOT `save-ex:Request_10_test_0`. 
-- `inference_optimized_test_requests.txt`: output stats for the optimized version. Contains the same metrics as the one for regular version, except **Avg time per subrequest** is always 0, as there are no subrequests processed separately.
-- `inference_optimized_test_requests_subrequests.ttl`: contains the "normalized" version of the request created for the optimized version using RDFList properties;
-- `inference_optimized_test_requests_triples.ttl`: inferred triples with answers to queries. The triples are in a different format than regular version, but the final answer should be the same. 
+- `inference_sparql_test_requests.txt`: output stats for the SHACL-SPARQL version. Contains the same metrics as the one for SHACL-Core version, except **Avg time per subrequest** is always 0, as there are no subrequests processed separately.
+- `inference_sparql_test_requests_subrequests.ttl`: contains the "normalized" version of the request created for the SHACL-SPARQL version using RDFList properties;
+- `inference_sparql_test_requests_triples.ttl`: inferred triples with answers to queries. The triples are in a different format than SHACL-Core version, but the final answer should be the same. 
 
 The same files with stats and results will be created for the ultimate request, but instead of "test_requests" they will say "ultimate_request". 
 
@@ -196,11 +196,11 @@ This test runs when `mode=confl`.
 It is included in the tests purely for demonstration purposes.
 To be integrated, the resolution and denormalization parts need to be finalized, and it is in progress at the moment.
 
-The detection is implemented using the Compliance Rules Generation and *optimized* procedure for compliance checking.
+The detection is implemented using the Compliance Rules Generation and *SHACL-SPARQL* procedure for compliance checking.
 0. The input is the policy where we wish to find conflicts (IMDB, `src/main/resources/save.imdb.policy.ttl`);
-1. The permissions of the policy are translated into SHACL rules using the optimized procedure;
+1. The permissions of the policy are translated into SHACL rules using the SHACL-SPARQL procedure;
 2. The prohibitions of the policy become "requests";
-3. The "requests" are normalized and optimized compliance checking procedure is applied to find 
+3. The "requests" are normalized and SHACL-SPARQL compliance checking procedure is applied to find 
    "intersections" between the prohibitions and permissions. 
 4. These "intersections" are the conflicting DPSs between permissions and prohibitions.
 
@@ -229,17 +229,17 @@ The parameters for this test:
   
 The output folder is called `${shared_volume}output_eval_imdb_atomic/` and contains the following files and folders:
 - `logs/` folder: contains all intermediate results for each seed/batch. Usually not needed.
-- `test_imdb_atomic_regular_total_stats.txt` and `test_imdb_atomic_regular_total_stats.txt`: output stats files for the two procedures. 
+- `test_imdb_atomic_core_total_stats.txt` and `test_imdb_atomic_core_total_stats.txt`: output stats files for the two procedures. 
   The metrics:
   - **#Requests**: total number of requests generated;
   - **#Processsed**: total number of requests processed without errors;
-  - **Triples inferred**: total number of inferred triples (may differ between regular and optimized version due to differences in implementation);
+  - **Triples inferred**: total number of inferred triples (may differ between SHACL-Core and SHACL-SPARQL version due to differences in implementation);
   - **Total exec time**: for all seeds and batches;
   - **Avg time per request**: between all seeds and batches;
-  - **Avg time per subrequest**: will be 0 for optimized version (no separate subrequests).
+  - **Avg time per subrequest**: will be 0 for SHACL-SPARQL version (no separate subrequests).
   - **Count per # of atomic requests in a batch**: how many examples we have for each graph x point, in this case - number of seeds;
   - **Avg time per # of atomic requests in a batch**: points for the graph;
-- `test_imdb_atomic_regular_total_triples.ttl` or `test_imdb_atomic_optimized_total_triples.ttl`: total inferred triples for all seeds and batches;
+- `test_imdb_atomic_core_total_triples.ttl` or `test_imdb_atomic_sparql_total_triples.ttl`: total inferred triples for all seeds and batches;
 - `atomic.png`: chart generated from the points. X - number of reqeusts in the batch, Y - avg time per batch.
 
 
@@ -253,19 +253,19 @@ The parameters for this test:
 
 The output folder is called `${shared_volume}output_eval_imdb_simple/` and contains the following files and folders:
 - `logs/` folder: contains all intermediate results for each seed. Usually not needed.
-- `test_imdb_simple_regular_total_stats.txt` and `test_imdb_simple_regular_total_stats.txt`: output stats files for the two procedures.
+- `test_imdb_simple_core_total_stats.txt` and `test_imdb_simple_core_total_stats.txt`: output stats files for the two procedures.
   The metrics:
   - **#Requests**: total number of requests generated (`nRules` * `seeds.size()`);
   - **#Processsed**: total number of requests processed without errors;
-  - **Triples inferred**: total number of inferred triples (may differ between regular and optimized version due to differences in implementation);
+  - **Triples inferred**: total number of inferred triples (may differ between SHACL-Core and SHACL-SPARQL version due to differences in implementation);
   - **Total exec time**: for all seeds and batches;
   - **Avg time per request**: between all seeds and batches;
-  - **Avg time per subrequest**: will be 0 for optimized version (no separate subrequests).
+  - **Avg time per subrequest**: will be 0 for SHACL-SPARQL version (no separate subrequests).
   - **Count per # of subrequests**: how many examples we have for number of subrequests. Depends on the seeds (we cannot predict or "order" the number of subrequests in a random request).
   - **Avg time per # of subrequests**: average time of execution for each number of sunrequests;
   - **Count per # of subrequests (binned)**: how many examples we have for number of subrequests (binned for convenience).
   - **Avg time per # of subrequests (binned)**: points for the graph. 
-- `test_imdb_simple_regular_total_triples.ttl` or `test_imdb_simple_optimized_total_triples.ttl`: total inferred triples for all seeds and batches;
+- `test_imdb_simple_core_total_triples.ttl` or `test_imdb_simple_sparql_total_triples.ttl`: total inferred triples for all seeds and batches;
 - `simple_bin.png`: chart generated from the points. X - number of subreqeusts in a request, Y - avg time per request. 
   This chart needs to be binned, otherwise it has too little examples for averaging and the chart becomes hard to analyse. 
   We make sure there is at least 10 examples for each number of subreqeusts, so there will be requests with different answers.
@@ -283,17 +283,17 @@ The parameters for this test:
 The output folder is called `${shared_volume}output_eval_random_atomic/` and contains the following files and folders:
 - `generated_policies/` folder: contains all generated random policies. Usually not needed, just fyi.
 - `logs/` folder: contains all intermediate results for each seed. Usually not needed.
-- `test_random_atomic_regular_total_stats.txt` and `test_random_atomic_optimized_total_stats.txt`: output stats files for the two procedures.
+- `test_random_atomic_core_total_stats.txt` and `test_random_atomi_sparql_total_stats.txt`: output stats files for the two procedures.
   The metrics:
   - **#Requests**: total number of requests generated;
   - **#Processsed**: total number of requests processed without errors;
-  - **Triples inferred**: total number of inferred triples (may differ between regular and optimized version due to differences in implementation);
+  - **Triples inferred**: total number of inferred triples (may differ between SHACL-Core and SHACL-SPARQL version due to differences in implementation);
   - **Total exec time**: for all seeds and batches;
   - **Avg time per request**: between all seeds and batches;
-  - **Avg time per subrequest**: will be 0 for optimized version (no separate subrequests).
+  - **Avg time per subrequest**: will be 0 for SHACL-SPARQL version (no separate subrequests).
   - **Count per # of simple rules in a policy**: how many examples we have per policy size. Here - `seeds.size()`.
   - **Avg time per # of simple rules in a policy**: average time of execution for each policy size, i.e., points for the graph.
-- `test_random_atomic_regular_total_triples.ttl` or `test_random_atomic_optimized_total_triples.ttl`: total inferred triples;
+- `test_random_atomic_core_total_triples.ttl` or `test_random_atomic_sparql_total_triples.ttl`: total inferred triples;
 - `random_policies.png`: chart generated from the points. X - number of simple rules in a policy, Y - avg time per request.
 
 
@@ -327,7 +327,7 @@ If you encounter memory problem while running a custom experiment, please decrea
 
 ## Documentation
 
-The project is the first version of the SHACL-based compliance checking system implementation, including automated SHACL shapes generation, request normalization and compliance checking using two procedures - regular and optimized. 
+The project is the first version of the SHACL-based compliance checking system implementation, including automated SHACL shapes generation, request normalization and compliance checking using two procedures - SHACL-Core and SHACL-SPARQL. 
 The system is using [SAVE](http://rune.research.euranova.eu/) model for privacy policies.
 The SAVE ontology and IMDB policy expressed in SAVE terms was downloaded using available links in the model's documentation. 
 These files were then lightly preprocessed in order to be used in this system (prefixes were added, and examples separated from the ontology).  
@@ -341,7 +341,7 @@ The resulting files are:
 - `src/main/resources/testIMDBRequestUltimate.ttl`: file with the "worst case" test request for IMDB policy, created manually by us.
 
 The rest of the files were automatically generated by the system - policy shape files 
-`src/main/resources/IMDBPolicy.shapes.ttl` and `src/main/resources/IMDBPolicy.shapes.optimized.ttl`, for example. These files are used in the inference and evaluation tests.
+`src/main/resources/IMDBPolicy.shapes.core.ttl` and `src/main/resources/IMDBPolicy.shapes.sparql.ttl`, for example. These files are used in the inference and evaluation tests.
 These are all the files that are used by the code to reproduce the tests. Any other files found are there for debugging putposes. 
 
 ### Project structure
@@ -370,7 +370,7 @@ The classes bearing the main functionality are the following:
 - `org.example.SHACLInferenceRunner`: functional class that can run requests or batches of requests against a policy.
 - `org.example.SHACLComplianceResult`: helper class for recording the results of experiments.
 - `org.example.SAVEConflictDetector`: functional class for detecting conflicts in policies, 
-  using `org.example.SHACLPolicyTranslator` and `org.example.SHACLInferenceRunner` in optimized mode.
+  using `org.example.SHACLPolicyTranslator` and `org.example.SHACLInferenceRunner` in SHACL-SPARQL mode.
 
 The helper classes:
 - `org.example.BucketHashMap`: generates binned data for charts;
@@ -382,9 +382,9 @@ The helper classes:
 
 ### Compliance checking
 
-#### Regular procedure
+#### SHACL-Core procedure
 
-The regular procedure is straightforward according to definition of the *check* function in the paper. 
+The SHACL-Core procedure is straightforward according to definition of the *check* function in the paper. 
 The steps required for checking 1 request:
 1. Request normalization: each attribute value is broken down into leaves.
 2. For eah combination of attribute values (i.e., for each atomic subrequest):
@@ -392,9 +392,9 @@ The steps required for checking 1 request:
     2. check the request against all rules in the policy, if needed - infer new triples;
 3. Check the parent request against "final" rule of the policy: go through all inferred triples and decide the final answer.
 
-#### Optimized procedure
+#### SHACL-SPARQL procedure
 
-The optimized procedure follows the same logic as the regular one but performs chek on a combined normalized request (all combinations at once).
+The SHACL-SPARQL procedure follows the same logic as the SHACL-Core one but performs chek on a combined normalized request (all combinations at once).
 The steps required for checking 1 request:
 1. Request normalization: each attribute value is broken down into leaves.
 2. Combine all leaves/attributes into one request using RDFList properties.

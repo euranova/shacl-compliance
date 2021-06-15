@@ -18,7 +18,7 @@
         <ver.jena>3.14.0</ver.jena>
         <ver.junit>4.12</ver.junit>
         <ver.antlr>4.5.3</ver.antlr>
-        <ver.slf4j>1.7.26</ver.slf4j>
+<!--        <ver.slf4j>1.7.26</ver.slf4j>-->
         <ver.log4j1>1.2.17</ver.log4j1>
         <application.mainclass>SAVETests</application.mainclass>
         <application.dependencies>lib</application.dependencies>
@@ -62,10 +62,17 @@
             <scope>test</scope>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.slf4j</groupId>-->
+<!--            <artifactId>slf4j-api</artifactId>-->
+<!--            <version>${ver.slf4j}</version>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${ver.slf4j}</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.14.1</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -74,11 +81,11 @@
             <version>${ver.antlr}</version>
         </dependency>
 
-        <!-- Logging : <optional> so the application chooses the provider for slf4j -->
+<!--         Logging : <optional> so the application chooses the provider for slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>${ver.slf4j}</version>
+<!--            <version>${ver.slf4j}</version>-->
             <optional>true</optional>
             <scope>test</scope>
         </dependency>
@@ -129,6 +136,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
         <dependency>
@@ -157,8 +170,8 @@
                 <version>3.8.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <debug>true</debug>
-                    <debuglevel>source,lines,vars</debuglevel>
+<!--                    <debug>true</debug>-->
+<!--                    <debuglevel>source,lines,vars</debuglevel>-->
                     <optimize>true</optimize>
                     <source>15</source>
                     <target>15</target>

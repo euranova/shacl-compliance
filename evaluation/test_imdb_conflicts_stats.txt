@@ -1,4 +1,0 @@
-Experiment: test_imdb_conflicts_stats
-	Policy: IMDB
-	Mode: IMDB_TEST_CONFLICT
-	Triples inferred: 1442

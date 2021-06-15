@@ -114,7 +114,7 @@ public class ModelUtils {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        File [] files = dir.listFiles((dir1, name) -> name.endsWith(".shapes.ttl") || name.endsWith(".shapes.optimized.ttl"));
+        File [] files = dir.listFiles((dir1, name) -> name.endsWith(".shapes.core.ttl") || name.endsWith(".shapes.sparql.ttl"));
 
         for (File file : files) {
             System.out.println(file);

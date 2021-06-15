@@ -28,7 +28,7 @@ public class SAVEConflictDetector {
 
     /**
      * Given a policy, detects "intersections" between permissions and prohibitions
-     * using optimized compliance checking method
+     * using SHACL-SPARQL compliance checking method
      * @param policy input policy
      * @param normalizeProhibitions whether to normalize prohibitions as "reqeusts"
      *                              and use permissions as a "policy" or the other way around
@@ -54,7 +54,7 @@ public class SAVEConflictDetector {
             throw new IllegalArgumentException("Either permissions or prohibitons are empty -> no conflicts!");
         }
         SHACLPolicyTranslator translator = new SHACLPolicyTranslator(unionModel, proxy);
-        translator.translateSAVEPolicyToSHACLOptimized();
+        translator.translateSAVEPolicyToSHACLSPARQL();
         translator.writeSHACLPolicyToFile("src/main/resources/", true);
         if(outputFolder != null){
             translator.writeSHACLPolicyToFile(outputFolder, true);
@@ -75,7 +75,7 @@ public class SAVEConflictDetector {
             System.out.println("Checking " + rule.getName());
             rule.setType(proxy.getName().split(":")[0] +":" + "Request" + proxy.getName().split(":")[1]);
             SAVERuleNormalized ruleNormalized = normalizer.normalizeSAVERule(rule, false, true);
-            SHACLComplianceResult ruleResult = runner.checkNormalizedSAVERuleOptimized(ruleNormalized,
+            SHACLComplianceResult ruleResult = runner.checkNormalizedSAVERuleSPARQL(ruleNormalized,
                     mode, true);
             List<Statement> conflicts = ruleResult.getInfModel().listStatements(null, infModel.createProperty(
                     SAVEVocabulary.SAVEURI + "conformsTo"), (String) null).toList();

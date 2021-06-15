@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
 import org.apache.jena.arq.querybuilder.SelectBuilder;
 import org.apache.jena.arq.querybuilder.WhereBuilder;
+import org.apache.jena.atlas.logging.Log;
 import org.apache.jena.base.Sys;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
@@ -19,7 +20,6 @@ import static org.example.ModelUtils.RESOURCE_FOLDER;
 import static org.example.ModelUtils.replacePrefixWithURI;
 
 public class SPARQLUtils {
-
     public static List<SAVEPolicy> extractPoliciesFromModel(Model model){
         Map<String, String> policyMap = getPoliciesFromModel(model);
         List<SAVEPolicy> policies = new ArrayList<>();
@@ -147,6 +147,53 @@ public class SPARQLUtils {
 
         return map;
     }
+
+    public static Map<String, String> getDPVTreeNLP(Model model, String rootClassName){
+        SelectBuilder sb = addPrefixesToSelectBuilder(model)
+                .addVar("*")
+                .addWhere("?individ", "rdf:type", "?class")
+                .addWhere("?class", "rdfs:subClassOf*", rootClassName)
+                .addOptional(addPrefixesToSelectBuilder(model)
+                        .addWhere("?class", "rdfs:subClassOf", "?directParentClass")
+                        .addWhere("?directParentIndivid", "rdf:type", "?directParentClass"));
+
+        if (rootClassName.equals("orcp:Rule")){
+            sb = addPrefixesToSelectBuilder(model)
+                    .addVar("*")
+                    .addWhere("?class", "rdfs:subClassOf*", rootClassName)
+                    .addOptional(addPrefixesToSelectBuilder(model)
+                            .addWhere("?class", "rdfs:subClassOf", "?directParentClass"));
+        }
+
+        Query query = sb.build();
+        QueryExecution exec = QueryExecutionFactory.create(query, model);
+        ResultSet rs = exec.execSelect();
+        Map<String, String> map = new HashMap<String, String>();
+
+        if (rootClassName.equals("orcp:Rule")) {
+            while (rs.hasNext()) {
+                final QuerySolution qs = rs.next();
+                if (!(qs.get("directParentClass") == null)){
+                    map.put(getPrefixedLabel(String.valueOf(qs.get("class")), model),getPrefixedLabel(String.valueOf(qs.get("directParentClass")), model));
+                }
+                else {
+                    map.put(getPrefixedLabel(String.valueOf(qs.get("class")), model), "save:root");
+                }
+            }
+        } else {
+            while (rs.hasNext()) {
+                final QuerySolution qs = rs.next();
+                if (!(qs.get("directParentIndivid") == null)) {
+                    map.put(getPrefixedLabel(String.valueOf(qs.get("individ")), model), getPrefixedLabel(String.valueOf(qs.get("directParentIndivid")), model));
+                } else {
+                    map.put(getPrefixedLabel(String.valueOf(qs.get("individ")), model), "save:root");
+                }
+            }
+        }
+        return map;
+    }
+
+
 
     public static SAVERule getRuleDescription(Model model, String rule, String type){
         String prefixedLabel = getPrefixedLabel(rule, model);
@@ -435,7 +482,7 @@ public class SPARQLUtils {
         return answerTuple;
     }
 
-    public static List<String> getFinalResultRegular(Model model, String parentRequestName) {
+    public static List<String> getFinalResultCore(Model model, String parentRequestName) {
         List<String> answerTuple = new ArrayList<>();
         SelectBuilder sb = null;
         sb = addPrefixesToSelectBuilder(model)

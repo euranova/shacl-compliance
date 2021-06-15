@@ -55,7 +55,7 @@ public class SHACLPolicyTranslator {
 
     /**
      * Main method, taking the policy and translaitng every rule into SHACL rule automatically
-     * for the regular procedure
+     * for the Core procedure
      */
     public void translateSAVEPolicyToSHACL() {
         Statement[] policyTypeStatements = addPolicyTypes();
@@ -76,31 +76,31 @@ public class SHACLPolicyTranslator {
 
     /**
      * Main method, taking the policy and translaitng every rule into SHACL rule automatically
-     * for the optimized procedure
+     * for the SHACL-SPARQL procedure
      */
-    public void translateSAVEPolicyToSHACLOptimized() {
+    public void translateSAVEPolicyToSHACLSPARQL() {
         Statement[] policyTypeStatements = addPolicyTypes();
         Resource baseNode = policyTypeStatements[0].getSubject();
         addPolicyLabel(baseNode);
         addPolicySubClass(baseNode);
         for (SAVERule rule : savePolicy.getPermissions()) {
-            addSAVERuleOptimized(rule, baseNode);
+            addSAVERuleSPARQL(rule, baseNode);
         }
         for (SAVERule rule : savePolicy.getProhibitions()) {
-            addSAVERuleOptimized(rule, baseNode);
+            addSAVERuleSPARQL(rule, baseNode);
         }
         for (SAVERule rule : savePolicy.getDispensations()) {
-            addSAVERuleOptimized(rule, baseNode);
+            addSAVERuleSPARQL(rule, baseNode);
         }
-        addFinalRuleOptimized(baseNode);
+        addFinalRuleSPARQL(baseNode);
     }
 
     /**
-     * Adds "final" rule to the optimized policy, deciding the final answer to the request
+     * Adds "final" rule to the SHACL-SPARQL policy, deciding the final answer to the request
      * @param subject subject of the triple where the final rule should be attached
      * @return the triple with the final rule added to the model
      */
-    private Statement addFinalRuleOptimized(Resource subject) {
+    private Statement addFinalRuleSPARQL(Resource subject) {
 
         Statement typeStatement = addRuleType();
         Resource baseNode = typeStatement.getSubject();
@@ -109,7 +109,7 @@ public class SHACLPolicyTranslator {
                 infModel.createLiteral("Infer if $this is compliant"));
         infModel.add(labelStatement);
 //        addParentChildCondition(baseNode, true);
-        addPolicyConstructOptimized(baseNode);
+        addPolicyConstructSPARQL(baseNode);
         addOrder(100, baseNode);
         //addPrefixes(baseNode);
         return addRuleStmt(baseNode, subject);
@@ -117,11 +117,11 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * Adds the construct SPARQL statement for the final rule of the optimized SHACL policy
+     * Adds the construct SPARQL statement for the final rule of the SPARQL SHACL policy
      * @param baseNode the node to attach the construct statement to
      * @return the triple added to the model
      */
-    private Statement addPolicyConstructOptimized(Resource baseNode) {
+    private Statement addPolicyConstructSPARQL(Resource baseNode) {
 
         String queryBase = """
                 {SELECT (COUNT(*) as ?cnt%1$s) (SUM(?answer%5$s) as ?su%1$s)
@@ -314,7 +314,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular version: translates a SAVE rule into SHACL and adds it to the model
+     * For Core version: translates a SAVE rule into SHACL and adds it to the model
      * @param rule the rule to add
      * @param baseNode the node to attach the shape to
      * @return triple added to the model
@@ -344,12 +344,12 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For optimized version: translates a SAVE rule into SHACL and adds it to the model
+     * For SHACL-SPARQL version: translates a SAVE rule into SHACL and adds it to the model
      * @param rule the rule to add
      * @param baseNode the node to attach the shape to
      * @return triple added to the model
      */
-    private Statement addSAVERuleOptimized(SAVERule rule, Resource baseNode) {
+    private Statement addSAVERuleSPARQL(SAVERule rule, Resource baseNode) {
         Statement typeStatement = addRuleType();
         Statement labelStatement = addRuleLabel(typeStatement.getSubject(), rule.getName(), rule.getType());
         Statement parentShapeStatement = addParentShapeCondition(typeStatement.getSubject());
@@ -366,7 +366,7 @@ public class SHACLPolicyTranslator {
         addSenderListCondition(rule, typeStatement.getSubject());
         addRecipientListCondition(rule, typeStatement.getSubject());
 
-        addRuleConstructOptimized(typeStatement.getSubject(), rule);
+        addRuleConstructSPARQL(typeStatement.getSubject(), rule);
         addOrder(1, typeStatement.getSubject());
         return addRuleStmt(typeStatement.getSubject(), baseNode);
     }
@@ -399,7 +399,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular version, add either parent or child condition to the rule, depending on if the rule is for a subrequest or the final one
+     * For Core version, add either parent or child condition to the rule, depending on if the rule is for a subrequest or the final one
      * @param subject node that is the subject of the triple
      * @param parent whether we add parent or child condition
      * @return triple added to the model
@@ -482,7 +482,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:data property
+     * (Core version) Adds the condition for save:data property
      * @param rule rule to take data from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -495,7 +495,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:data property (save:dataList)
+     * (SPARQL version) Adds the condition for save:data property (save:dataList)
      * @param rule rule to take data from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -513,7 +513,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:action property
+     * (Core version) Adds the condition for save:action property
      * @param rule rule to take actions from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -526,7 +526,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:action property (save:actionList)
+     * (SPARQL version) Adds the condition for save:action property (save:actionList)
      * @param rule rule to take actions from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -544,7 +544,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:purpose property
+     * (Core version) Adds the condition for save:purpose property
      * @param rule rule to take purposes from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -557,7 +557,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:purpose property (save:purposeList)
+     * (SPARQL version) Adds the condition for save:purpose property (save:purposeList)
      * @param rule rule to take purposes from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -575,7 +575,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:legalBasis property
+     * (Core version) Adds the condition for save:legalBasis property
      * @param rule rule to take legal bases from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -588,7 +588,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:legalBasis property (save:legalBasisList)
+     * (SPARQL version) Adds the condition for save:legalBasis property (save:legalBasisList)
      * @param rule rule to take legal bases from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -606,7 +606,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:hasTechnicalOrganisationalMeasures property
+     * (Core version) Adds the condition for save:hasTechnicalOrganisationalMeasures property
      * @param rule rule to take measures from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -620,7 +620,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:hasTechnicalOrganisationalMeasure property (save:hasTechnicalOrganisationalMeasureList)
+     * (SPARQL version) Adds the condition for save:hasTechnicalOrganisationalMeasure property (save:hasTechnicalOrganisationalMeasureList)
      * @param rule rule to take measures from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -639,7 +639,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:controller property
+     * (Core version) Adds the condition for save:controller property
      * @param rule rule to take controllers from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -652,7 +652,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:controller property (save:controllerList)
+     * (SPARQL version) Adds the condition for save:controller property (save:controllerList)
      * @param rule rule to take controllers from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -670,7 +670,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:processor property
+     * (Core version) Adds the condition for save:processor property
      * @param rule rule to take processors from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -683,7 +683,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:processor property (save:processorList)
+     * (SPARQL version) Adds the condition for save:processor property (save:processorList)
      * @param rule rule to take processors from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -701,7 +701,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:hasDataSubject property
+     * (Core version) Adds the condition for save:hasDataSubject property
      * @param rule rule to take data subjects from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -714,7 +714,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:hasDataSubject property (save:hasDataSubjectList)
+     * (SPARQL version) Adds the condition for save:hasDataSubject property (save:hasDataSubjectList)
      * @param rule rule to take data subjects from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -732,7 +732,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:responsibleParty property
+     * (Core version) Adds the condition for save:responsibleParty property
      * @param rule rule to take responsible parties from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -745,7 +745,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:responsibleParty property (save:responsiblePartyList)
+     * (SPARQL version) Adds the condition for save:responsibleParty property (save:responsiblePartyList)
      * @param rule rule to take responsible parties from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -763,7 +763,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:sender property
+     * (Core version) Adds the condition for save:sender property
      * @param rule rule to take senders from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -776,7 +776,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:sender property (save:senderList)
+     * (SPARQL version) Adds the condition for save:sender property (save:senderList)
      * @param rule rule to take senders from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -794,7 +794,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Regular version) Adds the condition for save:recipient property
+     * (Core version) Adds the condition for save:recipient property
      * @param rule rule to take recipients from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -807,7 +807,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * (Optimized version) Adds the condition for save:recipient property (save:recipientList)
+     * (SPARQL version) Adds the condition for save:recipient property (save:recipientList)
      * @param rule rule to take recipients from
      * @param baseNode node to attach to
      * @return triple added to the model
@@ -825,7 +825,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular version adds a sh:class or sh:value conditions
+     * For Core version adds a sh:class or sh:value conditions
      * @param values values to add
      * @param attribute name of the attribute
      * @param isValue whether the values are classes or individuals
@@ -866,7 +866,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For optimized version adds the SPARQL constraint to the rule
+     * For SPARQL version adds the SPARQL constraint to the rule
      * @param values values to add
      * @param attribute the name of the attribute
      * @param isValue whether the values are classed or individuals
@@ -888,7 +888,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For optimized version, adds SPARQL condition constraint to the rule
+     * For SPARQL version, adds SPARQL condition constraint to the rule
      * @param listValues values to insert into the query
      * @param baseNode the node to attach to
      * @param isValue whether the values are classes or individuals
@@ -908,7 +908,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For optimized version, adds to select for attribute condition
+     * For SPARQL version, adds to select for attribute condition
      * @param listValues values to insert
      * @param baseNode the node to attach to
      * @param isValue whether the values are classes or individuals
@@ -974,7 +974,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular version, adds a sh:or for the multiple values of the attribute constraint
+     * For Core version, adds a sh:or for the multiple values of the attribute constraint
      * @param value the RDFList with values
      * @param baseNode node to attach the triple to
      * @return the triple added to the model
@@ -993,7 +993,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular version, add a constraint on the value of the constant DPT
+     * For Core version, add a constraint on the value of the constant DPT
      * @param value the individual name
      * @return triple added to the model
      */
@@ -1002,7 +1002,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular version, add a constraint on the class of the hierarchical DPT
+     * For Core version, add a constraint on the class of the hierarchical DPT
      * @param value the class name
      * @return triple added to the model
      */
@@ -1011,7 +1011,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular version, add a constraint on the class or value of the DPT
+     * For Core version, add a constraint on the class or value of the DPT
      * @param value the value name
      * @return triple added to the model
      */
@@ -1026,7 +1026,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular version, add a construct SPARQL statement for one rule
+     * For Core version, add a construct SPARQL statement for one rule
      * @param baseNode node to attach the triple to
      * @param ruleName the name of the rule to add to the query
      * @param ruleType the type of the rule
@@ -1050,12 +1050,12 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For optimized version, add a construct SPARQL statement for one rule
+     * For SPARQL version, add a construct SPARQL statement for one rule
      * @param baseNode node to attach the triple to
      * @param rule the rule to add to the query
      * @return triple added to the model
      */
-    private Statement addRuleConstructOptimized(Resource baseNode, SAVERule rule) {
+    private Statement addRuleConstructSPARQL(Resource baseNode, SAVERule rule) {
         String query = """
                 
                 CONSTRUCT {
@@ -1164,7 +1164,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For optimized procedure, create an assertion of the intersection for the attribute
+     * For SPARQL procedure, create an assertion of the intersection for the attribute
      * @param attributePrefixedName the name of the attribute
      * @param isValue whether the attribute is hierarchical (by class) or constant (by value)
      * @return the intersection part of the query
@@ -1178,7 +1178,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For optimized version, constructs the subselect for one attribute
+     * For SPARQL version, constructs the subselect for one attribute
      * @param attribute the attribute name
      * @param values the attribute values
      * @param isValue whether the attribute is hierarchical (by class) or constant (by value)
@@ -1304,7 +1304,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular procedure, adds the final rule (for subrequests) that infers the answer for one rule
+     * For Core procedure, adds the final rule (for subrequests) that infers the answer for one rule
      * @param subject the subject to asstach to (usually blank node)
      * @return triple added to the model
      */
@@ -1324,7 +1324,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular version, add the condition for parent or child
+     * For Core version, add the condition for parent or child
      * so subrequests/requests don't get checked for the rules that are not for them
      * @param subject subject node to attach to
      * @param parent whther it is a parent condition
@@ -1340,7 +1340,7 @@ public class SHACLPolicyTranslator {
     }
 
     /**
-     * For regular version, add the final policy construct that infers the answer to the whole query
+     * For Core version, add the final policy construct that infers the answer to the whole query
      * @param baseNode node to attach to
      * @return triple added to the model
      */
@@ -1398,12 +1398,12 @@ public class SHACLPolicyTranslator {
     /**
      * Writes the generated policy to the file
      * @param folder folder to write into
-     * @param optimized whether the SHACL shapes were created with regular or optimized procedure
+     * @param SPARQL whether the SHACL shapes were created with Core or SPARQL procedure
      */
-    public void writeSHACLPolicyToFile(String folder, boolean optimized) {
+    public void writeSHACLPolicyToFile(String folder, boolean SPARQL) {
         File f = new File(folder);
         boolean dirCreated = f.mkdirs();
-        String filename = String.format(folder + "%s.shapes%s.ttl", savePolicy.getName().split(":")[1], optimized ? ".optimized" : "");
+        String filename = String.format(folder + "%s.shapes%s.ttl", savePolicy.getName().split(":")[1], SPARQL ? ".sparql" : ".core");
         File out = new File(filename);
         try {
             infModel.write(new FileWriter(out), "Turtle");

@@ -1,6 +1,6 @@
 package org.example.save.app;
 
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 import org.apache.jena.util.FileUtils;
 import org.example.*;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import java.util.Map;
 
 import static org.example.ModelUtils.RESOURCE_FOLDER;
 
-@Slf4j
+//@Slf4j
 @Controller
 public class MainController {
 
@@ -32,9 +32,9 @@ public class MainController {
     public MainController(){
         requestsFile = "testIMDBRequests.ttl";
         shaclToSavePolicyFiles = new HashMap<>();
-        shaclToSavePolicyFiles.put("IMDBPolicy.shapes.optimized.ttl", "save.imdb.policy.ttl");
-        shaclToSavePolicyFiles.put("IMDBPolicy.shapes.ttl", "save.imdb.policy.ttl");
-        shaclToSavePolicyFiles.put("IMDBPolicyPreconflictPermissions.shapes.optimized.ttl", "save.imdb.policy.ttl");
+        shaclToSavePolicyFiles.put("IMDBPolicy.shapes.sparql.ttl", "save.imdb.policy.ttl");
+        shaclToSavePolicyFiles.put("IMDBPolicy.shapes.core.ttl", "save.imdb.policy.ttl");
+        shaclToSavePolicyFiles.put("IMDBPolicyPreconflictPermissions.shapes.sparql.ttl", "save.imdb.policy.ttl");
         shaclToSavePolicyFiles.put("save.shapes.ttl", "save.ontology.ttl");
         unionModel = ModelUtils.loadFullSAVEModel();
         vocab = new SAVEVocabulary(unionModel);
@@ -116,15 +116,15 @@ public class MainController {
                 SAVERuleNormalized requestNormalized = normalizer.normalizeSAVERule(request, false, false);
                 try {
                     SHACLComplianceResult result = null;
-                    if (policyName.contains("optimized")) {
-                        result = runner.checkNormalizedSAVERuleOptimized(requestNormalized,
+                    if (policyName.contains("sparql")) {
+                        result = runner.checkNormalizedSAVERuleSPARQL(requestNormalized,
                                 SHACLComplianceResult.Mode.DEMO_APP, false);
                     } else {
-                        result = runner.checkNormalizedSAVERuleRegular(requestNormalized,
+                        result = runner.checkNormalizedSAVERuleCore(requestNormalized,
                                 true, SHACLComplianceResult.Mode.DEMO_APP, true);
                     }
                     results.add(result);
-                    ResultModel resultModel = readResultFromRaw(request, policyModel, result, policyName.contains("optimized"));
+                    ResultModel resultModel = readResultFromRaw(request, policyModel, result, policyName.contains("sparql"));
                     resultModels.add(resultModel);
                 } catch (Exception e){
                     System.out.println("Error appeared during compliance check of request " + request.getName());
@@ -138,13 +138,13 @@ public class MainController {
         return resultModels;
     }
 
-    private ResultModel readResultFromRaw(SAVERule request, PolicyModel policy, SHACLComplianceResult result, boolean optimized) {
+    private ResultModel readResultFromRaw(SAVERule request, PolicyModel policy, SHACLComplianceResult result, boolean SPARQL) {
         // result is given per request, but there may be multiple rules/policies
         ResultModel resultModel = new ResultModel();
         resultModel.setRequest(savedRequests.get(request.getName()));
         resultModel.setRawResult(result);
         resultModel.setPolicy(policy);
-        if(optimized){
+        if(SPARQL){
             Map<String, SAVERule> conformsToRule = SPARQLUtils.getConformsTo(JenaUtil.createMemoryModel().add(unionModel).add(result.getInfModel()));
             for (String rule: conformsToRule.keySet()){
                 resultModel.getConformsTo().add(conformsToRule.get(rule));
@@ -169,7 +169,7 @@ public class MainController {
             for (String rule: prohibitedByRule.keySet()) {
                 resultModel.getProhibitedBy().add(prohibitedByRule.get(rule));
             }
-            List<String> answerTuple = SPARQLUtils.getFinalResultRegular(result.getInfModel(), request.getName());
+            List<String> answerTuple = SPARQLUtils.getFinalResultCore(result.getInfModel(), request.getName());
             resultModel.setFinalResultPermitted(answerTuple.get(0));
             resultModel.setFinalResultProhibited(answerTuple.get(1));
         }
@@ -183,7 +183,7 @@ public class MainController {
         unionModel.add(requestsModel);
 
         org.apache.jena.rdf.model.Model shapesModel = JenaUtil.createMemoryModel();
-        filename = "IMDBPolicy.shapes.ttl";
+        filename = "IMDBPolicy.shapes.core.ttl";
         shapesModel.read(ModelUtils.class.getResourceAsStream(RESOURCE_FOLDER + filename), "urn:dummy",
                 FileUtils.langTurtle);
         unionModel.add(shapesModel);

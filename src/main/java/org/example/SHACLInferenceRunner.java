@@ -64,7 +64,7 @@ public class SHACLInferenceRunner {
     }
 
     /**
-     * Performs compliance checking on one normalized SAVE request in a regular way - by materializing each subrequest
+     * Performs compliance checking on one normalized SAVE request in a Core way - by materializing each subrequest
      * and checking in batches (if needed)
      * @param ruleNormalized the request (normalized)
      * @param stopIfTooManySubrequests stop if the amount of subrequests > nBatches*batchSize
@@ -73,7 +73,7 @@ public class SHACLInferenceRunner {
      * @return the result object with stats and inferred triples
      * @throws Exception if the number of subrequests is bigger than the batches can handle and stopIfTooManySubrequests == true
      */
-    public SHACLComplianceResult checkNormalizedSAVERuleRegular(SAVERuleNormalized ruleNormalized,
+    public SHACLComplianceResult checkNormalizedSAVERuleCore(SAVERuleNormalized ruleNormalized,
                                                                 boolean stopIfTooManySubrequests,
                                                                 SHACLComplianceResult.Mode mode,
                                                                 boolean verbose) throws Exception {
@@ -84,7 +84,7 @@ public class SHACLInferenceRunner {
         int nBatches = 10;
         int batchSize = 1000;
         if(stopIfTooManySubrequests && ruleNormalized.getCombinations().size() > nBatches * batchSize + 1){
-            throw new Exception(String.format("Too many subrequests - %d, this method could only do %d, try the optimized version instead!",
+            throw new Exception(String.format("Too many subrequests - %d, this method could only do %d, try the SPARQL version instead!",
                     ruleNormalized.getCombinations().size(), nBatches*batchSize));
         }
         result.addnSubrequests(ruleNormalized.getCombinations().size());
@@ -125,13 +125,13 @@ public class SHACLInferenceRunner {
     }
 
     /**
-     * Performs compliance checking for a batch of atomic requests using regular procedure
+     * Performs compliance checking for a batch of atomic requests using Core procedure
      * @param rulesNormalized batch of requests (atomic, in normalized format)
      * @param mode mode of the test for the result
      * @param verbose whether to output the logs
      * @return the result with stats and inferred triples
      */
-    public SHACLComplianceResult checkNormalizedSAVERulesBatchAtomicRegular(List<SAVERuleNormalized> rulesNormalized,
+    public SHACLComplianceResult checkNormalizedSAVERulesBatchAtomicCore(List<SAVERuleNormalized> rulesNormalized,
                                                                             SHACLComplianceResult.Mode mode, boolean verbose) {
         SHACLComplianceResult result = new SHACLComplianceResult(rulesNormalized.size(), mode, unionModel);
         Model singleModel = createSingleModel();
@@ -156,13 +156,13 @@ public class SHACLInferenceRunner {
     }
 
     /**
-     * Performs compliance checking for a batch of atomic requests using optimized procedure
+     * Performs compliance checking for a batch of atomic requests using SPARQL procedure
      * @param rulesNormalized batch of requests (atomic, in normalized format)
      * @param mode mode of the test for the result
      * @param verbose whether to output the logs
      * @return the result with stats and inferred triples
      */
-    public SHACLComplianceResult checkNormalizedSAVERulesBatchAtomicOptimized(List<SAVERuleNormalized> rulesNormalized,
+    public SHACLComplianceResult checkNormalizedSAVERulesBatchAtomicSPARQL(List<SAVERuleNormalized> rulesNormalized,
                                                                               SHACLComplianceResult.Mode mode,
                                                                                boolean verbose) {
         SHACLComplianceResult result = new SHACLComplianceResult(rulesNormalized.size(), mode, unionModel);
@@ -171,7 +171,7 @@ public class SHACLInferenceRunner {
                 throw new IllegalArgumentException(String.format("%s: this rule is not atomic", ruleNormalized.getName()));
             }
             result.addnSubrequests(1);
-            String normRequestName= addOptimizedSAVERuleToModel(ruleNormalized);
+            String normRequestName= addSPARQLSAVERuleToModel(ruleNormalized);
             result  = runInferenceOnSingleRequest(normRequestName, result, null,false, false, verbose);
             if(verbose) {
                 System.out.println("Avg running time on 1 requests (separately) was " +
@@ -216,7 +216,7 @@ public class SHACLInferenceRunner {
      * @param name name of the request
      * @param result result object to add triples to
      * @param model model to check against
-     * @param subrequest whether it is a subrequest (or full request for optimized version)
+     * @param subrequest whether it is a subrequest (or full request for SPARQL version)
      * @param infer whether to add triples to inference model
      * @param verbose whether to output the logs
      * @return the result with stats and inferred triples
@@ -240,7 +240,7 @@ public class SHACLInferenceRunner {
         if(subrequest) {
             result.addExecTimePerSubrequest(timeElapsed);
         } else {
-            // it's a full "optimized" request
+            // it's a full "SPARQL" request
             result.addExecTimePerRequest(timeElapsed);
             if(infer) {
                 result.addInferredTriples(triples);
@@ -290,7 +290,7 @@ public class SHACLInferenceRunner {
 
 
     /**
-     * For regular procedure - adds the final "parent" request to the model for inference
+     * For Core procedure - adds the final "parent" request to the model for inference
      * @param rule parent request
      * @param childrenNames names of all subrequests
      * @param singleModel if not null, use this model to add the triple
@@ -373,7 +373,7 @@ public class SHACLInferenceRunner {
     }
 
     /**
-     * For regular procedure, adds a subrequest to the model
+     * For Core procedure, adds a subrequest to the model
      * @param attributes list of attribute names of the subrequest
      * @param combination list of attribute values of the subrequest
      * @param ruleName name of the sunrequest
@@ -408,18 +408,18 @@ public class SHACLInferenceRunner {
     }
 
     /**
-     * Performs compliance check of the request suing the optimized version
+     * Performs compliance check of the request suing the SPARQL version
      * @param ruleNormalized request in normalized form
      * @param mode mode of the test for the result
      * @param verbose whether to output the logs
      * @return result with stats and inferred triples
      */
-    public SHACLComplianceResult checkNormalizedSAVERuleOptimized(SAVERuleNormalized ruleNormalized,
+    public SHACLComplianceResult checkNormalizedSAVERuleSPARQL(SAVERuleNormalized ruleNormalized,
                                                                   SHACLComplianceResult.Mode mode,
                                                                   boolean verbose) {
         SHACLComplianceResult result = new SHACLComplianceResult(1, mode, unionModel);
         result.addnSubrequests(ruleNormalized.getCombinations().size());
-        String normRequestName= addOptimizedSAVERuleToModel(ruleNormalized);
+        String normRequestName= addSPARQLSAVERuleToModel(ruleNormalized);
         result  = runInferenceOnSingleRequest(normRequestName, result, null,false, true, verbose);
         if(verbose) {
             System.out.println("Avg running time on 1 requests (separately) was " +
@@ -432,11 +432,11 @@ public class SHACLInferenceRunner {
     }
 
     /**
-     * For optimized procedure - adds th whole normalized request to the model using RDFList properties
+     * For SPARQL procedure - adds th whole normalized request to the model using RDFList properties
      * @param ruleNormalized the request in normalized form
      * @return the name of the request
      */
-    public String addOptimizedSAVERuleToModel(SAVERuleNormalized ruleNormalized){
+    public String addSPARQLSAVERuleToModel(SAVERuleNormalized ruleNormalized){
         Statement mainStmt = infModel.createStatement(infModel.createResource(replacePrefixWithURI(ruleNormalized.getName() + "_opt")),
                 RDF.type,
                 infModel.createResource(replacePrefixWithURI(ruleNormalized.getType())));
@@ -459,7 +459,7 @@ public class SHACLInferenceRunner {
     }
 
     /**
-     * For optimized procedure, adds one attribute (RDFList) to the request model
+     * For SPARQL procedure, adds one attribute (RDFList) to the request model
      * @param attribute name of the attribute
      * @param values the list of values for this attribute
      * @param baseNode subject/object to attach the triples to

@@ -137,7 +137,7 @@ public class SAVEVocabulary {
     public final String nProhibitedPropertyPrefixedName;
     public final String rulePropertyPrefixedName;
     /**
-     * Names of attributes related to optimized version of compliance checking
+     * Names of attributes related to SPARQL version of compliance checking
      */
     public final Set<String> classAtributes;
     public final Set<String> valueAtributes;

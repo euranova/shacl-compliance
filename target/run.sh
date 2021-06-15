@@ -12,23 +12,23 @@ shared_volume="$BASEDIR"
 use_docker=false
 
 # whether to build or download built image from dockerhub
-download_image=true
+download_image=false
 
 # the mode of running tests - inference on IMDB tests requests or evaluation tests with performance results
-mode="confl" # {inf (=0), eval (=1), confl (=2)}
+mode="inf" # {inf (=0), eval (=1), confl (=2)}
 
 
 # if using inference mode
-optimized=false # or true
+sparql=false # or true
 ultimate=true # or true
 
 # if using evaluation mode
-evalMode="imdb_simple" # {imdb_simple, imdb_atomic, random_atomic}
+evalMode="random_atomic" # {imdb_simple, imdb_atomic, random_atomic}
 
 # the seeds to test (for reproducibility)
 # use more seeds for imdb_atomic or imdb_simple (for this even more can be added for better results)
 # use less seeds (first three, for example) for random_atomic - it takes a lot of memory generating policies and requests
-seeds=1,5,10 #,100,200,500,1000
+seeds=1,5,10,100,200,500,1000
 
 # number of simple rules per policy to test for each seed
 # the bigger the number the worse the memory load, use with caution
@@ -49,7 +49,7 @@ fi
 # because in case of using docker we will need to output the stats outside the container
 if [ "$mode" = "0" ] || [ "$mode" = "inf" ]; then
         mode="inf"
-        outputFolder="${shared_volume}/output_${mode}_optimized${optimized}_ultimate${ultimate}/"
+        outputFolder="${shared_volume}/output_${mode}_sparql${sparql}_ultimate${ultimate}/"
 else
         if [ "$mode" = "1" ] || [ "$mode" = "eval" ]; then
             mode="eval"
@@ -76,7 +76,7 @@ if [ $use_docker = true ]; then
 
   cont_name="run_${mode}"
 
-  docker run --rm --name=${cont_name} -v ${shared_volume}/:${shared_volume} -it ${image_name} --mode=${mode}  --outputFolder=${outputFolder} --optimized="${optimized}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}" --policySizes="${policySizes}" --nRules="${nRules}"
+  docker run --rm --name=${cont_name} -v ${shared_volume}/:${shared_volume} -it ${image_name} --mode=${mode}  --outputFolder=${outputFolder} --sparql="${sparql}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}" --policySizes="${policySizes}" --nRules="${nRules}"
   #sleep 3
 
 
@@ -84,5 +84,5 @@ if [ $use_docker = true ]; then
   #
   #echo "${cont_name}.log"
 else
-  java -jar shacl-compl-1.0-SNAPSHOT.jar --mode=${mode}  --outputFolder=${outputFolder} --optimized="${optimized}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}"  --policySizes="${policySizes}" --nRules="${nRules}"
+  java -jar shacl-compl-1.0-SNAPSHOT.jar --mode=${mode}  --outputFolder=${outputFolder} --sparql="${sparql}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}"  --policySizes="${policySizes}" --nRules="${nRules}"
 fi
