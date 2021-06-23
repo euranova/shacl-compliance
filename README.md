@@ -5,6 +5,10 @@ The full model is planned according to the following figure:
 
 ![](SHACL_compliance_model.png?raw=true)
 
+## Demo
+
+A light demo with a number of saved requests is available at https://rune-278710.ew.r.appspot.com/save/compliance.
+
 ## Preprocessing module
 
 This module is designed to be executed upon each creation/update of a policy, therefore it does not put heavy constraints on performance.
