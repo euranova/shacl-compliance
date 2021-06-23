@@ -64,7 +64,7 @@ fi
 
 if [ $use_docker = true ]; then
 
-  image_name="shaclcompl/iswc2021:latest"
+  image_name="shaclcompl/tests:latest"
 
   if [ $download_image = true ]; then
     docker pull $image_name
@@ -84,5 +84,5 @@ if [ $use_docker = true ]; then
   #
   #echo "${cont_name}.log"
 else
-  java -jar shacl-compl-1.0-SNAPSHOT.jar --mode=${mode}  --outputFolder=${outputFolder} --sparql="${sparql}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}"  --policySizes="${policySizes}" --nRules="${nRules}"
+  java -cp shacl-compl-1.0-SNAPSHOT.jar.original SAVETests --mode=${mode}  --outputFolder=${outputFolder} --sparql="${sparql}" --evalMode=${evalMode} --ultimate="${ultimate}" --seeds="${seeds}"  --policySizes="${policySizes}" --nRules="${nRules}"
 fi

@@ -81,64 +81,58 @@ public class SAVEDebug {
         requestModel.add(policyModel).add(saveModel);//.add(policyModel).add(requestsModel);
 
         //let's check the query
-        String query = """
-                PREFIX  save-ex: <http://example.com/privacy-policy-model/examples/>
-                 PREFIX  orcp: <http://example.com/odrl:profile:regulatoryCompliance/>
-                 PREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                 PREFIX  owl:  <http://www.w3.org/2002/07/owl#>
-                 PREFIX  dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#>
-                 PREFIX  save: <http://example.com/privacy-policy-model/>
-                 PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                 PREFIX  dpv:  <http://www.w3.org/ns/dpv#>
-                 
-                 SELECT
-                 ?dataItem ?dataClass 
-                 ?actionItem ?actionsClass
-                 
-                 WHERE {
-                     BIND(BNODE() AS ?bnode)
-                     {SELECT *
-                        WHERE {
-                            {
-                                BIND(save-ex:Request_6_test_opt as $this) .
-                                $this save:dataList ?dataVal .
-                                ?dataVal rdf:rest*/rdf:first ?dataItem .
-                                ?dataItem rdf:type/rdfs:subClassOf* ?dataClass .
-                                FILTER (?dataClass IN (dpv:Identifying))
-                            }
-                            UNION{
-                                BIND(save-ex:Request_6_test_opt as $this) .
-                                FILTER NOT EXISTS {$this save:dataList ?dataVal .}
-                                {BIND(save:Blah as ?dataItem) .
-                                BIND(dpv:Blah as ?dataClass) .}
-                                UNION {BIND(save:Blah1 as ?dataItem) .
-                                BIND(dpv:Blah2 as ?dataClass) .}
-                                UNION {BIND(save:Blah3 as ?dataItem) .
-                                BIND(dpv:Blah3 as ?dataClass) .}
-                            }
-                            {
-                                BIND(save-ex:Request_6_test_opt as $this) .
-                                $this save:actionList ?actionVal .
-                                ?actionVal rdf:rest*/rdf:first ?actionItem .
-                                ?actionItem rdf:type/rdfs:subClassOf* ?actionClass .
-                                FILTER (?actionClass IN (dpv:Processing))
-                            }
-                            UNION{
-                                BIND(save-ex:Request_6_test_opt as $this) .
-                                FILTER NOT EXISTS {$this save:dataList ?actionVal .}
-                                {BIND(save:Blah as ?actionItem) .
-                                BIND(dpv:Blah as ?actionClass) .}
-                                UNION {BIND(save:Blah1 as ?actionItem) .
-                                BIND(dpv:Blah2 as ?actionClass) .}
-                                UNION {BIND(save:Blah3 as ?actionItem) .
-                                BIND(dpv:Blah3 as ?actionClass) .}
-                            }
-                         }
-                     }
-                     
-                 }              
-                              
-                    """;
+        String query =  "PREFIX  save-ex: <http://example.com/privacy-policy-model/examples/> " +
+                " PREFIX  orcp: <http://example.com/odrl:profile:regulatoryCompliance/>" +
+                " PREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+                "  PREFIX  owl:  <http://www.w3.org/2002/07/owl#> " +
+                "  PREFIX  dpv-gdpr: <http://www.w3.org/ns/dpv-gdpr#> " +
+                " PREFIX  save: <http://example.com/privacy-policy-model/> " +
+                " PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#> " +
+                "  PREFIX  dpv:  <http://www.w3.org/ns/dpv#> " +
+                "   SELECT " +
+                " ?dataItem ?dataClass " +
+                " ?actionItem ?actionsClass " +
+                " WHERE {" +
+                " BIND(BNODE() AS ?bnode)" +
+                " {SELECT * " +
+                "  WHERE { " +
+                "  { " +
+                "  BIND(save-ex:Request_6_test_opt as $this) . " +
+                "  $this save:dataList ?dataVal . " +
+                "  ?dataVal rdf:rest*/rdf:first ?dataItem . " +
+                "  ?dataItem rdf:type/rdfs:subClassOf* ?dataClass . " +
+                "  FILTER (?dataClass IN (dpv:Identifying))" +
+                "  } " +
+                " UNION{ " +
+                "  BIND(save-ex:Request_6_test_opt as $this) ." +
+                "  FILTER NOT EXISTS {$this save:dataList ?dataVal .} " +
+                "  {BIND(save:Blah as ?dataItem) . " +
+                "   BIND(dpv:Blah as ?dataClass) .} " +
+                "   UNION {BIND(save:Blah1 as ?dataItem) . " +
+                "   BIND(dpv:Blah2 as ?dataClass) .} " +
+                "   UNION {BIND(save:Blah3 as ?dataItem) . " +
+                "   BIND(dpv:Blah3 as ?dataClass) .} " +
+                " } " +
+                " { " +
+                "  BIND(save-ex:Request_6_test_opt as $this) . " +
+                "  $this save:actionList ?actionVal . " +
+                "  ?actionVal rdf:rest*/rdf:first ?actionItem . " +
+                "  ?actionItem rdf:type/rdfs:subClassOf* ?actionClass . " +
+                "  FILTER (?actionClass IN (dpv:Processing)) " +
+                " } " +
+                " UNION{ " +
+                " BIND(save-ex:Request_6_test_opt as $this) ." +
+                " FILTER NOT EXISTS {$this save:dataList ?actionVal .}" +
+                " {BIND(save:Blah as ?actionItem) ." +
+                "  BIND(dpv:Blah as ?actionClass) .}" +
+                "  UNION {BIND(save:Blah1 as ?actionItem) ." +
+                "  BIND(dpv:Blah2 as ?actionClass) .}" +
+                "  UNION {BIND(save:Blah3 as ?actionItem) ." +
+                " BIND(dpv:Blah3 as ?actionClass) .}" +
+                " } " +
+                " } " +
+                " } " +
+                " } ";
 
         QueryExecution qe = QueryExecutionFactory.create(query, requestModel);
         ResultSet rs = qe.execSelect();

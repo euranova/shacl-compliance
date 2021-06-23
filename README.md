@@ -113,10 +113,10 @@ If you run with jre and not docker, you can set `outputFolder` to whatever folde
 If you wish to run outside the script, make sure you build the image first using the Dockerfile in the `target/` folder (not in `run_script/`) and spcify the `shared_volume` folder properly if you want to see any output.
 You can use the following commands (together or one by one) and fill in the necessary parameter values:
 ```shell
-docker build -t="shaclcompl/iswc2021:latest" .
+docker build -t="shaclcompl/tests:latest" .
 
   sleep 10
-  docker run --rm --name=shacl_compliance_container -v ${shared_volume}:/shared -it shaclcompl/iswc2021:latest --mode=${mode}  --outputFolder=${outputFolder} 
+  docker run --rm --name=shacl_compliance_container -v ${shared_volume}:/shared -it shaclcompl/tests:latest --mode=${mode}  --outputFolder=${outputFolder} 
 ```
 Other optional parameters besides `mode` and `outputFolder` may be appended at the end, in the same way as it is done in the java command.
 

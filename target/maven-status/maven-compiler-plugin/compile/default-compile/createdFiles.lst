@@ -4,6 +4,8 @@ org/example/BucketHashMap.class
 SAVETests.class
 org/example/save/app/ResultModel.class
 org/example/SHACLInferenceRunner.class
+org/example/treeUtils/GenericTreeTraversalOrderEnum.class
+org/example/treeUtils/GenericTreeNode.class
 org/example/ModelUtils.class
 org/example/SAVERule.class
 org/example/save/app/PolicyModel.class
@@ -16,6 +18,7 @@ org/example/SAVERuleNormalized.class
 org/example/SAVEVocabulary.class
 SAVEDebug.class
 org/example/SAVERequest.class
+org/example/treeUtils/GenericTree.class
 org/example/SHACLPolicyTranslator.class
 org/example/SHACLComplianceResult$Mode.class
 org/example/SHACLComplianceResult.class

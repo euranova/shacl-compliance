@@ -494,7 +494,6 @@ save:ApartmentOwned a dpv:ApartmentOwned .
 save:Association a dpv:Association .
 save:Attitude a dpv:Attitude .
 save:Authenticating a dpv:Authenticating .
-save:Authenticating a dpv:Authenticating .
 save:AuthenticationHistory a dpv:AuthenticationHistory .
 save:AuthenticationProtocols a dpv:AuthenticationProtocols .
 save:AuthorisationProcedure a dpv:AuthorisationProcedure .

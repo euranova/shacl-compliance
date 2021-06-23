@@ -91,7 +91,7 @@ public class EvaluationChart extends JFrame {
      */
     public void addSeries(Map<Integer, Double> xyData, String seriesKey) {
 
-        var series = new XYSeries(seriesKey);
+        XYSeries series = new XYSeries(seriesKey);
         for (Map.Entry<Integer, Double> entry: xyData.entrySet()){
             series.add(entry.getKey(), entry.getValue());
         }
@@ -122,7 +122,7 @@ public class EvaluationChart extends JFrame {
         LogarithmicAxis yAxis = new LogarithmicAxis(yLabel);
         yAxis.setAllowNegativesFlag(true);
 
-        var renderer = new XYLineAndShapeRenderer();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 //        renderer.setSeriesPaint(0, Color.RED);
         renderer.setSeriesStroke(0, new BasicStroke(2.0f));
 
@@ -154,7 +154,7 @@ public class EvaluationChart extends JFrame {
 
         EventQueue.invokeLater(() -> {
 
-            var ex = new EvaluationChart("Test", "X", "Y");
+            EvaluationChart ex = new EvaluationChart("Test", "X", "Y");
             ex.initChart();
 //            ex.setVisible(true);
         });

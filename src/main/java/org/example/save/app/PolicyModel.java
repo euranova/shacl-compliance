@@ -8,13 +8,16 @@ public class PolicyModel {
     String policyDisplayName;
     String policyPrefixedName;
     boolean active;
+    String savePolicyCode;
     List<String> ruleNames;
 
-    public PolicyModel(String policyId, String policyDisplayName, String policyPrefixedName, boolean active, List<String> ruleNames) {
+    public PolicyModel(String policyId, String policyDisplayName, String policyPrefixedName, boolean active,
+                       String savePolicyCode, List<String> ruleNames) {
         this.policyId = policyId;
         this.policyDisplayName = policyDisplayName;
         this.policyPrefixedName = policyPrefixedName;
         this.active = active;
+        this.savePolicyCode = savePolicyCode;
         this.ruleNames = ruleNames;
     }
 
@@ -58,5 +61,11 @@ public class PolicyModel {
         this.policyPrefixedName = policyPrefixedName;
     }
 
+    public String getSavePolicyCode() {
+        return savePolicyCode;
+    }
 
+    public void setSavePolicyCode(String savePolicyCode) {
+        this.savePolicyCode = savePolicyCode;
+    }
 }

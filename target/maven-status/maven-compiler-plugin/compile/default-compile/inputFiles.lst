@@ -9,11 +9,14 @@
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/SAVETests.java
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/SAVERequest.java
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/SAVENormalizer.java
+/home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/treeUtils/GenericTreeTraversalOrderEnum.java
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/SAVEVocabulary.java
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/ModelUtils.java
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/BucketHashMap.java
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/SAVERule.java
+/home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/treeUtils/GenericTree.java
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/SAVEConflictDetector.java
+/home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/treeUtils/GenericTreeNode.java
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/SPARQLUtils.java
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/jenaShacl.java
 /home/katherine.krasnaschok/code/runeshacl/src/main/java/org/example/SHACLInferenceRunner.java

@@ -18,7 +18,16 @@
 </head>
 
 <body>
-
+    <input type="hidden" id="actionsGT" th:value="${actionsGT}"/>
+    <input type="hidden" id="dataGT" th:value="${dataGT}"/>
+    <input type="hidden" id="purposesGT" th:value="${purposesGT}"/>
+    <input type="hidden" id="attributeGT" th:value="${attributeGT}">
+    <input type="hidden" id="legalBasesGT" th:value="${legalBasesGT}">
+    <input type="hidden" id="controllersGT" th:value="${controllersGT}">
+    <input type="hidden" id="processorsGT" th:value="${processorsGT}">
+    <input type="hidden" id="dsGT" th:value="${dataSubjectsGT}">
+    <input type="hidden" id="sendersGT" th:value="${sendersGT}">
+    <input type="hidden" id="recipientsGT" th:value="${recipientsGT}">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -30,6 +39,9 @@
                     </button>
                     <a class="navbar-brand" href="#">RUNE Compliance</a>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <div class="text-info"><strong>Disclaimer:</strong> This app is created solely for demonstration purposes.
+                            The execution time of various requests may not match the test evaluation times due to the difference in configuration.
+                        <p>To reproduce the tests please use the code on <a href="https://github.com/euranova/shacl-compliance">github</a>. </p></div>
 <!--                        <ul class="navbar-nav">-->
 <!--                            <li class="nav-item dropdown active">-->
 <!--                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href=""-->
@@ -63,123 +75,217 @@
                 <form th:action="@{/compliance}" method="post" enctype="multipart/form-data" id="checkSavedRequestsForm">
                     <div class="row">
                         <div class="col-md-4">
-                            <div id="manual-rule-ct"></div>
-                            <div id="rule-ct">
-                                <h3 id="rule-ct-header">
-                                    Request
-                                    <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
-                                       class="btn btn-outline-primary">
-                                        <i class="bi bi-eraser-fill"></i>
-                                    </a>
-                                    <a href="#modal-container-confirm-rule" data-toggle="modal" type="button"
-                                       class="btn btn-outline-primary">
-                                        <i class="bi bi-save-fill"></i>
-                                    </a>
-                                    <a href="#modal-container-add-rule" data-toggle="modal" type="button"
-                                       class="btn btn-outline-primary">
-                                        <i class="bi bi-check-square-fill"></i>
-                                    </a>
-                                </h3>
-                                <table class="table table-striped table-hover" id="rule-ct-body">
-                                    <thead align="right">
-                                    <tr>
-                                        <th scope="col" align="right"><span>attribute</span>
-                                            <a data-toggle="modal" href="#modal-container-add">
-                                                <i class="bi bi-node-plus"></i>
-                                            </a>
-                                        </th>
-                                        <th scope="col" align="right">values</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td align="right"><span>action</span>
-                                            <a data-toggle="modal" href="#modal-container-delete">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
-                                            <a data-toggle="modal" href="#modal-container-add-action">
-                                                <i class="bi bi-node-plus"></i>
-                                            </a>
-                                        </td>
-                                        <td align="right"><span>save:Collect</span>
-                                            <a data-toggle="modal" href="#modal-container-delete">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
-                                            <a data-toggle="modal" href="#modal-container-edit-action">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><span>data</span>
-                                            <a data-toggle="modal" href="#modal-container-delete">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
-                                            <a data-toggle="modal" href="#modal-container-add">
-                                                <i class="bi bi-node-plus"></i>
-                                            </a>
-                                        </td>
-                                        <td align="right"><span>save:Contact</span>
-                                            <a data-toggle="modal" href="#modal-container-delete">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
-                                            <a data-toggle="modal" href="#modal-container-edit">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><span>purpose</span>
-                                            <a data-toggle="modal" href="#modal-container-delete">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
-                                            <a data-toggle="modal" href="#modal-container-add">
-                                                <i class="bi bi-node-plus"></i>
-                                            </a>
-                                        </td>
-                                        <td align="right"><span>save:ServiceOptimization</span>
-                                            <a data-toggle="modal" href="#modal-container-delete">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
-                                            <a data-toggle="modal" href="#modal-container-edit">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td align="right"><span>save:ServicePersonalization</span>
-                                            <a data-toggle="modal" href="#modal-container-delete">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
-                                            <a data-toggle="modal" href="#modal-container-edit">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td align="right"><span>save:ResearchAndDevelopment</span>
-                                            <a data-toggle="modal" href="#modal-container-delete">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
-                                            <a data-toggle="modal" href="#modal-container-edit">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <p></p>
+<!--                            <div id="manual-rule-ct"></div>-->
+<!--                            <div id="rule-ct">-->
+<!--                                <h3 id="rule-ct-header">-->
+<!--                                    New Request-->
+<!--                                    <a data-bs-target="#modal-container-erase-rule" data-bs-toggle="modal" type="button"-->
+<!--                                       class="btn btn-outline-primary link">-->
+<!--                                        <i class="bi bi-eraser-fill"></i>-->
+<!--                                    </a>-->
+<!--&lt;!&ndash;                                    <a data-bs-target="#modal-container-confirm-rule" data-bs-toggle="modal" type="button"&ndash;&gt;-->
+<!--&lt;!&ndash;                                       class="btn btn-outline-primary link">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <i class="bi bi-save-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </a>&ndash;&gt;-->
+<!--                                    <a type="button" class="btn btn-outline-primary link" id="checkNewRequestBtn">-->
+<!--                                        <i class="bi bi-check-square-fill"></i>-->
+<!--                                    </a>-->
+<!--                                </h3>-->
+<!--                                <table class="table table-striped table-hover" id="rule-ct-body">-->
+<!--                                    <thead>-->
+<!--                                    <tr>-->
+<!--                                        <th scope="col"><span>attribute</span>-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-attr">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-node-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--                                        </th>-->
+<!--                                        <th scope="col" align="right">value</th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                    <tr>-->
+<!--                                        <td><span>action</span>-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-trash-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-action">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-node-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--                                        </td>-->
+<!--                                        <td align="right"><span id="action-value" th:text="${selectedAction}"></span>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete" id="action-delete">-->
+<!--                                                <i class="bi bi-trash-fill"></i>-->
+<!--                                            </a>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-action">-->
+<!--                                                <i class="bi bi-pencil-square"></i>-->
+<!--                                            </a>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td><span>data</span>-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-trash-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-data">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-node-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--                                        </td>-->
+<!--                                        <td align="right"><span id="data-value" th:text="${selectedData}"></span>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete" id="data-delete">-->
+<!--                                                <i class="bi bi-trash-fill"></i>-->
+<!--                                            </a>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-data">-->
+<!--                                                <i class="bi bi-pencil-square"></i>-->
+<!--                                            </a>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td><span>purpose</span>-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-trash-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-purpose">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-node-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--                                        </td>-->
+<!--                                        <td align="right"><span id="purpose-value" th:text="${selectedPurpose}"></span>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete" id="purpose-delete">-->
+<!--                                                <i class="bi bi-trash-fill"></i>-->
+<!--                                            </a>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-purpose">-->
+<!--                                                <i class="bi bi-pencil-square"></i>-->
+<!--                                            </a>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td><span>legal basis</span>-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-trash-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-legalbasis">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-node-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--                                        </td>-->
+<!--                                        <td align="right"><span id="legalbasis-value" th:text="${selectedLegalBasis}"></span>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete" id="legalbasis-delete">-->
+<!--                                                <i class="bi bi-trash-fill"></i>-->
+<!--                                            </a>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-legalbasis">-->
+<!--                                                <i class="bi bi-pencil-square"></i>-->
+<!--                                            </a>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td><span>controller</span>-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-trash-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-controller">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-node-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--                                        </td>-->
+<!--                                        <td align="right"><span id="controller-value" th:text="${selectedController}"></span>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete" id="controller-delete">-->
+<!--                                                <i class="bi bi-trash-fill"></i>-->
+<!--                                            </a>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-controller">-->
+<!--                                                <i class="bi bi-pencil-square"></i>-->
+<!--                                            </a>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td><span>processor</span>-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-trash-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-processor">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-node-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--                                        </td>-->
+<!--                                        <td align="right"><span id="processor-value" th:text="${selectedProcessor}"></span>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete" id="processor-delete">-->
+<!--                                                <i class="bi bi-trash-fill"></i>-->
+<!--                                            </a>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-processor">-->
+<!--                                                <i class="bi bi-pencil-square"></i>-->
+<!--                                            </a>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td><span>data subject</span>-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-trash-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-datasubject">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-node-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--                                        </td>-->
+<!--                                        <td align="right"><span id="datasubject-value" th:text="${selectedDataSubject}"></span>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete" id="datasubject-delete">-->
+<!--                                                <i class="bi bi-trash-fill"></i>-->
+<!--                                            </a>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-datasubject">-->
+<!--                                                <i class="bi bi-pencil-square"></i>-->
+<!--                                            </a>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--&lt;!&ndash;                                    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <td align="right"><span>sender</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-trash-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-sender">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-node-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <td align="right"><span id="sender-value"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete" id="sender-delete">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-trash-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-edit">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-pencil-square"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </tr>&ndash;&gt;-->
+<!--                                    <tr>-->
+<!--                                        <td><span>recipient</span>-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-trash-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-recipient">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <i class="bi bi-node-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--                                        </td>-->
+<!--                                        <td align="right"><span id="recipient-value" th:text="${selectedRecipient}"></span>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-delete" id="recipient-delete">-->
+<!--                                                <i class="bi bi-trash-fill"></i>-->
+<!--                                            </a>-->
+<!--                                            <a class="link" data-bs-toggle="modal" data-bs-target="#modal-container-add-recipient">-->
+<!--                                                <i class="bi bi-pencil-square"></i>-->
+<!--                                            </a>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                                <input type="hidden" id="requestSwitch" name="requestSwitch"/>-->
+<!--                                <input type="hidden" id="selectedAction" name="selectedAction"/>-->
+<!--                                <input type="hidden" id="selectedData" name="selectedData"/>-->
+<!--                                <input type="hidden" id="selectedPurpose" name="selectedPurpose"/>-->
+<!--                                <input type="hidden" id="selectedLegalBasis" name="selectedLegalBasis"/>-->
+<!--                                <input type="hidden" id="selectedController" name="selectedController"/>-->
+<!--                                <input type="hidden" id="selectedProcessor" name="selectedProcessor"/>-->
+<!--                                <input type="hidden" id="selectedDataSubject" name="selectedDataSubject"/>-->
+<!--                                <input type="hidden" id="selectedRecipient" name="selectedRecipient"/>-->
+<!--                            </div>-->
+<!--                            <p></p>-->
                             <div id="saved-requests-ct">
                                 <h3 id="saved-requests-ct-header">
                                     Saved Requests
-                                    <a href="#modal-container-delete-rule" data-toggle="modal" type="button"
-                                       class="btn btn-outline-primary">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </a>
-                                    <a href="#" data-toggle="modal" type="button"
+<!--                                    <a data-bs-target="#modal-container-delete-rule" data-bs-toggle="modal" type="button"-->
+<!--                                       class="btn btn-outline-primary">-->
+<!--                                        <i class="bi bi-trash-fill"></i>-->
+<!--                                    </a>-->
+                                    <a  type="button"
                                        class="btn btn-outline-primary" id="checkSavedRequestsBtn">
                                         <i class="bi bi-check-square-fill"></i>
                                     </a>
@@ -193,10 +299,66 @@
                                                        name="activeRequests" th:id="'test-request-' + ${request.requestDisplayName}">
                                                 <label class="form-check-label" th:for="'test-request-' + ${request.requestDisplayName}" th:text="${request.requestDisplayName}"></label>
                                                 <span style="text-align: right; float: right;">
-                                                    <a href="#" data-toggle="modal" >
+                                                    <a role="button" data-bs-toggle="collapse" th:href="'#collapse' + ${request.requestDisplayName}"
+                                                       th:aria-expanded="${request.isActive()}" th:aria-controls="'collapse' + ${request.requestDisplayName}">
                                                         <i class="bi bi-code-square"></i>
                                                     </a>
                                                 </span>
+
+                                            </div>
+                                            <div th:attr="class=${request.isActive() ? 'collapse show' : 'collapse'}" th:id="'collapse' + ${request.requestDisplayName}">
+                                                <div class="card card-body">
+                                                    <table class="table table-striped table-hover">
+                                                        <tr th:if="not ${request.saveRequest.actions.isEmpty()}">
+                                                            <td>action</td><td th:text="${#strings.setJoin(request.saveRequest.actions.keySet(), ', ')}"></td>
+                                                        </tr>
+                                                        <tr th:if="not ${request.saveRequest.data.isEmpty()}">
+                                                            <td>data</td><td th:text="${#strings.setJoin(request.saveRequest.data.keySet(), ', ')}"></td>
+                                                        </tr>
+                                                        <tr th:if="not ${request.saveRequest.purposes.isEmpty()}">
+                                                            <td>purpose</td><td th:text="${#strings.setJoin(request.saveRequest.purposes.keySet(), ', ')}"></td>
+                                                        </tr>
+                                                        <tr th:if="not ${request.saveRequest.legalBases.isEmpty()}">
+                                                            <td>legal basis</td><td th:text="${#strings.setJoin(request.saveRequest.legalBases.keySet(), ', ')}"></td>
+                                                        </tr>
+                                                        <tr th:if="not ${request.saveRequest.measures.isEmpty()}">
+                                                            <td>measure</td><td th:text="${#strings.setJoin(request.saveRequest.measures.keySet(), ', ')}"></td>
+                                                        </tr>
+                                                        <tr th:if="not ${request.saveRequest.controllers.isEmpty()}">
+                                                            <td>controller</td><td th:text="${#strings.setJoin(request.saveRequest.controllers.keySet(), ', ')}"></td>
+                                                        </tr>
+                                                        <tr th:if="not ${request.saveRequest.processors.isEmpty()}">
+                                                            <td>processor</td><td th:text="${#strings.setJoin(request.saveRequest.processors.keySet(), ', ')}"></td>
+                                                        </tr>
+                                                        <tr th:if="not ${request.saveRequest.dataSubjects.isEmpty()}">
+                                                            <td>data subject</td><td th:text="${#strings.setJoin(request.saveRequest.dataSubjects.keySet(), ', ')}"></td>
+                                                        </tr>
+                                                        <tr th:if="not ${request.saveRequest.senders.isEmpty()}">
+                                                            <td>sender</td><td th:text="${#strings.setJoin(request.saveRequest.senders.keySet(), ', ')}"></td>
+                                                        </tr>
+                                                        <tr th:if="not ${request.saveRequest.recipients.isEmpty()}">
+                                                            <td>recipient</td><td th:text="${#strings.setJoin(request.saveRequest.recipients.keySet(), ', ')}"></td>
+                                                        </tr>
+                                                    </table>
+                                                    <span style="text-align: right; float: right;">
+                                                    <a role="button" data-bs-toggle="collapse" th:href="'#collapsenorm' + ${request.requestDisplayName}"
+                                                       aria-expanded="false" th:aria-controls="'collapsenorm' + ${request.requestDisplayName}"
+                                                        th:text="${request.saveRequest.combinations.size()} + ' atomic subrequests (combined, no prefixes)'">
+
+                                                    </a>
+                                                </span>
+                                                </div>
+                                            </div>
+                                            <div class="collapse" th:id="'collapsenorm' + ${request.requestDisplayName}">
+                                                <div class="card card-body">
+                                                    <table class="table table-striped table-hover">
+                                                        <tr th:each="attr,iter : ${request.saveRequest.attributes}">
+                                                            <td th:text="${#strings.replace(#strings.replace(attr, 'save:', ''),'hasDataSubject','data subject')}"></td>
+                                                            <td th:text="${#strings.replace(#strings.replace(#strings.replace(#strings.setJoin(request.saveRequest.values.get(iter.index), ', '), 'dpv:', ''), 'orcp:', ''),'save-ex:','')}"></td>
+                                                        </tr>
+
+                                                    </table>
+                                                </div>
                                             </div>
 
                                         </li>
@@ -205,27 +367,288 @@
 
                             </div>
                             <div id="modals-add-label">
-                                <div aria-hidden="true" aria-labelledby="addLabel" class="modal fade" id="modal-container-add"
+                                <div aria-hidden="true" class="modal fade" id="modal-container-add-action"
                                      role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="addLabel">
-                                                    Add Node
+                                                <h5 class="modal-title">
+                                                    Add Action
                                                 </h5>
-                                                <button class="close" data-dismiss="modal" type="button">
+                                                <button class="close" data-bs-dismiss="modal" type="button">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                ...
+                                                <div id="actiontree"></div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button class="btn btn-primary" type="button" id="save-added-action">
+                                                    Save changes
+                                                </button>
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div aria-hidden="true" class="modal fade" id="modal-container-add-data"
+                                     role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Add Data
+                                                </h5>
+                                                <button class="close" data-bs-dismiss="modal" type="button">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="datatree"></div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button class="btn btn-primary" type="button" id="save-added-data">
+                                                    Save changes
+                                                </button>
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div aria-hidden="true" class="modal fade" id="modal-container-add-purpose"
+                                     role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Add Purpose
+                                                </h5>
+                                                <button class="close" data-bs-dismiss="modal" type="button">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="purposetree"></div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button class="btn btn-primary" type="button" id="save-added-purpose">
+                                                    Save changes
+                                                </button>
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div aria-hidden="true" class="modal fade" id="modal-container-add-legalbasis"
+                                     role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Add Legal Basis
+                                                </h5>
+                                                <button class="close" data-bs-dismiss="modal" type="button">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="legalbasestree"></div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button class="btn btn-primary" type="button" id="save-added-legalbasis">
+                                                    Save changes
+                                                </button>
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div aria-hidden="true" class="modal fade" id="modal-container-add-controller"
+                                     role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Add Controller
+                                                </h5>
+                                                <button class="close" data-bs-dismiss="modal" type="button">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="controllerstree"></div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button class="btn btn-primary" type="button" id="save-added-controller">
+                                                    Save changes
+                                                </button>
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div aria-hidden="true" class="modal fade" id="modal-container-add-processor"
+                                     role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Add Processor
+                                                </h5>
+                                                <button class="close" data-bs-dismiss="modal" type="button">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="processorstree"></div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button class="btn btn-primary" type="button" id="save-added-processor">
+                                                    Save changes
+                                                </button>
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div aria-hidden="true" class="modal fade" id="modal-container-add-datasubject"
+                                     role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Add Data Subject
+                                                </h5>
+                                                <button class="close" data-bs-dismiss="modal" type="button">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="datasubjectstree"></div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button class="btn btn-primary" type="button" id="save-added-datasubject">
+                                                    Save changes
+                                                </button>
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+<!--                                <div aria-hidden="true" class="modal fade" id="modal-container-add-sender"-->
+<!--                                     role="dialog">-->
+<!--                                    <div class="modal-dialog" role="document">-->
+<!--                                        <div class="modal-content">-->
+<!--                                            <div class="modal-header">-->
+<!--                                                <h5 class="modal-title">-->
+<!--                                                    Add Legal Basis-->
+<!--                                                </h5>-->
+<!--                                                <button class="close" data-bs-dismiss="modal" type="button">-->
+<!--                                                    <span aria-hidden="true">×</span>-->
+<!--                                                </button>-->
+<!--                                            </div>-->
+<!--                                            <div class="modal-body">-->
+<!--                                                <div id="senderstree"></div>-->
+<!--                                            </div>-->
+<!--                                            <div class="modal-footer">-->
+
+<!--                                                <button class="btn btn-primary" type="button" id="save-added-sender">-->
+<!--                                                    Save changes-->
+<!--                                                </button>-->
+<!--                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">-->
+<!--                                                    Close-->
+<!--                                                </button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+<!--                                    </div>-->
+
+<!--                                </div>-->
+                                <div aria-hidden="true" class="modal fade" id="modal-container-add-recipient"
+                                     role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Add Recipient
+                                                </h5>
+                                                <button class="close" data-bs-dismiss="modal" type="button">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="recipientstree"></div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button class="btn btn-primary" type="button" id="save-added-recipient">
+                                                    Save changes
+                                                </button>
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div aria-hidden="true" class="modal fade" id="modal-container-add-attr"
+                                     role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Add Attribute
+                                                </h5>
+                                                <button class="close" data-bs-dismiss="modal" type="button">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="attrtree"></div>
                                             </div>
                                             <div class="modal-footer">
 
                                                 <button class="btn btn-primary" type="button">
                                                     Save changes
                                                 </button>
-                                                <button class="btn btn-secondary" data-dismiss="modal" type="button">
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
                                                     Close
                                                 </button>
                                             </div>
@@ -244,7 +667,7 @@
                                                 <h5 class="modal-title" id="labelConfirmRule">
                                                     Confirm Rule
                                                 </h5>
-                                                <button class="close" data-dismiss="modal" type="button">
+                                                <button class="close" data-bs-dismiss="modal" type="button">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
@@ -256,7 +679,7 @@
                                                 <button class="btn btn-primary" type="button">
                                                     Save changes
                                                 </button>
-                                                <button class="btn btn-secondary" data-dismiss="modal" type="button">
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
                                                     Close
                                                 </button>
                                             </div>
@@ -275,7 +698,7 @@
                                                 <h5 class="modal-title" id="labelDeleteRule">
                                                     Delete Rule
                                                 </h5>
-                                                <button class="close" data-dismiss="modal" type="button">
+                                                <button class="close" data-bs-dismiss="modal" type="button">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
@@ -287,7 +710,38 @@
                                                 <button class="btn btn-primary" type="button">
                                                     Save changes
                                                 </button>
-                                                <button class="btn btn-secondary" data-dismiss="modal" type="button">
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="modal-erase-rule">
+                                <div aria-hidden="true" aria-labelledby="labelDeleteRule" class="modal fade"
+                                     id="modal-container-erase-rule" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="labelEraseRule">
+                                                    Erase Request
+                                                </h5>
+                                                <button class="close" data-bs-dismiss="modal" type="button">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to clear the request?
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button class="btn btn-primary" type="button" id="erase-request-btn">
+                                                    Yes
+                                                </button>
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
                                                     Close
                                                 </button>
                                             </div>
@@ -306,7 +760,7 @@
                                                 <h5 class="modal-title" id="labelAddRule">
                                                     Add Rule
                                                 </h5>
-                                                <button class="close" data-dismiss="modal" type="button">
+                                                <button class="close" data-bs-dismiss="modal" type="button">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
@@ -318,7 +772,7 @@
                                                 <button class="btn btn-primary" type="button">
                                                     Save changes
                                                 </button>
-                                                <button class="btn btn-secondary" data-dismiss="modal" type="button">
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
                                                     Close
                                                 </button>
                                             </div>
@@ -332,89 +786,94 @@
                             <h3 align="left" id="segment-id">
                                 Compliance Report
                             </h3>
+
+                            <div th:if="${results == null or results.isEmpty()}" >
+                                <p>To start, please choose a request from Saved Requests and click Check button on Saved Requests.</p>
+                                <p>For debugging purposes, each request contains c compact normalized version.</p>
+                                <p>The SAVE IMDB policy in Turtle format is available by clicking on the icon next to any of the SHACL policies. </p>
+                                <p><strong>Disclaimer:</strong> the IMDB policy is in its initial state and therefore <strong>contains conflicts</strong>. As a result, the requests could be partly permitted and prohibited at the same time.</p>
+                            </div>
+                            <div th:if="${message}" th:text="${message}" ></div>
                             <div th:each = "result : ${results}">
                                 <h4 th:text="'Request: ' + ${result.request.requestDisplayName} + ', Policy: ' + ${result.policy.policyDisplayName}"></h4>
                                 <h4 th:text="'Answer: ' + ${result.finalResultPermitted} + ', ' + ${result.finalResultProhibited}"></h4>
-                                <h4>Conforms To: </h4>
+                                <h4 th:if="not ${result.conformsTo.isEmpty()}">Conforms To: </h4>
 
                                 <table class="table table-striped table-hover table-success" id="report-ct-body-permitted"
                                        th:each="conformsRule : ${result.conformsTo}">
                                     <tr>
                                         <th>rule</th><th th:text="${conformsRule.name}"></th>
                                     </tr>
-                                    <tr>
+                                    <tr th:if="not ${conformsRule.actions.isEmpty()}">
                                         <td>action</td><td th:text="${#strings.setJoin(conformsRule.actions.keySet(), ', ')}"></td>
                                     </tr>
-                                    <tr>
+                                    <tr th:if="not ${conformsRule.data.isEmpty()}">
                                         <td>data</td><td th:text="${#strings.setJoin(conformsRule.data.keySet(), ', ')}"></td>
                                     </tr>
-                                    <tr>
+                                    <tr th:if="not ${conformsRule.purposes.isEmpty()}">
                                         <td>purpose</td><td th:text="${#strings.setJoin(conformsRule.purposes.keySet(), ', ')}"></td>
                                     </tr>
+                                    <tr th:if="not ${conformsRule.legalBases.isEmpty()}">
+                                        <td>legal basis</td><td th:text="${#strings.setJoin(conformsRule.legalBases.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${conformsRule.measures.isEmpty()}">
+                                        <td>measure</td><td th:text="${#strings.setJoin(conformsRule.measures.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${conformsRule.controllers.isEmpty()}">
+                                        <td>controller</td><td th:text="${#strings.setJoin(conformsRule.controllers.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${conformsRule.processors.isEmpty()}">
+                                        <td>processor</td><td th:text="${#strings.setJoin(conformsRule.processors.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${conformsRule.dataSubjects.isEmpty()}">
+                                        <td>data subject</td><td th:text="${#strings.setJoin(conformsRule.dataSubjects.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${conformsRule.senders.isEmpty()}">
+                                        <td>sender</td><td th:text="${#strings.setJoin(conformsRule.senders.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${conformsRule.recipients.isEmpty()}">
+                                        <td>recipient</td><td th:text="${#strings.setJoin(conformsRule.recipients.keySet(), ', ')}"></td>
+                                    </tr>
                                 </table>
-                                <h4>Prohibited By: </h4>
+                                <h4 th:if="not ${result.prohibitedBy.isEmpty()}">Prohibited By: </h4>
 
                                 <table class="table table-striped table-hover table-danger" id="report-ct-body-prohibited"
                                        th:each="prohibitedRule : ${result.prohibitedBy}">
                                     <tr>
                                         <th>rule</th><th th:text="${prohibitedRule.name}"></th>
                                     </tr>
-                                    <tr>
+                                    <tr th:if="not ${prohibitedRule.actions.isEmpty()}">
                                         <td>action</td><td th:text="${#strings.setJoin(prohibitedRule.actions.keySet(), ', ')}"></td>
                                     </tr>
-                                    <tr>
+                                    <tr th:if="not ${prohibitedRule.data.isEmpty()}">
                                         <td>data</td><td th:text="${#strings.setJoin(prohibitedRule.data.keySet(), ', ')}"></td>
                                     </tr>
-                                    <tr>
+                                    <tr th:if="not ${prohibitedRule.purposes.isEmpty()}">
                                         <td>purpose</td><td th:text="${#strings.setJoin(prohibitedRule.purposes.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${prohibitedRule.legalBases.isEmpty()}">
+                                        <td>legal basis</td><td th:text="${#strings.setJoin(prohibitedRule.legalBases.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${prohibitedRule.measures.isEmpty()}">
+                                        <td>measure</td><td th:text="${#strings.setJoin(prohibitedRule.measures.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${prohibitedRule.controllers.isEmpty()}">
+                                        <td>controller</td><td th:text="${#strings.setJoin(prohibitedRule.controllers.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${prohibitedRule.processors.isEmpty()}">
+                                        <td>processor</td><td th:text="${#strings.setJoin(prohibitedRule.processors.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${prohibitedRule.dataSubjects.isEmpty()}">
+                                        <td>data subject</td><td th:text="${#strings.setJoin(prohibitedRule.dataSubjects.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${prohibitedRule.senders.isEmpty()}">
+                                        <td>sender</td><td th:text="${#strings.setJoin(prohibitedRule.senders.keySet(), ', ')}"></td>
+                                    </tr>
+                                    <tr th:if="not ${prohibitedRule.recipients.isEmpty()}">
+                                        <td>recipient</td><td th:text="${#strings.setJoin(prohibitedRule.recipients.keySet(), ', ')}"></td>
                                     </tr>
                                 </table>
                             </div>
-<!--                            <div align="left" id="segment-text">-->
-<!--                                <div>-->
-<!--                                    <h4>Answer</h4>-->
-<!--                                    <span>Part-granted, part-prohibited</span>-->
-<!--                                </div>-->
-<!--                                <p></p>-->
-<!--                                <div>-->
-<!--                                    <h4>Permitted by IMDB Privacy Notice</h4>-->
-<!--                                    <table class="table table-striped table-hover table-success" id="report-ct-body-permitted">-->
-<!--                                        <tr>-->
-<!--                                            <td>action</td> <td align="right">save:Collect</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td>data</td> <td align="right">save:PhysicalAddress</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td>purpose</td> <td align="right">save:ResearchAndDevelopment</td>-->
-<!--                                        </tr>-->
-<!--                                    </table>-->
-<!--                                </div>-->
-<!--                                <p></p>-->
-<!--                                <div>-->
-<!--                                    <h4>Prohibited Explicitly by IMDB Privacy Notice</h4>-->
-<!--                                    <table class="table table-striped table-hover table-danger" id="report-ct-body-prohibited">-->
-<!--                                        <tr>-->
-<!--                                            <td>action</td> <td align="right">save:Collect</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td>data</td> <td align="right">save:PhysicalAddress</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td>purpose</td> <td align="right">save:ServiceOptimization</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td></td> <td align="right">save:ServicePersonalization</td>-->
-<!--                                        </tr>-->
-<!--                                    </table>-->
-<!--                                </div>-->
-<!--                                <p></p>-->
-<!--                                <div>-->
-<!--                                    <h4>Prohibited Implicitly by IMDB Privacy Notice</h4>-->
-<!--                                    <div></div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
                         </div>
                         <div class="col-md-3">
                             <div id="policies-ct">
@@ -427,6 +886,37 @@
                                             <input class="form-check-input me-1 checked" type="checkbox" th:value="${policy.policyId}" th:checked="${policy.isActive()}"
                                                    th:id="'flexSwitchCheck-' + ${policy.policyDisplayName}" aria-label="..." name="activePolicies">
                                             <label class="form-check-label" th:for="'flexSwitchCheck-' + ${policy.policyDisplayName}" th:text="${policy.policyDisplayName}"></label>
+                                            <span style="text-align: right; float: right;">
+                                                    <a role="button" data-bs-toggle="modal" th:data-bs-target="'#modal-policy-code' + ${#strings.replace(policy.policyDisplayName,'.','')}">
+                                                        <i class="bi bi-code-square"></i>
+                                                    </a>
+                                                </span>
+                                        </div>
+                                        <div aria-hidden="true" class="modal fade"
+                                             th:id="'modal-policy-code' + ${#strings.replace(policy.policyDisplayName,'.','')}"
+                                             role="dialog">
+                                            <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">
+                                                            Original SAVE Policy
+                                                        </h5>
+                                                        <button class="close" data-bs-dismiss="modal" type="button">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div style="white-space: pre;" id="policycode" th:utext="${#strings.escapeXml(policy.savePolicyCode)}"></div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
                                         </div>
                                     </li>
                                 </ul>
@@ -434,16 +924,19 @@
                             </div>
                         </div>
 
+
                 </div>
                 </form>
         </div>
     </div>
+        <div class="row"></div>
     </div>
     <script th:src="@{/static/js/jquery.min.js}"></script>
     <script th:src="@{/static/bootstrap-5.0.0-dist/js/bootstrap.bundle.js}"></script>
     <script th:src="@{/static/fontawesome/js/all.js}"></script>
     <script th:src="@{/static/js/bootstrap-treeview.js}"></script>
     <script th:src="@{/static/index.js}"></script>
+    <script th:src="@{/static/trees.js}"></script>
 
 </body>
 

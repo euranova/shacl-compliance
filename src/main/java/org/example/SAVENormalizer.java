@@ -42,22 +42,7 @@ public class SAVENormalizer {
     public SAVERuleNormalized normalizeSAVERule(SAVERule rule, boolean leaves, boolean verbose) {
         //go through the rule one by one attribute
         SAVERuleNormalized saveRuleNormalized = new SAVERuleNormalized(rule);
-        if(!rule.getData().isEmpty()) {
-            Set<String> dataLeaves = new HashSet<>();
-            if(leaves) {
-                //ideally should be only one value
-                dataLeaves.addAll(rule.getData().values());
-            } else {
-                for (String dataClass : rule.getData().values()) {
-                    dataLeaves.addAll(JenaUtils.findLeaves(dataClass, unionModel));
-                }
-            }
 
-            if (!dataLeaves.isEmpty()) {
-                saveRuleNormalized.addValues(new ArrayList<>(dataLeaves));
-                saveRuleNormalized.addAttribute(vocab.dataPropertyPrefixedName);
-            }
-        }
         if(!rule.getActions().isEmpty()) {
             Set<String> actionLeaves = new HashSet<>();
             if(leaves) {
@@ -72,6 +57,22 @@ public class SAVENormalizer {
             if (!actionLeaves.isEmpty()) {
                 saveRuleNormalized.addValues(new ArrayList<>(actionLeaves));
                 saveRuleNormalized.addAttribute(vocab.actionPropertyPrefixedName);
+            }
+        }
+        if(!rule.getData().isEmpty()) {
+            Set<String> dataLeaves = new HashSet<>();
+            if(leaves) {
+                //ideally should be only one value
+                dataLeaves.addAll(rule.getData().values());
+            } else {
+                for (String dataClass : rule.getData().values()) {
+                    dataLeaves.addAll(JenaUtils.findLeaves(dataClass, unionModel));
+                }
+            }
+
+            if (!dataLeaves.isEmpty()) {
+                saveRuleNormalized.addValues(new ArrayList<>(dataLeaves));
+                saveRuleNormalized.addAttribute(vocab.dataPropertyPrefixedName);
             }
         }
         if (!rule.getPurposes().isEmpty()) {

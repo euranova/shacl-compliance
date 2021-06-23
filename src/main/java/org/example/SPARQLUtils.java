@@ -11,6 +11,8 @@ import org.apache.jena.rdf.model.*;
 import org.apache.jena.sparql.lang.sparql_11.ParseException;
 import org.apache.jena.util.FileUtils;
 import org.apache.jena.vocabulary.RDF;
+import org.example.treeUtils.GenericTree;
+import org.example.treeUtils.GenericTreeNode;
 import org.thymeleaf.model.IModel;
 import org.topbraid.jenax.util.JenaUtil;
 
@@ -133,7 +135,7 @@ public class SPARQLUtils {
                                                 .addWhere("?directParentIndivid", "rdf:type", "?directParentClass"));
 
         Query query = sb.build();
-        System.out.println(query.toString());
+//        System.out.println(query.toString());
         QueryExecution exec = QueryExecutionFactory.create(query, model);
         ResultSet rs = exec.execSelect();
         Map<String, String> map = new HashMap<String, String>();
@@ -141,8 +143,8 @@ public class SPARQLUtils {
         while (rs.hasNext()) {
             final QuerySolution qs = rs.next();
 //            map.put(qs.get("concept").toString(), qs.get("type").toString());
-            System.out.println(qs.get("individ") + " - " + qs.get("class")
-                    + "\n\tparent:\t" + qs.get("directParentIndivid") + " - " + qs.get("directParentClass"));
+//            System.out.println(qs.get("individ") + " - " + qs.get("class")
+//                    + "\n\tparent:\t" + qs.get("directParentIndivid") + " - " + qs.get("directParentClass"));
         }
 
         return map;
@@ -192,6 +194,134 @@ public class SPARQLUtils {
         }
         return map;
     }
+
+    public static Map<String, Set<String>> getDPVDAGNLP(Model model, String rootClassName, List<String> individToExclude){
+        SelectBuilder sb = addPrefixesToSelectBuilder(model)
+                .addVar("*")
+                .addWhere("?individ", "rdf:type", "?class")
+                .addWhere("?class", "rdfs:subClassOf*", rootClassName)
+                .addOptional(addPrefixesToSelectBuilder(model)
+                        .addWhere("?class", "rdfs:subClassOf", "?directParentClass")
+                        .addWhere("?directParentIndivid", "rdf:type", "?directParentClass"));
+
+        if (rootClassName.equals("orcp:Rule")){
+            sb = addPrefixesToSelectBuilder(model)
+                    .addVar("*")
+                    .addWhere("?class", "rdfs:subClassOf*", rootClassName)
+                    .addOptional(addPrefixesToSelectBuilder(model)
+                            .addWhere("?class", "rdfs:subClassOf", "?directParentClass"));
+        }
+        if(individToExclude != null && !individToExclude.isEmpty()){
+            for(String ind:individToExclude){
+                try {
+                    sb.addFilter("?individ != " + ind);
+                    sb.addFilter("!bound(?directParentIndivid) || ?directParentIndivid != " + ind);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        Query query = sb.build();
+//        System.out.println(query.toString());
+        QueryExecution exec = QueryExecutionFactory.create(query, model);
+        ResultSet rs = exec.execSelect();
+        Map<String, Set<String>> map = new HashMap<>();
+
+        if (rootClassName.equals("orcp:Rule")) {
+            while (rs.hasNext()) {
+                final QuerySolution qs = rs.next();
+                String parent;
+                if (qs.get("directParentClass") != null){
+                    parent = getPrefixedLabel(String.valueOf(qs.get("directParentClass")), model);
+
+                }
+                else {
+                    parent = "save:root";
+                }
+                String child = getPrefixedLabel(String.valueOf(qs.get("class")), model);
+                if(!map.containsKey(child)){
+                    map.put(child, new HashSet<>());
+                }
+                map.get(child).add(parent);
+            }
+        } else {
+            while (rs.hasNext()) {
+                final QuerySolution qs = rs.next();
+                String parent;
+                if (!(qs.get("directParentIndivid") == null)) {
+                    parent = getPrefixedLabel(String.valueOf(qs.get("directParentIndivid")), model);
+                } else {
+                    parent = "save:root";
+                }
+                String child = getPrefixedLabel(String.valueOf(qs.get("individ")), model);
+                if(!map.containsKey(child)){
+                    map.put(child, new HashSet<>());
+                }
+                map.get(child).add(parent);
+            }
+        }
+        return map;
+    }
+
+    public static GenericTree getDPVTreeGT(Map<String, String> map){
+        GenericTree tree = new GenericTree();
+        GenericTreeNode root = new GenericTreeNode("save:root");
+        tree.setRoot(root);
+        for (String indiv : map.keySet()) {
+            if (map.get(indiv).equals("save:root")){
+                GenericTreeNode rootChild = new GenericTreeNode(indiv);
+                root.addChild(rootChild);
+            }
+        }
+        for (String indiv: map.keySet()){
+            if (!map.get(indiv).equals("save:root") && tree.exists(map.get(indiv))){
+                GenericTreeNode childIndv = new GenericTreeNode(indiv);
+                tree.find(map.get(indiv)).addChild(childIndv);
+            }
+        }
+        return tree;
+    }
+
+    public static GenericTree getDPVDAGGT(Map<String, Set<String>> map){
+        GenericTree tree = new GenericTree();
+        GenericTreeNode root = new GenericTreeNode("save:root");
+        tree.setRoot(root);
+        Map<String, List<GenericTreeNode>> nodesMap = new HashMap<>();
+        nodesMap.put("save:root", new ArrayList<>());
+        nodesMap.get("save:root").add(root);
+        for(String ind: map.keySet()){
+            nodesMap.put(ind, new ArrayList<>());
+            for(String parent: map.get(ind)){
+                //for each parent there should be separate child node, so we can have a DAG, not a tree
+                GenericTreeNode node = new GenericTreeNode(ind);
+                nodesMap.get(ind).add(node);
+            }
+
+        }
+        for(String ind: map.keySet()){
+            List<GenericTreeNode> thisNodes = nodesMap.get(ind);
+            List<String> parents = new ArrayList<>(map.get(ind));
+            for(int i = 0; i < thisNodes.size(); i++){
+                GenericTreeNode child = thisNodes.get(i);
+                String parent = parents.get(i);
+                if(nodesMap.get(parent) == null){
+                    //this is root
+                    root.addChild(child);
+                } else {
+                    for (GenericTreeNode parentNode : nodesMap.get(parent)) {
+                        parentNode.addChild(child);
+                    }
+                }
+            }
+
+//            GenericTreeNode parentNode = nodesMap.get(map.get(ind));
+//            parentNode.addChild(thisNodes);
+        }
+
+        return tree;
+    }
+
 
 
 
@@ -369,60 +499,53 @@ public class SPARQLUtils {
 
     }
 
-    public static Map<String,String> getSavedRequests(Model model, String requestBaseType) {
-        Map<String, String> requestNames = new HashMap<>();
-        SelectBuilder sb = addPrefixesToSelectBuilder(model)
-                .addVar("*")
-                .addWhere("?request", "rdf:type", "?type")
-                .addWhere("?type", "rdfs:subClassOf", requestBaseType);
-        Query query = sb.build();
-        QueryExecution exec = QueryExecutionFactory.create(query, model);
-        ResultSet rs = exec.execSelect();
-        while (rs.hasNext()) {
-            final QuerySolution qs = rs.next();
-            String value = getPrefixedLabel(qs.get("request").toString(), model);
-            String type = getPrefixedLabel(qs.get("type").toString(), model);
-            requestNames.put(value, type);
-        }
-        return requestNames;
-    }
 
-
-    public static List<SAVERule> getRequestsByName(List<String> requestNames, Model model) {
-        List<SAVERule> requests = new ArrayList<>();
-        for(String requestName: requestNames) {
-            SelectBuilder sb = null;
-            try {
-                sb = addPrefixesToSelectBuilder(model)
-                        .addVar("*")
-                        .addWhere(requestName, "?prop", "?value")
-                        .addWhere("?value", "rdf:type", "?type")
-                        .addFilter("?type != owl:NamedIndividual");
-                Query query = sb.build();
-                QueryExecution exec = QueryExecutionFactory.create(query, model);
-                ResultSet rs = exec.execSelect();
-                if(rs.hasNext()) {
-                    SAVERule request = new SAVERule(requestName, "");
-                    while (rs.hasNext()) {
-                        final QuerySolution qs = rs.next();
-                        String prop = getPrefixedLabel(qs.get("prop").toString(), model);
-                        String value = getPrefixedLabel(qs.get("value").toString(), model);
-                        String type = getPrefixedLabel(qs.get("type").toString(), model);
-                        if(prop.equals("rdf:type") && value.contains("save")){
-                            request.setType(value);
-                        } else {
-                            request.addProperty(prop, value, type);
-                        }
-                    }
-                    requests.add(request);
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
+    public static Map<String, SAVERule> getSavedRequests(Model model) {
+        Map<String, String> requestMap = getRequestsFromModel(model);
+        Map<String, SAVERule> requests = new HashMap<>();
+        for (Map.Entry<String, String> requestEntry : requestMap.entrySet()) {
+            SAVERule rule = getRuleDescription(model, requestEntry.getKey(), requestEntry.getValue());
+            requests.put(getPrefixedLabel(requestEntry.getKey(), model), rule);
         }
         return requests;
     }
+
+
+//    public static List<SAVERule> getRequestsByName(List<String> requestNames, Model model) {
+//        List<SAVERule> requests = new ArrayList<>();
+//        for(String requestName: requestNames) {
+//            SelectBuilder sb = null;
+//            try {
+//                sb = addPrefixesToSelectBuilder(model)
+//                        .addVar("*")
+//                        .addWhere(requestName, "?prop", "?value")
+//                        .addWhere("?value", "rdf:type", "?type")
+//                        .addFilter("?type != owl:NamedIndividual");
+//                Query query = sb.build();
+//                QueryExecution exec = QueryExecutionFactory.create(query, model);
+//                ResultSet rs = exec.execSelect();
+//                if(rs.hasNext()) {
+//                    SAVERule request = new SAVERule(requestName, "");
+//                    while (rs.hasNext()) {
+//                        final QuerySolution qs = rs.next();
+//                        String prop = getPrefixedLabel(qs.get("prop").toString(), model);
+//                        String value = getPrefixedLabel(qs.get("value").toString(), model);
+//                        String type = getPrefixedLabel(qs.get("type").toString(), model);
+//                        if(prop.equals("rdf:type") && value.contains("save")){
+//                            request.setType(value);
+//                        } else {
+//                            request.addProperty(prop, value, type);
+//                        }
+//                    }
+//                    requests.add(request);
+//                }
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+//        return requests;
+//    }
 
     public static List<String> getPolicyAndRuleNamesForPolicyFile(Model model, String policyFileName) {
         List<String> policAndRuleNames = new ArrayList<>();
@@ -504,7 +627,7 @@ public class SPARQLUtils {
         return answerTuple;
     }
 
-    public static Map<String, SAVERule> getResultIntersection(Model model, String property) {
+    public static Map<String, SAVERule> getResultIntersection(SAVERule request, Model model, String property) {
         Map<String, SAVERule> conformsToRules = new HashMap<>();
         SelectBuilder sb = null;
         sb = addPrefixesToSelectBuilder(model)
@@ -527,7 +650,7 @@ public class SPARQLUtils {
                     conformsToRules.put(rule, new SAVERule(rule, null));
                 }
                 SAVERule currentRule = conformsToRules.get(rule);
-                currentRule.addProperty(prop, value, type);
+                currentRule.addPropertyConditional(request, prop, value, type);
             }
         }
         return conformsToRules;
@@ -571,11 +694,49 @@ public class SPARQLUtils {
         return getSubrequestsResults(model, "save:prohibitedBy", parentRequestName);
     }
 
-    public static Map<String, SAVERule> getProhibitedBy(Model model) {
-        return getResultIntersection(model, "save:prohibitedBy");
+    public static Map<String, SAVERule> getProhibitedBy(SAVERule request, Model model) {
+        return getResultIntersection(request, model, "save:prohibitedBy");
     }
 
-    public static Map<String, SAVERule> getConformsTo(Model model) {
-        return getResultIntersection(model, "save:conformsTo");
+    public static Map<String, SAVERule> getConformsTo(SAVERule request, Model model) {
+        return getResultIntersection(request, model, "save:conformsTo");
+    }
+
+    public static Map<String, String> initIndividToClassVocab(Model model, List<String> prefixesToFilter) {
+        Map<String, String> vocab = new HashMap<>();
+        SelectBuilder sb = null;
+        sb = addPrefixesToSelectBuilder(model)
+                .addVar("*")
+                .addWhere("?ind", "rdf:type", "?class");
+        StringBuilder filterString = new StringBuilder();
+        for(String prefix: prefixesToFilter){
+            filterString.append(String.format(" || regex(str(?ind), '%s*')", model.getNsPrefixURI(prefix)));
+        }
+        String filterStr = filterString.toString();
+        if(!filterStr.equals("")){
+            filterStr = filterStr.replaceFirst("\\|\\|", "");
+            try {
+                sb.addFilter(filterStr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Query query = sb.build();
+        QueryExecution exec = QueryExecutionFactory.create(query, model);
+//        System.out.println(query.toString());
+        ResultSet rs = exec.execSelect();
+        if(rs.hasNext()) {
+            while (rs.hasNext()) {
+                final QuerySolution qs = rs.next();
+                String ind = getPrefixedLabel(qs.get("ind").toString(), model);
+                String class_ = getPrefixedLabel(qs.get("class").toString(), model);
+                if(!vocab.containsKey(ind)){
+                    vocab.put(ind, class_);
+                }
+
+            }
+        }
+        return vocab;
     }
 }

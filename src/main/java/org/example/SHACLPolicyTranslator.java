@@ -123,33 +123,31 @@ public class SHACLPolicyTranslator {
      */
     private Statement addPolicyConstructSPARQL(Resource baseNode) {
 
-        String queryBase = """
-                {SELECT (COUNT(*) as ?cnt%1$s) (SUM(?answer%5$s) as ?su%1$s)
-                        WHERE
-                        {
-                            {SELECT $this ?attrLabel%1$s (COUNT(DISTINCT ?item%1$s) AS ?attrs%5$s)
-                                WHERE {
-                                $this %6$s ?%2$s .
-                                        ?%2$s ?attr%1$s ?item%1$s .
-                                        FILTER (?attr%1$s IN (%3$s))
-                                bind(strbefore(strafter(str(?attr%1$s), "model/"), "Intersection") as ?attrLabel%1$s)
-                            }
-                                group by $this ?attrLabel%1$s
-                            }
-                            {SELECT $this ?requestAttrLabel%1$s (COUNT(DISTINCT ?requestItem%1$s) AS ?requestAttrsTotal%1$s)
-                                WHERE {
-                                $this ?requestAttr%1$s ?requestBNode%1$s .
-                                        ?requestBNode%1$s rdf:rest*/rdf:first ?requestItem%1$s .
-                                        FILTER (?requestAttr%1$s IN (%4$s))
-                                bind(strbefore(strafter(str(?requestAttr%1$s), "model/"), "List") as ?requestAttrLabel%1$s)
-                            }
-                                group by $this ?requestAttrLabel%1$s
-                            }
-                            FILTER(?attrLabel%1$s = ?requestAttrLabel%1$s)
-                            BIND(IF(?attrs%5$s = ?requestAttrsTotal%1$s, 1, 0) as ?answer%5$s)
-                        }
-                    }
-                """;
+        String queryBase = "{SELECT (COUNT(*) as ?cnt%1$s) (SUM(?answer%5$s) as ?su%1$s) " +
+                        "WHERE " +
+                        "{ " +
+                            "{SELECT $this ?attrLabel%1$s (COUNT(DISTINCT ?item%1$s) AS ?attrs%5$s) " +
+                                "WHERE { " +
+                                "$this %6$s ?%2$s . " +
+                                        "?%2$s ?attr%1$s ?item%1$s . " +
+                                        "FILTER (?attr%1$s IN (%3$s)) " +
+                                "bind(strbefore(strafter(str(?attr%1$s), \"model/\"), \"Intersection\") as ?attrLabel%1$s)" +
+                            "} " +
+                                "group by $this ?attrLabel%1$s" +
+                            "} " +
+                            "{SELECT $this ?requestAttrLabel%1$s (COUNT(DISTINCT ?requestItem%1$s) AS ?requestAttrsTotal%1$s) " +
+                                "WHERE { " +
+                                "$this ?requestAttr%1$s ?requestBNode%1$s . " +
+                                        "?requestBNode%1$s rdf:rest*/rdf:first ?requestItem%1$s . " +
+                                        "FILTER (?requestAttr%1$s IN (%4$s)) " +
+                                "bind(strbefore(strafter(str(?requestAttr%1$s), \"model/\"), \"List\") as ?requestAttrLabel%1$s) " +
+                            "} " +
+                                "group by $this ?requestAttrLabel%1$s " +
+                            "} " +
+                            "FILTER(?attrLabel%1$s = ?requestAttrLabel%1$s) " +
+                            "BIND(IF(?attrs%5$s = ?requestAttrsTotal%1$s, 1, 0) as ?answer%5$s) " +
+                        "} " +
+                    "} ";
         String queryPermitted = String.format(queryBase, "", "permission",
                 String.join(", ", vocab.intersectionAtributes), String.join(", ", vocab.listAtributes),
                 "Permitted", vocab.conformsPropertyPrefixedName);
@@ -157,27 +155,25 @@ public class SHACLPolicyTranslator {
                 String.join(", ", vocab.intersectionAtributes), String.join(", ", vocab.listAtributes),
                 "Prohibited", vocab.prohibitedPropertyPrefixedName);
 
-        String query = """
-                CONSTRUCT {
-                        ?bnode  a save-ex:RequestAnswer ;
-                                    save:answerPermitted ?ans ;
-                                    save:answerProhibited ?ansProh ;
-                                    save:countPermitted ?cnt ;
-                                    save:sumPermitted ?su ;
-                                    save:countProhibited ?cntProh ;
-                                    save:sumProhibited ?suProh 
-                                    .
-                        $this   save:result ?bnode .
-                }
-                WHERE
-                {
-                    BIND(BNODE() as ?bnode) .
-                    %1$s 
-                    %2$s                
-                    BIND(IF(?cnt = 0, "not granted", IF(?cnt = ?su, "granted", "part-granted")) as ?ans)
-                    BIND(IF(?cntProh = 0, "not prohibited", IF(?cntProh = ?suProh, "prohibited", "part-prohibited")) as ?ansProh)
-                }
-                """;
+        String query = "CONSTRUCT { " +
+                        "?bnode  a save-ex:RequestAnswer ; " +
+                                    "save:answerPermitted ?ans ; " +
+                                    "save:answerProhibited ?ansProh ; " +
+                                    "save:countPermitted ?cnt ; " +
+                                    "save:sumPermitted ?su ; " +
+                                    "save:countProhibited ?cntProh ; " +
+                                    "save:sumProhibited ?suProh " +
+                                    ". " +
+                        "$this   save:result ?bnode ." +
+                "} " +
+                "WHERE" +
+                "{ " +
+                    "BIND(BNODE() as ?bnode) . " +
+                    "%1$s "+
+                    "%2$s " +
+                    "BIND(IF(?cnt = 0, \"not granted\", IF(?cnt = ?su, \"granted\", \"part-granted\")) as ?ans) " +
+                    "BIND(IF(?cntProh = 0, \"not prohibited\", IF(?cntProh = ?suProh, \"prohibited\", \"part-prohibited\")) as ?ansProh) " +
+                "} " ;
         query = String.format(query, queryPermitted, queryProhibited);
 //        System.out.println(query);
 //        String query = """
@@ -923,46 +919,38 @@ public class SHACLPolicyTranslator {
         }
         String select = "";
         if (isValue) {
-            select += """
-                    SELECT $this ?value
-                          WHERE
-                            {   { SELECT  $this (SUM(if(?intersects, 1, 0)) AS ?nIntersect)
-                                  WHERE
-                                    { 
-                                       OPTIONAL {
-                                        $this $PATH ?value .
-                                        ?value rdf:rest*/rdf:first ?item .
-                                        BIND (?item IN (%s) as ?intersects)
-                                      }
-                                    }
-                                  GROUP BY $this
-                                }
-                                FILTER (?nIntersect = 0)
-                                
-                                
-                           } 
-                    """;
+            select += "SELECT $this ?value " +
+                          "WHERE " +
+                            "{   { SELECT  $this (SUM(if(?intersects, 1, 0)) AS ?nIntersect) " +
+                                  "WHERE " +
+                                    "{ " +
+                                       "OPTIONAL { " +
+                                        "$this $PATH ?value . " +
+                                        "?value rdf:rest*/rdf:first ?item . " +
+                                        "BIND (?item IN (%s) as ?intersects) " +
+                                      "} " +
+                                    "} " +
+                                  "GROUP BY $this " +
+                                "} " +
+                                "FILTER (?nIntersect = 0) " +
+                           "} ";
         } else {
-            select += """
-                        SELECT $this ?value
-                          WHERE
-                            {   { SELECT  $this (SUM(if(?intersects, 1, 0)) AS ?nIntersect)
-                                  WHERE
-                                    { 
-                                       OPTIONAL {
-                                        $this $PATH ?value .
-                                        ?value (rdf:rest)*/rdf:first ?item .
-                                        ?item rdf:type/(rdfs:subClassOf)* ?attrClass .
-                                        BIND(( ?attrClass IN (%s) ) AS ?intersects)
-                                      }
-                                    }
-                                  GROUP BY $this
-                                }
-                                FILTER (?nIntersect = 0)
-                                
-                                
-                           }                
-                    """;
+            select += "SELECT $this ?value " +
+                          "WHERE " +
+                            "{   { SELECT  $this (SUM(if(?intersects, 1, 0)) AS ?nIntersect) " +
+                                  "WHERE " +
+                                    "{ " +
+                                       "OPTIONAL { " +
+                                        "$this $PATH ?value . " +
+                                        "?value (rdf:rest)*/rdf:first ?item . " +
+                                        "?item rdf:type/(rdfs:subClassOf)* ?attrClass . " +
+                                        "BIND(( ?attrClass IN (%s) ) AS ?intersects) " +
+                                      "} " +
+                                    "} " +
+                                  "GROUP BY $this " +
+                                "} " +
+                                "FILTER (?nIntersect = 0) " +
+                           "} " ;
         }
 
         select = String.format(select, String.join(", ", listValues));
@@ -1033,13 +1021,11 @@ public class SHACLPolicyTranslator {
      * @return triple added to the model
      */
     private Statement addRuleConstruct(Resource baseNode, String ruleName, String ruleType) {
-        String query = """
-                CONSTRUCT {
-                	$this %s %s .
-                	$this %s %s .
-                }
-                WHERE {}
-                """;
+        String query = "CONSTRUCT { " +
+                	"$this %s %s . " +
+                	"$this %s %s . " +
+                "} " +
+                "WHERE {} ";
         query = String.format(query,
                 (ruleType.endsWith("Permission") || ruleType.endsWith("Dispensation")) ? vocab.conformsPropertyPrefixedName : vocab.prohibitedPropertyPrefixedName,
                 ruleName, vocab.answerPropertyPrefixedName,
@@ -1056,22 +1042,17 @@ public class SHACLPolicyTranslator {
      * @return triple added to the model
      */
     private Statement addRuleConstructSPARQL(Resource baseNode, SAVERule rule) {
-        String query = """
-                
-                CONSTRUCT {
-                        ?bnode  a save-ex:RuleIntersection ;
-                       %1$s
-                       %2$s %3$s ;
-                       %4$s %5$s .
-                       
-                 
-                $this   %6$s ?bnode .
-                }
-                WHERE {
-                BIND(BNODE() AS ?bnode) 
-                %7$s
-                }
-                """;
+        String query = "CONSTRUCT { " +
+                        "?bnode  a save-ex:RuleIntersection ; " +
+                       "%1$s " +
+                       "%2$s %3$s ; " +
+                       "%4$s %5$s . " +
+                "$this   %6$s ?bnode . " +
+                "} " +
+                "WHERE { " +
+                "BIND(BNODE() AS ?bnode) " +
+                "%7$s " +
+                "} ";
         String subselects = "";
         String intersections = "";
         if (!rule.getData().isEmpty()) {
@@ -1187,33 +1168,27 @@ public class SHACLPolicyTranslator {
     private String getRuleConstructSubselect(String attribute, Collection<String> values, boolean isValue) {
         String query;
         if (!isValue) {
-            query = """
-                    {SELECT *
-                       WHERE {
-                           {
-                                $this save:%1$sList ?%1$sVal .
-                                ?%1$sVal rdf:rest*/rdf:first ?%1$sItem .
-                                ?%1$sItem rdf:type/rdfs:subClassOf* ?%1$sClass .
-                                FILTER (?%1$sClass IN (%2$s))
-                           }
-                           UNION {
-                                FILTER NOT EXISTS {$this save:%1$sList ?%1$sVal .}
-                                
-                    """;
+            query = "{SELECT * " +
+                       "WHERE { " +
+                           "{ " +
+                                "$this save:%1$sList ?%1$sVal . " +
+                                "?%1$sVal rdf:rest*/rdf:first ?%1$sItem . " +
+                                "?%1$sItem rdf:type/rdfs:subClassOf* ?%1$sClass . " +
+                                "FILTER (?%1$sClass IN (%2$s)) " +
+                           "} " +
+                           "UNION { " +
+                                "FILTER NOT EXISTS {$this save:%1$sList ?%1$sVal .} ";
 
         } else {
-            query = """
-                    {SELECT *
-                       WHERE {
-                           {
-                                $this save:%1$sList ?%1$sVal .
-                                ?%1$sVal rdf:rest*/rdf:first ?%1$sItem .
-                                FILTER (?%1$sItem IN (%2$s))
-                           }
-                           UNION {
-                                FILTER NOT EXISTS {$this save:%1$sList ?%1$sVal .}
-                                
-                    """;
+            query = "{SELECT * " +
+                       "WHERE { " +
+                           "{ " +
+                                "$this save:%1$sList ?%1$sVal . " +
+                                "?%1$sVal rdf:rest*/rdf:first ?%1$sItem . " +
+                                "FILTER (?%1$sItem IN (%2$s)) " +
+                           "} " +
+                           "UNION { " +
+                                "FILTER NOT EXISTS {$this save:%1$sList ?%1$sVal .} ";
 
 
         }
@@ -1345,40 +1320,38 @@ public class SHACLPolicyTranslator {
      * @return triple added to the model
      */
     private Statement addPolicyConstruct(Resource baseNode) {
-        String query = """
-                CONSTRUCT {
-                	$this %1$s ?total .
-                	$this %2$s ?granted .
-                	$this %3$s ?prohibited .
-                    $this %4$s ?perm .
-                    $this %5$s ?proh .
-                }
-                WHERE {
-                	{SELECT $this (COUNT(*) AS ?total)
-                	WHERE {
-                		?s %6$s $this .
-                	}
-                	group by $this
-                	}
-                	{SELECT $this (SUM(IF(?p,1,0)) AS ?granted)
-                	WHERE {
-                		?s %6$s $this .
-                		bind(exists { ?s %7$s \"permitted\" } as ?p)
-                	}
-                	group by $this
-                	}
-                			{
-                	SELECT $this (SUM(IF(?proh,1,0)) AS ?prohibited)
-                	WHERE {
-                		?s %6$s $this .
-                		bind(exists { ?s %7$s \"prohibited\" } as ?proh)
-                	}
-                	group by $this
-                	}
-                	BIND ( IF ( ?total = ?granted, \"granted\", IF( ?granted > 0, \"part-granted\", 'not granted' )) AS ?perm )
-                	BIND ( IF ( ?total = ?prohibited, \"prohibited\" , IF ( ?prohibited > 0, \"part-prohibited\", 'not prohibited' ) ) AS ?proh )
-                }
-                """;
+        String query = "CONSTRUCT { " +
+                	"$this %1$s ?total . " +
+                	"$this %2$s ?granted . " +
+                	"$this %3$s ?prohibited . " +
+                    "$this %4$s ?perm . " +
+                    "$this %5$s ?proh . " +
+                "} " +
+                "WHERE { " +
+                	"{SELECT $this (COUNT(*) AS ?total) " +
+                	"WHERE { " +
+                		"?s %6$s $this . " +
+                	"}" +
+                	"group by $this " +
+                	"} " +
+                	"{SELECT $this (SUM(IF(?p,1,0)) AS ?granted) " +
+                	"WHERE { " +
+                		"?s %6$s $this . " +
+                		"bind(exists { ?s %7$s \"permitted\" } as ?p) " +
+                	"} " +
+                	"group by $this " +
+                	"} " +
+                		"	{ " +
+                	"SELECT $this (SUM(IF(?proh,1,0)) AS ?prohibited) " +
+                	"WHERE { " +
+                		"?s %6$s $this . " +
+                		"bind(exists { ?s %7$s \"prohibited\" } as ?proh) " +
+                	"} " +
+                	" group by $this " +
+                	"} " +
+                	"BIND ( IF ( ?total = ?granted, \"granted\", IF( ?granted > 0, \"part-granted\", \"not granted\" )) AS ?perm ) " +
+                	"BIND ( IF ( ?total = ?prohibited, \"prohibited\" , IF ( ?prohibited > 0, \"part-prohibited\", \"not prohibited\" ) ) AS ?proh ) " +
+                "} " ;
         query = String.format(query, vocab.nChildrenPropertyPrefixedName, vocab.nPermittedPropertyPrefixedName,
                 vocab.nProhibitedPropertyPrefixedName, vocab.answerPermittedPropertyPrefixedName,
                 vocab.answerProhibitedPropertyPrefixedName, vocab.parentPropertyPrefixedName, vocab.answerPropertyPrefixedName);

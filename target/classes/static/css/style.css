@@ -1,0 +1,10 @@
+.i-event{
+    pointer-events: none;
+}
+.link
+{
+    color:#0d6efd;
+    text-decoration: none;
+    background-color: none;
+    cursor: pointer;
+}

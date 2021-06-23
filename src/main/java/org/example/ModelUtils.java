@@ -2,17 +2,19 @@ package org.example;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.util.FileUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.topbraid.jenax.util.JenaUtil;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Helper class to deal with loading/saving models
@@ -108,18 +110,46 @@ public class ModelUtils {
     public static List<String> getSHACLPolicyNames(){
         String folder = "./resources";
         Set<String> policies = new HashSet<>();
-        File dir = null;
+        List<String> files;
+
+//        InputStream dirIs = ModelUtils.class.getResourceAsStream(RESOURCE_FOLDER);//.toURI());
+//        InputStreamReader isr = new InputStreamReader(dirIs, StandardCharsets.UTF_8);
+//        BufferedReader br = new BufferedReader(isr);
+//        System.out.println("MAIN RESOURCES");
+//        for(String line: br.lines().collect(Collectors.toList())){
+//            System.out.println("LINE:" + line);
+//        }
+//        files = br.lines().filter( name -> name.endsWith(".shapes.core.ttl") || name.endsWith(".shapes.sparql.ttl")).collect(Collectors.toList());
+//
+//
+//        for (String filename : files) {
+//            System.out.println("SHACL file:" + filename);
+//            policies.add(filename);
+//        }
+
+        ClassLoader cl = ModelUtils.class.getClassLoader();
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);
+//        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] resources = null;
         try {
-            dir = new File(ModelUtils.class.getResource("/").toURI());
-        } catch (URISyntaxException e) {
+            resources = resolver.getResources("classpath:*");
+            for (Resource resource : resources) {
+                System.out.println("IS FILE " + resource.isFile());
+                System.out.println("FILE " + resource.getFilename());
+                if(resource.getFilename() != null) {
+                    if (resource.getFilename().contains(".shapes.core.ttl") || resource.getFilename().contains(".shapes.sparql.ttl")) {
+                        System.out.println("SHACL file " + resource.getFilename());
+                        policies.add(resource.getFilename());
+                    }
+                }
+
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        File [] files = dir.listFiles((dir1, name) -> name.endsWith(".shapes.core.ttl") || name.endsWith(".shapes.sparql.ttl"));
 
-        for (File file : files) {
-            System.out.println(file);
-            policies.add(file.getName());
-        }
+
+
         return new ArrayList<>(policies);
     }
 

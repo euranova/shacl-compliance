@@ -19,16 +19,18 @@ public class SAVERule {
      * prefixed type of the individual representing the rule, such as orcp:Permission
      */
     private String type;
-    /**
-     * prefixed map of values of save:data property;
-     * key - prefixed individual, value - prefixed class of the individual
-     */
-    private Map<String, String> data;
+
     /**
      * prefixed map of values of save:action property;
      * key - prefixed individual, value - prefixed class of the individual
      */
     private Map<String, String>  actions;
+
+    /**
+     * prefixed map of values of save:data property;
+     * key - prefixed individual, value - prefixed class of the individual
+     */
+    private Map<String, String> data;
     /**
      * prefixed map of values of save:action property;
      * key - prefixed individual, value - prefixed class of the individual
@@ -86,8 +88,8 @@ public class SAVERule {
     public SAVERule(String name, String type) {
         this.name = name;
         this.type = type;
-        data = new HashMap<>();
         actions = new HashMap<>();
+        data = new HashMap<>();
         purposes = new HashMap<>();
         legalBases = new HashMap<>();
         measures = new HashMap<>();
@@ -102,8 +104,8 @@ public class SAVERule {
     public SAVERule(SAVERule rule) {
         this.setName(rule.getName());
         this.setType(rule.getType());
-        this.setData(rule.getData());
         this.setActions(rule.getActions());
+        this.setData(rule.getData());
         this.setPurposes(rule.getPurposes());
         this.setLegalBases(rule.getLegalBases());
         this.setMeasures(rule.getMeasures());
@@ -131,18 +133,6 @@ public class SAVERule {
         this.type = type;
     }
 
-    public Map<String, String> getData() {
-        return data;
-    }
-
-    public void setData(Map<String, String> data) {
-        this.data = data;
-    }
-
-    public void addData(String data, String dataType) {
-        this.data.put(data, dataType);
-    }
-
     public Map<String, String> getActions() {
         return actions;
     }
@@ -153,6 +143,18 @@ public class SAVERule {
 
     public void addAction(String action, String actionType) {
         this.actions.put(action, actionType);
+    }
+
+    public Map<String, String> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, String> data) {
+        this.data = data;
+    }
+
+    public void addData(String data, String dataType) {
+        this.data.put(data, dataType);
     }
 
     public Map<String, String> getPurposes() {
@@ -305,6 +307,34 @@ public class SAVERule {
         } else if(type.endsWith("sender") || type.endsWith("senderIntersection")){
             addSender(value, valueType);
         } else if(type.endsWith("recipient") || type.endsWith("recipientIntersection")){
+            addRecipient(value, valueType);
+        } else {
+//            System.out.println("Auxiliary property");
+        }
+    }
+
+    public void addPropertyConditional(SAVERule conditionRule, String type, String value, String valueType){
+        if (!conditionRule.getData().isEmpty() && (type.endsWith("data") || type.endsWith("dataIntersection"))){
+            addData(value, valueType);
+        } else if(!conditionRule.getActions().isEmpty() && (type.endsWith("action") || type.endsWith("actionIntersection"))){
+            addAction(value, valueType);
+        } else if(!conditionRule.getPurposes().isEmpty() && (type.endsWith("purpose") || type.endsWith("purposeIntersection"))){
+            addPurpose(value, valueType);
+        } else if (!conditionRule.getLegalBases().isEmpty() && (type.endsWith("legalBasis") || type.endsWith("legalBasisIntersection"))){
+            addLegalBasis(value, valueType);
+        } else if(!conditionRule.getMeasures().isEmpty() && (type.endsWith("hasTechnicalOrganisationalMeasure") || type.endsWith("hasTechnicalOrganisationalMeasureIntersection"))){
+            addMeasure(value, valueType);
+        } else if(!conditionRule.getControllers().isEmpty() && (type.endsWith("controller") || type.endsWith("controllerIntersection"))){
+            addController(value, valueType);
+        } else if(!conditionRule.getProcessors().isEmpty() && (type.endsWith("processor") || type.endsWith("processorIntersection"))){
+            addProcessor(value, valueType);
+        } else if(!conditionRule.getResponsibleParties().isEmpty() && (type.endsWith("responsibleParty") || type.endsWith("responsiblePartyIntersection"))){
+            addResponsibleParty(value, valueType);
+        } else if(!conditionRule.getDataSubjects().isEmpty() && (type.endsWith("hasDataSubject") || type.endsWith("hasDataSubjectIntersection"))){
+            addDataSubject(value, valueType);
+        } else if(!conditionRule.getSenders().isEmpty() && (type.endsWith("sender") || type.endsWith("senderIntersection"))){
+            addSender(value, valueType);
+        } else if(!conditionRule.getRecipients().isEmpty() && (type.endsWith("recipient") || type.endsWith("recipientIntersection"))){
             addRecipient(value, valueType);
         } else {
 //            System.out.println("Auxiliary property");

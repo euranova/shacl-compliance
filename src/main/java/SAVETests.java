@@ -5,8 +5,11 @@ import org.apache.jena.rdf.model.Statement;
 
 import org.example.*;
 import org.topbraid.jenax.util.JenaUtil;
+import org.topbraid.shacl.rules.RuleUtil;
 
 import java.awt.*;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Handler;
@@ -370,6 +373,8 @@ public class SAVETests {
 
 
     private static void testComplianceChecking(boolean SPARQL, String outputFolder, boolean ultimate, boolean headless) {
+        Instant start = Instant.now();
+
         Model unionModel = ModelUtils.loadFullSAVEModel();
         Model saveModel = ModelUtils.loadSAVEModel();
         Model policyModel = ModelUtils.loadModelFromResourceFile("save.imdb.policy.ttl");
@@ -411,6 +416,9 @@ public class SAVETests {
         SHACLComplianceResult resultTotal = createTotalResultFromList(results, requests.size(), unionModel,
                 (ultimate) ? SHACLComplianceResult.Mode.IMDB_ULTIMATE_REQUEST : SHACLComplianceResult.Mode.IMDB_TEST_REQUESTS);
         resultTotal.writeToFile(outputFolder, "inference" +(SPARQL?"_SPARQL":"_Core")+((ultimate?"_ultimate_request":"_test_requests")));
+        Instant finish = Instant.now();
+        long timeElapsed = Duration.between(start, finish).toMillis();
+        System.out.println("Time took to run the whole test: " + timeElapsed);
     }
 
     private static void testConflictDetection(String outputFolder){

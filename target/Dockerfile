@@ -1,10 +1,10 @@
 FROM openjdk:17
 
-WORKDIR ${application.workdir}
-COPY ${application.dependencies} ${application.dependencies}
-COPY ${project.build.finalName}.jar ${project.build.finalName}.jar
+WORKDIR application
+COPY lib lib
+COPY shacl-compl-1.0-SNAPSHOT.jar.original shacl-compl-1.0-SNAPSHOT.jar.original
 
-ENTRYPOINT ["/usr/bin/java", "-jar", "${project.build.finalName}.jar"]
+ENTRYPOINT ["/usr/bin/java", "-cp", "shacl-compl-1.0-SNAPSHOT.jar.original", "SAVETests"]
 
 #Run the executable
 #CMD ["java", "Hello"]
