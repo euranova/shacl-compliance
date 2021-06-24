@@ -9,6 +9,9 @@ The full model is planned according to the following figure:
 
 A light demo with a number of saved requests is available at https://rune-278710.ew.r.appspot.com/save/compliance.
 
+**WARNING**: if you are experiencing problems with the demo interface, e.g., after running the compliance check the results are not being displayed, please try another browser.
+The demo has been tested on Google Chrome Version 89.0.4389.114 (Official Build) (64-bit), for Ubuntu. The problems may appear when using Mozilla Firefox (Version 89.0.4389.114 (Official Build) (64-bit)) for Ubuntu. 
+
 ## Preprocessing module
 
 This module is designed to be executed upon each creation/update of a policy, therefore it does not put heavy constraints on performance.
